@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_admin"
+        android:title="@string/menu_admin" />
+
+    <item
+        android:id="@+id/action_admin_bien_bao"
+        android:title="@string/menu_admin_bien_bao" />
+
+    <item
+        android:id="@+id/action_tim_trung_tam"
+        android:title="@string/menu_tim_trung_tam" />
+
+    <item
+        android:id="@+id/action_goi_trung_tam"
+        android:title="@string/menu_goi_trung_tam" />
+
+    <item
+        android:id="@+id/action_gop_y"
+        android:title="@string/menu_gop_y" />
+
+    <item
+        android:id="@+id/action_gioi_thieu"
+        android:title="@string/menu_gioi_thieu" />
+
+    <item
+        android:id="@+id/action_dang_xuat"
+        android:title="@string/dang_xuat" />
+</menu>

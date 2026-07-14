@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thư mục mà FileProvider được phép chia sẻ với app khác (ở đây: app Camera). -->
+<paths>
+    <cache-path
+        name="anh_tam"
+        path="." />
+    <files-path
+        name="anh_app"
+        path="." />
+</paths>

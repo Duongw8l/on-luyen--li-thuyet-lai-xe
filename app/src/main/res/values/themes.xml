@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!--
+      Có ActionBar: cần cho tiêu đề từng màn hình (setTitle), nút Back
+      và menu tràn (Tìm trung tâm sát hạch / Gọi / Góp ý / Giới thiệu).
+      DayNight: tự đổi sang nền tối khi máy bật Dark mode.
+    -->
+    <style name="Base.Theme.Oto" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/brand</item>
+        <item name="colorPrimaryDark">@color/brand_dark</item>
+    </style>
+
+    <style name="Theme.Oto" parent="Base.Theme.Oto" />
+</resources>

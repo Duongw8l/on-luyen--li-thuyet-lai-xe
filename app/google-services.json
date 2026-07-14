@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "468557370978",
+    "project_id": "oto123-3dc8b",
+    "storage_bucket": "oto123-3dc8b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468557370978:android:106d907adee11f67bda33b",
+        "android_client_info": {
+          "package_name": "com.example.oto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmDiygSntC9-86XhuBmXs_wU1_aL2vwJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

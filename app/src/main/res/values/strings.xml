@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">Ôn thi lái xe B</string>
+
+    <!-- Trang chủ -->
+    <string name="home_title">Ôn thi lý thuyết hạng B</string>
+    <string name="menu_on_tap">Ôn tập theo chương</string>
+    <string name="menu_diem_liet">60 câu điểm liệt</string>
+    <string name="menu_thi">Thi thử</string>
+    <string name="menu_bien_bao">Tra cứu biển báo</string>
+    <string name="menu_thong_ke">Thống kê</string>
+    <string name="menu_lich_su">Lịch sử làm bài</string>
+    <string name="dat_ngay_thi">Đặt ngày thi dự kiến</string>
+
+    <!-- Chung -->
+    <string name="kiem_tra">Kiểm tra</string>
+    <string name="cau_tiep">Câu tiếp</string>
+    <string name="cau_truoc">Câu trước</string>
+    <string name="nop_bai">Nộp bài</string>
+    <string name="chia_se">Chia sẻ kết quả</string>
+    <string name="xem_lai">Xem lại bài làm</string>
+    <string name="ve_trang_chu">Về trang chủ</string>
+    <string name="xoa">Xoá</string>
+
+    <!-- Tra cứu biển báo -->
+    <string name="tim_bien_bao">Tìm theo tên hoặc mã biển (VD: P.102)</string>
+    <string name="anh_bien_bao">Ảnh biển báo</string>
+    <string name="xem_van_ban_luat">Xem văn bản luật gốc</string>
+    <string name="chia_se_bien">Chia sẻ biển báo này</string>
+
+    <!-- Thống kê -->
+    <string name="thong_ke_tieu_de">Tỷ lệ trả lời đúng theo chương</string>
+    <string name="chua_co_du_lieu_thong_ke">Chưa có dữ liệu. Hãy thi thử ít nhất một lần để xem thống kê điểm yếu theo chương.</string>
+    <string name="on_chuong_yeu">Ôn ngay chương yếu nhất</string>
+    <string name="gui_bao_cao_email">Gửi báo cáo tiến độ qua email</string>
+
+    <!-- Lịch sử -->
+    <string name="tu_ngay">Từ ngày</string>
+    <string name="den_ngay">Đến ngày</string>
+    <string name="bo_loc_ngay">Bỏ lọc ngày</string>
+    <string name="xoa_tat_ca">Xoá tất cả</string>
+
+    <!-- Cá nhân / ảnh đại diện -->
+    <string name="menu_ca_nhan">Cá nhân</string>
+    <string name="anh_dai_dien">Ảnh đại diện</string>
+    <string name="doi_anh_dai_dien">Đổi ảnh đại diện</string>
+    <string name="xoa_anh_dai_dien">Xoá ảnh đại diện</string>
+    <string name="ghi_chu_anh">Ảnh được thu nhỏ về tối đa 512px và nén JPEG trước khi lưu vào bộ nhớ riêng của ứng dụng, nên không tốn dung lượng máy.</string>
+
+    <!-- Tài khoản (Firebase Auth) -->
+    <string name="dang_nhap">Đăng nhập</string>
+    <string name="dang_nhap_mo_ta">Đăng nhập để đồng bộ tiến độ ôn tập giữa các thiết bị. Không bắt buộc — bạn vẫn có thể ôn và thi thử offline.</string>
+    <string name="dang_ky">Đăng ký</string>
+    <string name="dang_ky_mo_ta">Tạo tài khoản mới. Sau khi đăng ký, một email xác minh sẽ được gửi tới địa chỉ của bạn.</string>
+    <string name="dang_xuat">Đăng xuất</string>
+    <string name="email">Email</string>
+    <string name="ho_ten">Họ và tên</string>
+    <string name="mat_khau">Mật khẩu</string>
+    <string name="mat_khau_6">Mật khẩu (ít nhất 6 ký tự)</string>
+    <string name="nhap_lai_mat_khau">Nhập lại mật khẩu</string>
+    <string name="quen_mat_khau">Quên mật khẩu?</string>
+    <string name="quen_mat_khau_mo_ta">Nhập email đã đăng ký. Chúng tôi sẽ gửi cho bạn một email kèm liên kết để đặt lại mật khẩu.</string>
+    <string name="gui_email_dat_lai">Gửi email đặt lại mật khẩu</string>
+    <string name="chua_co_tai_khoan">Chưa có tài khoản? Đăng ký</string>
+    <string name="dung_offline">Dùng offline, không đăng nhập</string>
+
+    <!-- Quản trị câu hỏi -->
+    <string name="menu_admin">Quản trị câu hỏi</string>
+    <string name="tim_cau_hoi">Tìm câu hỏi theo từ khóa</string>
+    <string name="chi_cau_diem_liet">Chỉ hiện câu điểm liệt</string>
+    <string name="them_cau_hoi">Thêm câu hỏi</string>
+    <string name="sua_cau_hoi">Sửa câu hỏi</string>
+    <string name="xoa_cau_hoi">Xoá câu hỏi này</string>
+    <string name="luu_cau_hoi">Lưu câu hỏi</string>
+    <string name="sua">Sửa</string>
+    <string name="nhan_diem_liet">⚠ ĐIỂM LIỆT</string>
+    <string name="canh_bao_dap_an">⚠ Câu này không có đúng một đáp án đúng — cần sửa lại.</string>
+    <string name="noi_dung_cau_hoi">Nội dung câu hỏi</string>
+    <string name="hint_noi_dung">VD: Khi gặp biển báo cấm đi ngược chiều, người lái xe phải làm gì?</string>
+    <string name="chuong">Chương</string>
+    <string name="la_cau_diem_liet">Đây là câu điểm liệt (sai là trượt ngay)</string>
+    <string name="cac_dap_an">Các đáp án</string>
+    <string name="huong_dan_dap_an">Nhập ít nhất 2 đáp án. Bấm nút tròn bên trái để đánh dấu đáp án ĐÚNG (chỉ chọn được một).</string>
+    <string name="hint_dap_an_a">Đáp án A</string>
+    <string name="hint_dap_an_b">Đáp án B</string>
+    <string name="hint_dap_an_c">Đáp án C</string>
+    <string name="hint_dap_an_d">Đáp án D (có thể bỏ trống)</string>
+    <string name="giai_thich">Giải thích</string>
+    <string name="hint_giai_thich">Giải thích hiển thị sau khi người học kiểm tra đáp án</string>
+
+    <!-- Quản trị biển báo -->
+    <string name="menu_admin_bien_bao">Quản trị biển báo</string>
+    <string name="them_bien_bao">Thêm biển báo</string>
+    <string name="sua_bien_bao">Sửa biển báo</string>
+    <string name="xoa_bien_bao">Xoá biển báo này</string>
+    <string name="luu_bien_bao">Lưu biển báo</string>
+    <string name="ma_bien">Mã biển</string>
+    <string name="hint_ma_bien">VD: P.102</string>
+    <string name="ten_bien">Tên biển</string>
+    <string name="hint_ten_bien">VD: Cấm đi ngược chiều</string>
+    <string name="nhom_bien">Nhóm biển</string>
+    <string name="mo_ta">Mô tả</string>
+    <string name="hint_mo_ta">Ý nghĩa của biển, người lái xe phải làm gì khi gặp biển này</string>
+
+    <!-- Menu trang chủ -->
+    <string name="menu_tim_trung_tam">Tìm trung tâm sát hạch gần nhất</string>
+    <string name="menu_goi_trung_tam">Gọi trung tâm sát hạch</string>
+    <string name="menu_gop_y">Góp ý / báo lỗi câu hỏi</string>
+    <string name="menu_gioi_thieu">Giới thiệu</string>
+</resources>
