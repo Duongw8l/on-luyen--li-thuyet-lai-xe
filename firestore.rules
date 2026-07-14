@@ -1,0 +1,71 @@
+// ============================================================================
+// FIRESTORE SECURITY RULES — Ứng dụng ôn thi lý thuyết lái xe hạng B
+// ============================================================================
+//
+// File này là BẢN SAO của rules đang chạy trên Firebase Console
+// (Firestore Database → tab Rules). Lưu trong repo để:
+//   1. Cả nhóm đọc và hiểu được cơ chế phân quyền;
+//   2. Giảng viên thấy được phần bảo mật phía máy chủ khi chấm.
+//
+// ⚠️ Sửa file này KHÔNG tự động áp dụng. Sửa xong phải copy nội dung
+//    lên Firebase Console rồi bấm Publish thì mới có hiệu lực.
+//
+// ----------------------------------------------------------------------------
+// Ý TƯỞNG PHÂN QUYỀN
+// ----------------------------------------------------------------------------
+// Vai trò (user / admin) KHÔNG do ứng dụng Android tự quyết định, mà lưu trên
+// Firestore tại users/{uid}.vaiTro. Ứng dụng chỉ đọc vai trò xuống để biết có
+// hiện chức năng quản trị hay không.
+//
+// Rules dưới đây đảm bảo: người dùng KHÔNG THỂ TỰ PHONG MÌNH LÀM ADMIN, kể cả
+// khi họ dịch ngược file APK và gọi thẳng vào Firestore. Muốn cấp quyền admin
+// thì phải vào Firebase Console sửa tay field vaiTro — đó là việc của người
+// quản lý dự án, không phải của client.
+//
+// Đây là lý do phân quyền của ứng dụng là THẬT, chứ không chỉ là ẩn nút bấm.
+// ============================================================================
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ------------------------------------------------------------------
+    // Hồ sơ người dùng: users/{uid}
+    //   { hoTen: string, email: string, vaiTro: "user"|"admin", ngayTao: number }
+    // ------------------------------------------------------------------
+    match /users/{uid} {
+
+      // ĐỌC — chỉ đọc được hồ sơ của chính mình.
+      // Người dùng không xem được hồ sơ (và vai trò) của người khác.
+      allow read: if request.auth != null
+                  && request.auth.uid == uid;
+
+      // TẠO — khi đăng ký tài khoản mới.
+      // Bắt buộc vai trò khởi tạo là "user": không ai tự tạo tài khoản admin được.
+      allow create: if request.auth != null
+                    && request.auth.uid == uid
+                    && request.resource.data.vaiTro == 'user';
+
+      // SỬA — được cập nhật hồ sơ của mình (VD: đổi họ tên),
+      // NHƯNG vai trò phải giữ nguyên như cũ.
+      // Đây là dòng chặn việc tự nâng quyền: vaiTro mới phải bằng vaiTro cũ.
+      allow update: if request.auth != null
+                    && request.auth.uid == uid
+                    && request.resource.data.vaiTro == resource.data.vaiTro;
+
+      // XOÁ — không cho phép. Hồ sơ chỉ xoá được từ Firebase Console.
+      allow delete: if false;
+    }
+
+    // ------------------------------------------------------------------
+    // Mọi collection khác: chặn hết.
+    // Toàn bộ dữ liệu học tập (câu hỏi, biển báo, lượt thi, thống kê) nằm trong
+    // Room/SQLite dưới máy để chạy được offline, nên không cần mở gì thêm ở đây.
+    // Về sau nếu đồng bộ tiến độ lên Firestore thì bổ sung match tương ứng.
+    // ------------------------------------------------------------------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
