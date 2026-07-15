@@ -2,14 +2,17 @@ package com.example.oto.ui;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oto.R;
+import com.example.oto.util.AnhUtil;
 
 /** Chi tiết một biển báo + nút mở văn bản luật gốc bằng Intent ngầm ACTION_VIEW. */
 public class ChiTietBienBaoActivity extends AppCompatActivity {
@@ -18,6 +21,7 @@ public class ChiTietBienBaoActivity extends AppCompatActivity {
     public static final String EXTRA_TEN = "ten_bien";
     public static final String EXTRA_NHOM = "nhom_bien";
     public static final String EXTRA_MO_TA = "mo_ta";
+    public static final String EXTRA_ANH = "anh_url";
 
     /** QCVN 41:2024/BGTVT — quy chuẩn báo hiệu đường bộ. */
     private static final String URL_VAN_BAN_LUAT =
@@ -42,6 +46,11 @@ public class ChiTietBienBaoActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tvTenBien)).setText(ten);
         ((TextView) findViewById(R.id.tvNhomBien)).setText("Nhóm: " + (nhom == null ? "—" : nhom));
         ((TextView) findViewById(R.id.tvMoTa)).setText(moTa == null ? "" : moTa);
+
+        Bitmap anh = AnhUtil.docAnh(getIntent().getStringExtra(EXTRA_ANH));
+        if (anh != null) {
+            ((ImageView) findViewById(R.id.imgBien)).setImageBitmap(anh);
+        }
 
         findViewById(R.id.btnXemLuat).setOnClickListener(v -> moVanBanLuat());
         findViewById(R.id.btnChiaSeBien).setOnClickListener(v -> chiaSe(ma, ten, moTa));

@@ -11,6 +11,7 @@
         android:padding="16dp">
 
         <ImageView
+            android:id="@+id/imgBien"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_gravity="center_horizontal"

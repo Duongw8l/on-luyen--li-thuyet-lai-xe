@@ -133,6 +133,7 @@ public class BienBaoActivity extends AppCompatActivity {
         i.putExtra(ChiTietBienBaoActivity.EXTRA_TEN, sign.tenBien);
         i.putExtra(ChiTietBienBaoActivity.EXTRA_NHOM, sign.nhomBien);
         i.putExtra(ChiTietBienBaoActivity.EXTRA_MO_TA, sign.moTa);
+        i.putExtra(ChiTietBienBaoActivity.EXTRA_ANH, sign.anhUrl);
         startActivity(i);
     }
 }

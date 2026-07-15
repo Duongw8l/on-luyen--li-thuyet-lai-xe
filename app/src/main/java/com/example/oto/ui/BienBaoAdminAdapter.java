@@ -1,5 +1,6 @@
 package com.example.oto.ui;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oto.R;
 import com.example.oto.data.entity.TrafficSign;
+import com.example.oto.util.AnhUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,12 @@ public class BienBaoAdminAdapter extends RecyclerView.Adapter<BienBaoAdminAdapte
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
         TrafficSign s = data.get(position);
-        h.img.setImageResource(R.drawable.ic_bien_bao_placeholder);
+        Bitmap anh = AnhUtil.docAnh(s.anhUrl);
+        if (anh != null) {
+            h.img.setImageBitmap(anh);
+        } else {
+            h.img.setImageResource(R.drawable.ic_bien_bao_placeholder);
+        }
         h.tvMa.setText(s.maBien);
         h.tvTen.setText(s.tenBien);
         h.tvNhom.setText(s.nhomBien == null ? "" : s.nhomBien);

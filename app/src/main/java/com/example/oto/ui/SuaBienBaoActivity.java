@@ -1,20 +1,31 @@
 package com.example.oto.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.example.oto.R;
 import com.example.oto.auth.VaiTro;
 import com.example.oto.data.QuizRepository;
 import com.example.oto.data.entity.TrafficSign;
+import com.example.oto.util.AnhUtil;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,9 +48,43 @@ public class SuaBienBaoActivity extends AppCompatActivity {
 
     private EditText edtMaBien, edtTenBien, edtMoTa;
     private Spinner spinnerNhom;
+    private ImageView imgBien;
 
     private int signId = 0;            // 0 = thêm mới
     private TrafficSign signDangSua;   // null khi thêm mới
+
+    /** Đường dẫn ảnh biển đang chọn (null = chưa có ảnh). Lưu vào Room khi bấm Lưu. */
+    private String anhUrl;
+
+    /** Uri của file tạm mà camera sẽ ghi ảnh vào. */
+    private Uri uriAnhTam;
+
+    /** Mở thư viện ảnh (bên dưới là Intent ngầm ACTION_GET_CONTENT). */
+    private final ActivityResultLauncher<String> chonAnhThuVien =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri != null) {
+                    luuAnh(uri);
+                }
+            });
+
+    /** Mở camera (Intent ngầm ACTION_IMAGE_CAPTURE). */
+    private final ActivityResultLauncher<Uri> chupAnh =
+            registerForActivityResult(new ActivityResultContracts.TakePicture(), thanhCong -> {
+                if (Boolean.TRUE.equals(thanhCong) && uriAnhTam != null) {
+                    luuAnh(uriAnhTam);
+                }
+            });
+
+    /** Xin quyền camera lúc chạy (runtime permission). */
+    private final ActivityResultLauncher<String> xinQuyenCamera =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), duocPhep -> {
+                if (Boolean.TRUE.equals(duocPhep)) {
+                    moCamera();
+                } else {
+                    Toast.makeText(this,
+                            "Cần quyền Camera để chụp ảnh biển báo.", Toast.LENGTH_LONG).show();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +101,13 @@ public class SuaBienBaoActivity extends AppCompatActivity {
         edtMaBien = findViewById(R.id.edtMaBien);
         edtTenBien = findViewById(R.id.edtTenBien);
         edtMoTa = findViewById(R.id.edtMoTa);
+        imgBien = findViewById(R.id.imgBien);
         spinnerNhom = findViewById(R.id.spinnerNhom);
         spinnerNhom.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, NHOM_BIEN));
+
+        findViewById(R.id.btnDoiAnh).setOnClickListener(v -> chonNguonAnh());
+        imgBien.setOnClickListener(v -> chonNguonAnh());
 
         signId = getIntent().getIntExtra(EXTRA_SIGN_ID, 0);
         setTitle(signId == 0
@@ -86,12 +135,68 @@ public class SuaBienBaoActivity extends AppCompatActivity {
             edtMaBien.setText(sign.maBien);
             edtTenBien.setText(sign.tenBien);
             edtMoTa.setText(sign.moTa);
+            anhUrl = sign.anhUrl;
+            hienAnh();
 
             int viTri = NHOM_BIEN.indexOf(sign.nhomBien);
             if (viTri >= 0) {
                 spinnerNhom.setSelection(viTri);
             }
         });
+    }
+
+    /** Hiển thị ảnh đã lưu của biển; chưa có thì dùng ảnh giữ chỗ. */
+    private void hienAnh() {
+        Bitmap anh = AnhUtil.docAnh(anhUrl);
+        if (anh != null) {
+            imgBien.setImageBitmap(anh);
+        } else {
+            imgBien.setImageResource(R.drawable.ic_bien_bao_placeholder);
+        }
+    }
+
+    /** Hộp thoại cho chọn nguồn ảnh: thư viện hay chụp mới bằng camera. */
+    private void chonNguonAnh() {
+        String[] luaChon = {"Chọn ảnh từ thư viện", "Chụp ảnh bằng camera"};
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.doi_anh_bien)
+                .setItems(luaChon, (d, viTri) -> {
+                    if (viTri == 0) {
+                        chonAnhThuVien.launch("image/*");
+                    } else {
+                        kiemTraQuyenRoiChup();
+                    }
+                })
+                .show();
+    }
+
+    private void kiemTraQuyenRoiChup() {
+        boolean daCoQuyen = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED;
+        if (daCoQuyen) {
+            moCamera();
+        } else {
+            xinQuyenCamera.launch(Manifest.permission.CAMERA);
+        }
+    }
+
+    private void moCamera() {
+        File tam = AnhUtil.fileAnhTam(this);
+        // FileProvider: chia sẻ file của app cho app Camera một cách an toàn.
+        uriAnhTam = FileProvider.getUriForFile(
+                this, getPackageName() + ".fileprovider", tam);
+        chupAnh.launch(uriAnhTam);
+    }
+
+    /** Nén ảnh, lưu vào bộ nhớ trong rồi hiển thị. Đường dẫn ghi vào Room khi bấm Lưu. */
+    private void luuAnh(Uri nguon) {
+        String duongDan = AnhUtil.luuAnhBienBao(this, nguon);
+        if (duongDan == null) {
+            Toast.makeText(this, "Không đọc được ảnh này.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        anhUrl = duongDan;
+        hienAnh();
     }
 
     private void luu() {
@@ -112,6 +217,7 @@ public class SuaBienBaoActivity extends AppCompatActivity {
         s.tenBien = tenBien;
         s.nhomBien = NHOM_BIEN.get(spinnerNhom.getSelectedItemPosition());
         s.moTa = edtMoTa.getText().toString().trim();
+        s.anhUrl = anhUrl;
 
         repo.saveSign(s, ok -> {
             if (!ok) {

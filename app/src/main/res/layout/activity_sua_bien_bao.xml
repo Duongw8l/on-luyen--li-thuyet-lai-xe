@@ -11,13 +11,23 @@
         android:padding="16dp">
 
         <ImageView
+            android:id="@+id/imgBien"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/anh_bien_bao"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_bien_bao_placeholder" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDoiAnh"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="@string/doi_anh_bien" />
 
         <TextView
             android:layout_width="match_parent"

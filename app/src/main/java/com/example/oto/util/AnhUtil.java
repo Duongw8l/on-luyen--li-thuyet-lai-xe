@@ -29,6 +29,9 @@ public final class AnhUtil {
     /** Tên file ảnh đại diện trong bộ nhớ riêng của app. */
     private static final String TEN_FILE = "anh_dai_dien.jpg";
 
+    /** Thư mục con chứa ảnh các biển báo trong bộ nhớ riêng của app. */
+    private static final String THU_MUC_BIEN = "bien_bao";
+
     private AnhUtil() {
     }
 
@@ -47,21 +50,55 @@ public final class AnhUtil {
      * ảnh đại diện. Trả về đường dẫn file đã lưu, hoặc null nếu lỗi.
      */
     public static String luuAnhDaiDien(Context context, Uri nguon) {
+        File dich = fileAnhDaiDien(context);
+        return luuNenVaoFile(context, nguon, dich) ? dich.getAbsolutePath() : null;
+    }
+
+    /**
+     * Lưu ảnh cho một biển báo: thu nhỏ + nén rồi ghi vào một file mới trong thư mục
+     * riêng của app. Mỗi lần đổi ảnh tạo một file tên riêng (theo mốc thời gian) nên
+     * ảnh của biển này không đè lên ảnh của biển khác. Trả về đường dẫn tuyệt đối
+     * của file đã lưu, hoặc null nếu lỗi.
+     */
+    public static String luuAnhBienBao(Context context, Uri nguon) {
+        File thuMuc = new File(context.getFilesDir(), THU_MUC_BIEN);
+        if (!thuMuc.exists() && !thuMuc.mkdirs()) {
+            return null;
+        }
+        File dich = new File(thuMuc, "bien_" + System.currentTimeMillis() + ".jpg");
+        return luuNenVaoFile(context, nguon, dich) ? dich.getAbsolutePath() : null;
+    }
+
+    /** Đọc ảnh đã lưu theo đường dẫn tuyệt đối; null nếu đường dẫn rỗng hoặc file không còn. */
+    public static Bitmap docAnh(String duongDan) {
+        if (duongDan == null || duongDan.isEmpty()) {
+            return null;
+        }
+        File f = new File(duongDan);
+        if (!f.exists()) {
+            return null;
+        }
+        return BitmapFactory.decodeFile(f.getAbsolutePath());
+    }
+
+    /**
+     * Đọc ảnh từ Uri (thư viện hoặc file camera), thu nhỏ + nén rồi ghi đè vào file
+     * đích. Trả về true nếu lưu thành công.
+     */
+    private static boolean luuNenVaoFile(Context context, Uri nguon, File dich) {
         try {
             Bitmap goc = docBitmap(context, nguon);
             if (goc == null) {
-                return null;
+                return false;
             }
             Bitmap nhoLai = thuNho(goc);
             Bitmap dungHuong = xoayTheoExif(context, nguon, nhoLai);
-
-            File dich = fileAnhDaiDien(context);
             try (FileOutputStream out = new FileOutputStream(dich)) {
                 dungHuong.compress(Bitmap.CompressFormat.JPEG, CHAT_LUONG, out);
             }
-            return dich.getAbsolutePath();
+            return true;
         } catch (IOException | SecurityException e) {
-            return null;
+            return false;
         }
     }
 

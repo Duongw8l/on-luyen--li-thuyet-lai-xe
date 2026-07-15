@@ -93,6 +93,7 @@
     <string name="sua_bien_bao">Sửa biển báo</string>
     <string name="xoa_bien_bao">Xoá biển báo này</string>
     <string name="luu_bien_bao">Lưu biển báo</string>
+    <string name="doi_anh_bien">Đổi ảnh biển báo</string>
     <string name="ma_bien">Mã biển</string>
     <string name="hint_ma_bien">VD: P.102</string>
     <string name="ten_bien">Tên biển</string>
