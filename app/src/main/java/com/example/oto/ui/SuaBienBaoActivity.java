@@ -59,6 +59,9 @@ public class SuaBienBaoActivity extends AppCompatActivity {
     /** Ảnh đã lưu trong Room khi mở form (null khi thêm mới) — dùng để dọn file cũ khi thay/xoá. */
     private String anhUrlGoc;
 
+    /** True khi đã Lưu hoặc Xoá xong — để finish() không dọn nhầm ảnh vừa được ghi vào Room. */
+    private boolean daHoanTat;
+
     /** Uri của file tạm mà camera sẽ ghi ảnh vào. */
     private Uri uriAnhTam;
 
@@ -238,6 +241,7 @@ public class SuaBienBaoActivity extends AppCompatActivity {
             if (anhUrlGoc != null && !anhUrlGoc.equals(anhUrl)) {
                 AnhUtil.xoaAnh(anhUrlGoc);
             }
+            daHoanTat = true;
             Toast.makeText(this,
                     signId == 0 ? "Đã thêm biển báo." : "Đã lưu thay đổi.",
                     Toast.LENGTH_SHORT).show();
@@ -258,10 +262,24 @@ public class SuaBienBaoActivity extends AppCompatActivity {
                     if (anhUrl != null && !anhUrl.equals(anhUrlGoc)) {
                         AnhUtil.xoaAnh(anhUrl);
                     }
+                    daHoanTat = true;
                     Toast.makeText(this, "Đã xoá biển báo.", Toast.LENGTH_SHORT).show();
                     finish();
                 }))
                 .setNegativeButton("Huỷ", null)
                 .show();
+    }
+
+    /**
+     * Chốt chung cho mọi cách rời form (Back phần cứng lẫn nút Up trên ActionBar đều
+     * đi qua đây). Nếu rời mà chưa Lưu/Xoá, dọn file ảnh tạm đã chọn trong phiên;
+     * ảnh đang lưu trong Room được giữ nguyên.
+     */
+    @Override
+    public void finish() {
+        if (!daHoanTat && anhUrl != null && !anhUrl.equals(anhUrlGoc)) {
+            AnhUtil.xoaAnh(anhUrl);
+        }
+        super.finish();
     }
 }
