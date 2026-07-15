@@ -69,6 +69,17 @@ public final class AnhUtil {
         return luuNenVaoFile(context, nguon, dich) ? dich.getAbsolutePath() : null;
     }
 
+    /** Xoá file ảnh đã lưu theo đường dẫn; bỏ qua nếu rỗng hoặc file không tồn tại. */
+    public static void xoaAnh(String duongDan) {
+        if (duongDan == null || duongDan.isEmpty()) {
+            return;
+        }
+        File f = new File(duongDan);
+        if (f.exists()) {
+            f.delete();
+        }
+    }
+
     /** Đọc ảnh đã lưu theo đường dẫn tuyệt đối; null nếu đường dẫn rỗng hoặc file không còn. */
     public static Bitmap docAnh(String duongDan) {
         if (duongDan == null || duongDan.isEmpty()) {

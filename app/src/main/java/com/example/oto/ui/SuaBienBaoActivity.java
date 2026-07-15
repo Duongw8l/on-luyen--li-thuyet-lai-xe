@@ -56,6 +56,9 @@ public class SuaBienBaoActivity extends AppCompatActivity {
     /** Đường dẫn ảnh biển đang chọn (null = chưa có ảnh). Lưu vào Room khi bấm Lưu. */
     private String anhUrl;
 
+    /** Ảnh đã lưu trong Room khi mở form (null khi thêm mới) — dùng để dọn file cũ khi thay/xoá. */
+    private String anhUrlGoc;
+
     /** Uri của file tạm mà camera sẽ ghi ảnh vào. */
     private Uri uriAnhTam;
 
@@ -135,7 +138,7 @@ public class SuaBienBaoActivity extends AppCompatActivity {
             edtMaBien.setText(sign.maBien);
             edtTenBien.setText(sign.tenBien);
             edtMoTa.setText(sign.moTa);
-            anhUrl = sign.anhUrl;
+            anhUrl = anhUrlGoc = sign.anhUrl;
             hienAnh();
 
             int viTri = NHOM_BIEN.indexOf(sign.nhomBien);
@@ -195,6 +198,11 @@ public class SuaBienBaoActivity extends AppCompatActivity {
             Toast.makeText(this, "Không đọc được ảnh này.", Toast.LENGTH_SHORT).show();
             return;
         }
+        // Dọn file tạm của lần chọn trước trong phiên này (ảnh đã lưu trong Room thì giữ lại
+        // phòng khi người dùng huỷ, chỉ xoá khi bấm Lưu).
+        if (anhUrl != null && !anhUrl.equals(anhUrlGoc)) {
+            AnhUtil.xoaAnh(anhUrl);
+        }
         anhUrl = duongDan;
         hienAnh();
     }
@@ -226,6 +234,10 @@ public class SuaBienBaoActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
+            // Ảnh cũ đã bị thay bằng ảnh khác -> xoá file cũ để khỏi rác bộ nhớ.
+            if (anhUrlGoc != null && !anhUrlGoc.equals(anhUrl)) {
+                AnhUtil.xoaAnh(anhUrlGoc);
+            }
             Toast.makeText(this,
                     signId == 0 ? "Đã thêm biển báo." : "Đã lưu thay đổi.",
                     Toast.LENGTH_SHORT).show();
@@ -241,6 +253,11 @@ public class SuaBienBaoActivity extends AppCompatActivity {
                 .setTitle("Xoá biển báo")
                 .setMessage("Xoá biển " + signDangSua.maBien + "? Không khôi phục được.")
                 .setPositiveButton("Xoá", (d, w) -> repo.deleteSign(signDangSua, ok -> {
+                    // Xoá luôn file ảnh của biển: cả ảnh đã lưu lẫn ảnh tạm vừa chọn (nếu có).
+                    AnhUtil.xoaAnh(anhUrlGoc);
+                    if (anhUrl != null && !anhUrl.equals(anhUrlGoc)) {
+                        AnhUtil.xoaAnh(anhUrl);
+                    }
                     Toast.makeText(this, "Đã xoá biển báo.", Toast.LENGTH_SHORT).show();
                     finish();
                 }))
