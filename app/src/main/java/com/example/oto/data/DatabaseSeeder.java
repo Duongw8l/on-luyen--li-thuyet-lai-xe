@@ -1,5 +1,8 @@
 package com.example.oto.data;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.example.oto.data.entity.Answer;
 import com.example.oto.data.entity.Chapter;
 import com.example.oto.data.entity.ExamSet;
@@ -8,18 +11,27 @@ import com.example.oto.data.entity.Question;
 import com.example.oto.data.entity.TrafficSign;
 import com.example.oto.data.entity.User;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Đổ dữ liệu mẫu vào database lần đầu tạo.
+ * Đổ dữ liệu ban đầu vào database, chạy đúng MỘT lần lúc SQLite tạo file oto.db.
  *
- * LƯU Ý cho cả nhóm: đây mới là DỮ LIỆU MẪU để app chạy được và demo kiến trúc.
- * Bộ 600 câu hỏi chính thức của Cục CSGT sẽ được nạp qua script seed từ file JSON
- * (việc của Trường/Hậu). Khi có JSON đầy đủ, thay phần seed câu hỏi bên dưới.
+ * Câu hỏi được đọc từ {@code assets/questions.json} chứ không viết thẳng trong code.
+ * Nhờ vậy khi có bộ 600 câu chính thức của Cục CSGT, chỉ cần thay file JSON — không
+ * phải sửa và biên dịch lại code Java.
  */
 public final class DatabaseSeeder {
+
+    private static final String TAG = "DatabaseSeeder";
+    private static final String FILE_CAU_HOI = "questions.json";
 
     private DatabaseSeeder() {
     }
@@ -27,22 +39,25 @@ public final class DatabaseSeeder {
     /** Tài khoản người dùng cục bộ mặc định cho bản offline (chưa gắn Firebase). */
     public static final String LOCAL_USER_ID = "local";
 
-    public static void seed(AppDatabase db) {
+    /** Thứ tự gọi tôn trọng khoá ngoại: chương trước câu hỏi, bộ đề sau cùng. */
+    public static void seed(AppDatabase db, Context context) {
         seedChapters(db);
         seedUser(db);
-        seedQuestions(db);
+        seedQuestions(db, context);
         seedTrafficSigns(db);
         seedExamSets(db);
     }
 
     private static void seedChapters(AppDatabase db) {
+        // Tên chương theo đúng cấu trúc bộ 600 câu chính thức (khớp các file docx của nhóm).
         List<Chapter> chapters = Arrays.asList(
                 new Chapter(1, "Quy định chung và quy tắc giao thông đường bộ", 1),
-                new Chapter(2, "Văn hóa, đạo đức người lái xe, PCCC và cứu hộ", 2),
-                new Chapter(3, "Kỹ thuật lái xe", 3),
-                new Chapter(4, "Cấu tạo và sửa chữa", 4),
-                new Chapter(5, "Báo hiệu đường bộ", 5),
-                new Chapter(6, "Giải thế sa hình và xử lý tình huống", 6)
+                new Chapter(2, "Nghiệp vụ vận tải", 2),
+                new Chapter(3, "Văn hóa giao thông và đạo đức người lái xe", 3),
+                new Chapter(4, "Kỹ thuật lái xe", 4),
+                new Chapter(5, "Cấu tạo và sửa chữa", 5),
+                new Chapter(6, "Báo hiệu đường bộ", 6),
+                new Chapter(7, "Giải thế sa hình và kỹ năng xử lý tình huống", 7)
         );
         db.chapterDao().insertAll(chapters);
     }
@@ -52,93 +67,71 @@ public final class DatabaseSeeder {
         db.userDao().insert(u);
     }
 
-    private static void seedQuestions(AppDatabase db) {
-        // Chương 1 — quy tắc chung
-        add(db, 1, false,
-                "Khái niệm \"đường bộ\" được hiểu như thế nào là đúng?",
-                new String[]{
-                        "Đường bộ gồm đường, cầu đường bộ, hầm đường bộ, bến phà đường bộ.",
-                        "Đường bộ chỉ gồm mặt đường và lề đường.",
-                        "Đường bộ chỉ gồm phần đường xe chạy."
-                }, 0,
-                "Theo Luật, đường bộ gồm đường, cầu, hầm và bến phà đường bộ.");
-
-        add(db, 1, true,
-                "Khi điều khiển xe trên đường mà trong máu có nồng độ cồn thì bị xử lý thế nào?",
-                new String[]{
-                        "Không được phép điều khiển xe — đây là hành vi bị nghiêm cấm.",
-                        "Được phép nếu nồng độ cồn thấp.",
-                        "Được phép vào ban ngày."
-                }, 0,
-                "CÂU ĐIỂM LIỆT: điều khiển xe khi trong máu/hơi thở có cồn là hành vi bị nghiêm cấm.");
-
-        add(db, 1, false,
-                "Trên đường một chiều có vạch kẻ phân làn, xe thô sơ phải đi ở làn nào?",
-                new String[]{
-                        "Làn sát bên phải ngoài cùng.",
-                        "Làn sát bên trái ngoài cùng.",
-                        "Bất kỳ làn nào."
-                }, 0,
-                "Xe thô sơ đi làn bên phải trong cùng, xe cơ giới đi làn bên trái.");
-
-        // Chương 2 — văn hóa, đạo đức
-        add(db, 2, false,
-                "Người lái xe cần có đạo đức nghề nghiệp như thế nào?",
-                new String[]{
-                        "Có ý thức tổ chức kỷ luật, tận tâm, thượng tôn pháp luật.",
-                        "Chỉ cần lái nhanh để tiết kiệm thời gian.",
-                        "Chỉ cần thuộc luật là đủ."
-                }, 0,
-                "Đạo đức người lái xe gắn với ý thức kỷ luật và thượng tôn pháp luật.");
-
-        // Chương 5 — báo hiệu đường bộ
-        add(db, 5, false,
-                "Biển báo hình tròn, viền đỏ, nền trắng thuộc nhóm biển nào?",
-                new String[]{
-                        "Biển báo cấm.",
-                        "Biển báo nguy hiểm.",
-                        "Biển chỉ dẫn."
-                }, 0,
-                "Biển tròn viền đỏ nền trắng là nhóm biển báo cấm.");
-
-        add(db, 5, true,
-                "Gặp biển \"Cấm đi ngược chiều\" (nền đỏ, gạch trắng ngang) người lái phải làm gì?",
-                new String[]{
-                        "Không được đi vào theo chiều đặt biển.",
-                        "Được phép đi nếu đường vắng.",
-                        "Được phép đi chậm."
-                }, 0,
-                "CÂU ĐIỂM LIỆT: đi ngược chiều là tình huống mất an toàn nghiêm trọng.");
-
-        // Chương 6 — sa hình
-        add(db, 6, true,
-                "Tại nơi giao nhau, khi có xe ưu tiên (cứu hỏa, cứu thương đang làm nhiệm vụ) thì phải?",
-                new String[]{
-                        "Nhường đường cho xe ưu tiên đi trước.",
-                        "Đi trước nếu mình tới ngã tư trước.",
-                        "Bấm còi yêu cầu xe ưu tiên nhường."
-                }, 0,
-                "CÂU ĐIỂM LIỆT: phải nhường đường cho xe ưu tiên đang làm nhiệm vụ.");
-
-        add(db, 6, false,
-                "Thứ tự các xe qua ngã tư không có tín hiệu đèn được xác định theo?",
-                new String[]{
-                        "Xe ưu tiên → đường ưu tiên → bên phải trống → rẽ phải, đi thẳng, rẽ trái.",
-                        "Xe nào to hơn đi trước.",
-                        "Xe nào bấm còi trước đi trước."
-                }, 0,
-                "Nguyên tắc: xe ưu tiên, rồi đường ưu tiên, rồi nhường bên phải.");
+    /**
+     * Đọc assets/questions.json rồi chèn từng câu hỏi kèm đáp án vào Room.
+     *
+     * Mỗi câu được ghi bằng một giao dịch của DAO (câu hỏi + đáp án cùng lúc),
+     * nên không bao giờ tồn tại câu hỏi thiếu đáp án trong database.
+     */
+    private static void seedQuestions(AppDatabase db, Context context) {
+        String json = docAsset(context, FILE_CAU_HOI);
+        if (json == null) {
+            Log.e(TAG, "Khong doc duoc " + FILE_CAU_HOI + " — bo qua seed cau hoi.");
+            return;
+        }
+        try {
+            JSONArray mang = new JSONObject(json).getJSONArray("cau_hoi");
+            for (int i = 0; i < mang.length(); i++) {
+                themCauHoi(db, mang.getJSONObject(i));
+            }
+            Log.i(TAG, "Da nap " + mang.length() + " cau hoi tu " + FILE_CAU_HOI);
+        } catch (Exception e) {
+            // JSON hỏng thì bỏ qua phần câu hỏi, các bảng khác vẫn seed bình thường —
+            // app mở được và màn Quản trị vẫn cho thêm câu hỏi bằng tay.
+            Log.e(TAG, "File " + FILE_CAU_HOI + " sai dinh dang: " + e.getMessage());
+        }
     }
 
-    /** Thêm một câu hỏi + các đáp án; đáp án đúng nằm ở vị trí correctIndex. */
-    private static void add(AppDatabase db, int chapterId, boolean diemLiet,
-                            String noiDung, String[] dapAn, int correctIndex, String giaiThich) {
-        Question q = new Question(chapterId, noiDung, diemLiet, giaiThich);
+    /**
+     * Chuyển một phần tử JSON thành Question + danh sách Answer rồi ghi xuống Room.
+     * Ném JSONException lên hàm gọi để một câu sai định dạng làm dừng cả mẻ seed,
+     * thay vì âm thầm chèn nửa vời.
+     */
+    private static void themCauHoi(AppDatabase db, JSONObject o) throws org.json.JSONException {
+        Question q = new Question(
+                o.getInt("chuong"),
+                o.getString("noi_dung"),
+                o.optBoolean("diem_liet", false),
+                o.optString("giai_thich", ""));
+        // Ảnh minh hoạ (tuỳ chọn): tên file trong assets/, VD "images/p101.png".
+        // Rỗng thì để null — câu không có ảnh.
+        String anh = o.optString("anh", "");
+        q.anhUrl = anh.isEmpty() ? null : anh;
+
+        JSONArray ds = o.getJSONArray("dap_an");
+        int viTriDung = o.getInt("dap_an_dung");
+
         List<Answer> answers = new ArrayList<>();
-        for (int i = 0; i < dapAn.length; i++) {
-            answers.add(new Answer(0, dapAn[i], i == correctIndex));
+        for (int i = 0; i < ds.length(); i++) {
+            answers.add(new Answer(0, ds.getString(i), i == viTriDung));
         }
         db.questionDao().insertQuestionWithAnswers(q, answers);
+    }
+
+    /** Đọc trọn một file trong assets/ thành chuỗi UTF-8. */
+    private static String docAsset(Context context, String tenFile) {
+        try (InputStream in = context.getAssets().open(tenFile)) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buf = new byte[4096];
+            int n;
+            while ((n = in.read(buf)) != -1) {
+                out.write(buf, 0, n);
+            }
+            return new String(out.toByteArray(), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            Log.e(TAG, "Loi doc asset " + tenFile + ": " + e.getMessage());
+            return null;
+        }
     }
 
     private static void seedTrafficSigns(AppDatabase db) {
