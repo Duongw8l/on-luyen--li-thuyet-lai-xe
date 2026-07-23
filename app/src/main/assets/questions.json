@@ -8,1487 +8,6 @@
   ],
   "cau_hoi": [
     {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_487.png",
-      "dap_an": [
-        "Xe tải, xe khách, xe con, mô tô.",
-        "Xe tải, mô tô, xe khách, xe con.",
-        "Xe khách, xe tải, xe con, mô tô.",
-        "Mô tô, xe khách, xe tải, xe con."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_488.png",
-      "dap_an": [
-        "Xe công an, xe con, xe tải, xe khách.",
-        "Xe công an, xe khách, xe con, xe tải.",
-        "Xe công an, xe tải, xe khách, xe con.",
-        "Xe con, xe công an, xe tải, xe khách."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_489.png",
-      "dap_an": [
-        "Xe tải, xe công an, xe khách, xe con.",
-        "Xe công an, xe khách, xe con, xe tải.",
-        "Xe công an, xe con, xe tải, xe khách.",
-        "Xe công an, xe tải, xe khách, xe con."
-      ],
-      "dap_an_dung": 3
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_490.png",
-      "dap_an": [
-        "Xe tải, xe con, mô tô.",
-        "Xe con, xe tải, mô tô.",
-        "Mô tô, xe con, xe tải.",
-        "Xe con, mô tô, xe tải"
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_491.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe tải."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trường hợp này xe nào được quyền đi trước?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_492.png",
-      "dap_an": [
-        "Mô tô.",
-        "Xe con."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_493.png",
-      "dap_an": [
-        "Xe con (A), xe cứu thương, xe con (B).",
-        "Xe cứu thương, xe con (B), xe con (A).",
-        "Xe con (B), xe con (A), xe cứu thương."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_494.png",
-      "dap_an": [
-        "Xe cứu thương, xe cứu hỏa, xe con.",
-        "Xe cứu hỏa, xe cứu thương, xe con.",
-        "Xe cứu thương, xe con, xe cứu hỏa."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_495.png",
-      "dap_an": [
-        "Mô tô.",
-        "Xe cứu thương"
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường đi cuối cùng qua nơi giao nhau này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_496.png",
-      "dap_an": [
-        "Xe khách.",
-        "Xe tải.",
-        "Xe con"
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_497.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe tải."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_498.png",
-      "dap_an": [
-        "Xe công an.",
-        "Xe chữa cháy."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo tín hiệu đèn, xe nào được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_499.png",
-      "dap_an": [
-        "Xe con và xe khách.",
-        "Mô tô"
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo tín hiệu đèn, xe nào được quyền đi là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_500.png",
-      "dap_an": [
-        "Xe khách, mô tô.",
-        "Xe con, xe tải.",
-        "Xe tải, mô tô."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong trường hợp này xe nào được quyền đi trước?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_501.png",
-      "dap_an": [
-        "Xe công an.",
-        "Xe quân sự."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo tín hiệu đèn, xe tải đi theo hướng nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_502.png",
-      "dap_an": [
-        "Hướng 2, 3, 4.",
-        "Chỉ hướng 1.",
-        "Hướng 1 và 2.",
-        "Hướng 3 và 4."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo hướng mũi tên, xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_503.png",
-      "dap_an": [
-        "Xe khách, xe tải, mô tô.",
-        "Xe tải, xe con, mô tô.",
-        "Xe khách, xe con, mô tô"
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_504.png",
-      "dap_an": [
-        "Xe khách, xe tải, mô tô, xe con.",
-        "Xe con, xe khách, xe tải, mô tô.",
-        "Mô tô, xe tải, xe khách, xe con.",
-        "Mô tô, xe tải, xe con, xe khách"
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong trường hợp này xe nào đỗ vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_505.png",
-      "dap_an": [
-        "Xe tải.",
-        "Xe con và mô tô.",
-        "Cả ba xe.",
-        "Xe con và xe tải"
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào được quyền đi trước?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_506.png",
-      "dap_an": [
-        "Xe tải.",
-        "Xe con (B).",
-        "Xe con (A)"
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "heo hướng mũi tên, những hướng nào xe gắn máy đi được?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_507.png",
-      "dap_an": [
-        "Cả ba hướng.",
-        "Chỉ hướng 1 và 3.",
-        "Chỉ hướng 1."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào đỗ vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_508.png",
-      "dap_an": [
-        "Cả hai xe.",
-        "Không xe nào vi phạm.",
-        "Chỉ xe mô tô vi phạm.",
-        "Chỉ xe tải vi phạm"
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào đỗ vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_509.png",
-      "dap_an": [
-        "Chỉ mô tô.",
-        "Chỉ xe tải.",
-        "Cả ba xe.",
-        "Chỉ mô tô và xe tải"
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe tải kéo mô tô ba bánh như hình này có đúng quy tắc giao thông không?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_510.png",
-      "dap_an": [
-        "Đúng.",
-        "Không đúng"
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, hướng nào xe không được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_511.png",
-      "dap_an": [
-        "Hướng 2 và 5.",
-        "Chỉ hướng 1"
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, những hướng nào ô tô không được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_512.png",
-      "dap_an": [
-        "Hướng 1 và 2.",
-        "Hướng 3.",
-        "Hướng 1 và 4.",
-        "Hướng 2 và 3"
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào vượt đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_513.png",
-      "dap_an": [
-        "Cả 2 xe đều đúng.",
-        "Xe con.",
-        "Xe khách."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, gặp biển hướng đi phải theo đặt trước ngã tư, những hướng nào xe được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_514.png",
-      "dap_an": [
-        "Hướng 2 và 3.",
-        "Hướng 1, 2 và 3.",
-        "Hướng 1 và 3."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe kéo nhau như hình này có vi phạm quy tắc giao thông không?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_515.png",
-      "dap_an": [
-        "Không.",
-        "Vi phạm."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_516.png",
-      "dap_an": [
-        "Xe khách.",
-        "Xe tải."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_517.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe mô tô."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe kéo nhau trong trường hợp này đúng quy định không?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_518.png",
-      "dap_an": [
-        "Không đúng.",
-        "Đúng."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, những hướng nào ô tô con được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_519.png",
-      "dap_an": [
-        "Hướng 1.",
-        "Hướng 1, 3 và 4.",
-        "Hướng 2, 3 và 4.",
-        "Cả bốn hướng."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_520.png",
-      "dap_an": [
-        "Xe con (A), mô tô, xe con (B), xe đạp.",
-        "Xe con (B), xe đạp, mô tô, xe con (A).",
-        "Xe con (A), xe con (B), mô tô + xe đạp.",
-        "Mô tô + xe đạp, xe con (A), xe con (B)."
-      ],
-      "dap_an_dung": 3
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, những hướng nào xe tải được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_521.png",
-      "dap_an": [
-        "Chỉ hướng 1.",
-        "Hướng 1, 3 và 4.",
-        "Hướng 1, 2 và 3.",
-        "Cả bốn hướng."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Những hướng nào xe tải được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_522.png",
-      "dap_an": [
-        "Cả ba hướng.",
-        "Hướng 2 và 3."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Những hướng nào ô tô tải được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_523.png",
-      "dap_an": [
-        "Chỉ hướng 1.",
-        "Hướng 1 và 4.",
-        "Hướng 1 và 5.",
-        "Hướng 1, 4 và 5."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Những hướng nào ô tô tải được phép đi? Cả bốn hướng.",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_524.png",
-      "dap_an": [
-        "Trừ hướng 2.",
-        "Hướng 2, 3 và 4.",
-        "Trừ hướng 4."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_525.png",
-      "dap_an": [
-        "Mô tô.",
-        "Xe con."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Ô tô con đi theo chiều mũi tên có vi phạm quy tắc giao thông không?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_526.png",
-      "dap_an": [
-        "Không vi phạm.",
-        "Vi phạm."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_527.png",
-      "dap_an": [
-        "Xe khách.",
-        "Mô tô.",
-        "Xe con.",
-        "Xe con và mô tô."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_528.png",
-      "dap_an": [
-        "Các xe ở phía tay phải và tay trái của người điều khiển được phép đi thẳng.",
-        "Cho phép các xe ở mọi hướng được rẽ phải.",
-        "Tất cả các xe phải dừng lại trước ngã tư, trừ những xe đã ở trong ngã tư được phép tiếp tục đi."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, xe nào được phép đi? Mô tô, xe con.",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_529.png",
-      "dap_an": [
-        "Xe con, xe tải.",
-        "Mô tô, xe tải.",
-        "Cả ba xe."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe con vượt xe tải như trường hợp này có đúng không?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_530.png",
-      "dap_an": [
-        "Đúng.",
-        "Không đúng."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào vượt đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_531.png",
-      "dap_an": [
-        "Xe tải.",
-        "Cả hai xe.",
-        "Xe con."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Đi theo hướng mũi tên, xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_532.png",
-      "dap_an": [
-        "Xe chữa cháy.",
-        "Xe tải.",
-        "Cả hai xe."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_533.png",
-      "dap_an": [
-        "Xe khách, xe tải, xe con.",
-        "Xe con và xe tải, xe khách.",
-        "Xe tải, xe khách, xe con."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_534.png",
-      "dap_an": [
-        "Xe khách và xe tải, xe con.",
-        "Xe tải, xe khách, xe con.",
-        "Xe con, xe khách, xe tải."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Những hướng nào ô tô tải được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_535.png",
-      "dap_an": [
-        "Cả bốn hướng.",
-        "Chỉ hướng 1 và 2.",
-        "Trừ hướng 4."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, thứ tự các xe đi như thế nào là đúng?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_536.png",
-      "dap_an": [
-        "Xe công an, xe con, xe tải, xe khách.",
-        "Xe con, xe khách và xe công an, xe tải.",
-        "Xe công an, xe con, xe khách, xe tải.",
-        "Xe con, xe tải, xe khách, xe công an."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Những hướng nào ô tô tải được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_537.png",
-      "dap_an": [
-        "Cả bốn hướng.",
-        "Hướng 1, 2 và 3.",
-        "Hướng 1 và 4.",
-        "Hướng 1, 3 và 4."
-      ],
-      "dap_an_dung": 3
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong hình dưới đây, xe nào chấp hành đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_538.png",
-      "dap_an": [
-        "1. Chỉ xe khách, mô tô.",
-        "2. Tất cả các loại xe trên.",
-        "3. Không xe nào chấp hành đúng quy tắc giao thông."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo hướng mũi tên, những hướng nào xe mô tô được phép đi?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_539.png",
-      "dap_an": [
-        "Cả ba hướng.",
-        "Hướng 1 và 2.",
-        "Hướng 1 và 3.",
-        "Hướng 2 và 3."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong trường hợp này, thứ tự xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_540.png",
-      "dap_an": [
-        "Xe công an, xe quân sự, xe con + mô tô.",
-        "Xe quân sự, xe công an, xe con + mô tô.",
-        "Xe mô tô + xe con, xe quân sự, xe công an."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_541.png",
-      "dap_an": [
-        "Xe A.",
-        "Xe B."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe con quay đầu đi ngược lại như hình vẽ dưới có vi phạm quy tắc giao thông không?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_542.png",
-      "dap_an": [
-        "Không vi phạm.",
-        "Vi phạm."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong hình dưới, những xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_543.png",
-      "dap_an": [
-        "Xe con (E), mô tô (C).",
-        "Xe tải (A), mô tô (D).",
-        "Xe khách (B), mô tô (C).",
-        "Xe khách (B), mô tô (D)."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Để điều khiển cho xe đi thẳng, người lái xe phải làm gì là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_544.png",
-      "dap_an": [
-        "Nhường xe con rẽ trái trước.",
-        "Đi thẳng không nhường."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Người lái xe điều khiển xe chạy theo hướng nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_545.png",
-      "dap_an": [
-        "Chỉ hướng 2.",
-        "Hướng 1 và 2.",
-        "Tất cả các hướng trừ hướng 3.",
-        "Tất cả các hướng trừ hướng 4."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_546.png",
-      "dap_an": [
-        "Xe con (A).",
-        "Xe con (B)."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Người lái xe điều khiển xe rẽ trái như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_547.png",
-      "dap_an": [
-        "Rẽ trái ngay trước xe buýt.",
-        "Rẽ trái trước xe tải.",
-        "Nhường đường cho xe buýt và xe tải"
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong hình dưới, những xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_548.png",
-      "dap_an": [
-        "Xe con (B), mô tô (C).",
-        "Xe con (A), mô tô (C).",
-        "Xe con (E), mô tô (D).",
-        "Tất cả các loại xe trên."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào đi trước là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_549.png",
-      "dap_an": [
-        "Xe của bạn.",
-        "Xe tải."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Người lái xe có thể quay đầu xe như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_550.png",
-      "dap_an": [
-        "Quay đầu theo hướng A.",
-        "Quay đầu theo hướng B.",
-        "Cấm quay đầu."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_551.png",
-      "dap_an": [
-        "Xe con và xe tải , xe của bạn",
-        "Xe của bạn, xe tải, xe con",
-        "Xe của bạn và xe con, xe tải",
-        "Xe của bạn , xe tải + xe con"
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Khi muốn vượt xe tải, người lái xe phải làm gì đúng quy tắc giao thông ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_552.png",
-      "dap_an": [
-        "Tăng tốc cho xe chạy vượt qua.",
-        "Bật tín hiệu báo hiệu bằng đèn hoặc cài , khi đủ điều kiện an toàn , tăng tốc cho xe chạy vượt qua.",
-        "Đánh lái sang làn bên trái và tăng tốc cho xe chạy vượt qua."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo tín hiệu đèn, xe nào phải dừng lại là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_553.png",
-      "dap_an": [
-        "Xe khách, mô tô.",
-        "Xe tải, mô tô.",
-        "Xe con, xe tải."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_554.png",
-      "dap_an": [
-        "Xe tải.",
-        "Xe khách.",
-        "Xe con."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Người lái xe có được vượt xe tải để đi thẳng trong trường hợp này không ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_555.png",
-      "dap_an": [
-        "Được vượt.",
-        "Cấm vượt."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn có được phép vượt xe mô tô phía trước không ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_556.png",
-      "dap_an": [
-        "Cho phép.",
-        "Không được vượt."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Người lái xe dừng tại vị trí nào là đúng quy tắc giao thông ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_557.png",
-      "dap_an": [
-        "Vị trí A và B.",
-        "Vị trí A và C.",
-        "Vị trí B và C.",
-        "Cả ba vị trí A,B,C."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn được dừng xe ở vị trí nào trong tình huống này ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_558.png",
-      "dap_an": [
-        "Được phép dừng ở vị trí A.",
-        "Được phép dừng ở vị trí B.",
-        "Được phép dừng ở vị trí A và B.",
-        "Không được dừng."
-      ],
-      "dap_an_dung": 3
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Theo tín hiệu của xe cơ giới, xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_559.png",
-      "dap_an": [
-        "Xe mô tô.",
-        "Xe ô tô con.",
-        "Không xe nào vi phạm.",
-        "Cả hai xe."
-      ],
-      "dap_an_dung": 3
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_560.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe tải.",
-        "Xe con, xe tải."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_561.png",
-      "dap_an": [
-        "Xe con, xe tải.",
-        "Xe khách, xe con.",
-        "Xe khách, xe tải."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_562.png",
-      "dap_an": [
-        "Xe con, xe tải, xe khách.",
-        "Xe tải, xe khách, xe mô tô.",
-        "Xe khách, xe mô tô, xe con.",
-        "Cả 4 xe."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_563.png",
-      "dap_an": [
-        "Xe con, xe tải.",
-        "Xe khách, xe con.",
-        "Xe khách, xe tải.",
-        "Xe khách, xe tải, xe con."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong tình huống dưới đây, để tránh xe phía trước bị hỏng đội xuất trên đường, người lái xe phải làm gì ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_564.png",
-      "dap_an": [
-        "Đánh lái sang trái cho xe vượt qua.",
-        "Quát sát phía trước, phía sau, khi đủ điều kiện an toàn, bật tín hiệu bằng đèn hoặc còi rồi cho xe chạy vượt qua.",
-        "Cấm vượt."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào chấp hành đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_565.png",
-      "dap_an": [
-        "Xe tải, xe mô tô.",
-        "Xe khách, xe mô tô.",
-        "Xe tải, xe con.",
-        "Xe mô tô, xe con."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong hình dưới, những xe nào vi phạm quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_566.png",
-      "dap_an": [
-        "Xe con (A), xe con (B), xe tải (D).",
-        "Xe tải (D), xe con (E), xe buýt (G).",
-        "Xe tải (D), xe con (B).",
-        "Xe con (B), xe con (C)."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "theo Các xe đi thứ tự nào là đúng quy tắc giao thông đường bộ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_567.png",
-      "dap_an": [
-        "Xe của bạn , mô tô , xe con.",
-        "Xe con, xe của bạn, mô tô.",
-        "Mô tô, xe con, xe của bạn."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "theo Các xe đi thứ tự nào là đúng quy tắc giao thông đường bộ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_568.png",
-      "dap_an": [
-        "Xe của bạn , mô tô , xe con.",
-        "Xe con, xe của bạn, mô tô.",
-        "Mô tô, xe con, xe của bạn."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải dừng lại trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_569.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe của bạn.",
-        "Cả hai xe."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe của bạn được đi theo hướng nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_570.png",
-      "dap_an": [
-        "Đi thẳng hoặc rẽ trái.",
-        "Đi thẳng hoặc rẽ phải.",
-        "Rẽ trái.",
-        "Đi thẳng, rẽ phải hoặc rẽ trái."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe của bạn được đi theo hướng nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_571.png",
-      "dap_an": [
-        "Chuyển sang làn đường bên phải và rẽ phải.",
-        "Dừng lại trước vạch dừng và rẽ phải khi đèn xanh.",
-        "Dừng lại trước vạch dừng và đi thẳng hoặc rẽ trái khi đèn xanh."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_572.png",
-      "dap_an": [
-        "Tăng tốc độ, rẽ phải trước xe tải và xe đạp.",
-        "Giảm tốc độ, rẽ phải sau xe tải và xe đạp.",
-        "Tăng tốc độ, rẽ phải trước xe đạp"
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_573.png",
-      "dap_an": [
-        "Tăng tốc độ, rẽ phải trước xe con màu xanh phía trước và người đi bộ.",
-        "Giảm tốc độ, để người đi bộ qua đường và rẽ phải trước xe con màu xanh.",
-        "Giảm tốc độ, để người đi bộ qua đường và rẽ phải sau xe con màu xanh."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_574.png",
-      "dap_an": [
-        "Nhường đường cho xe khách và đi trước xa đạp.",
-        "Nhường đường cho xe đạp và đi trước xe khách.",
-        "Nhường đường cho xe đạp và xe khách."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_575.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe tải.",
-        "Xe của bạn."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_576.png",
-      "dap_an": [
-        "Xe đi ngược chiều.",
-        "Xe của bạn."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý như thế nào khi lái xe ô tô qua đoàn người đi xe đạp có tổ chức?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_577.png",
-      "dap_an": [
-        "Tăng tốc độ, chuyển sang làn đường bên trái để vượt.",
-        "Không được vượt những người đi xe đạp."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Phía trước có một xe đang lùi vào nơi đỗ, xe con phía trước đang chuyển làn đường bên trái , bạn xử lý thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_578.png",
-      "dap_an": [
-        "Nếu phía sau không có xe xin vượt, chuyển sang làn bên trái.",
-        "Nếu phía sau có xe xin vượt, thì giảm tốc độ, ở lại làn đường, dừng lại khi cần thiết.",
-        "Tăng tốc độ trên làn đường của mình và vượt xe con.",
-        "Ý 1 và Ý 2."
-      ],
-      "dap_an_dung": 3
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý thế nào khi xe phía trước đang lùi ra khỏi nơi đỗ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_579.png",
-      "dap_an": [
-        "Chuyển sang nửa đường bên trái để đi tiếp.",
-        "Bấm còi, nháy đèn báo hiệu và đi tiếp.",
-        "Giảm tốc độ, dưng lại nhường đường."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Phía trước có một xe màu xanh đang vượt xe màu vàng làn đường của bạn, bạn xử lý như thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_580.png",
-      "dap_an": [
-        "Phanh xe giảm tốc độ và đi sát lề đường bên phải.",
-        "Bấm còi, nháy đèn báo hiệu, giữa nguyên tốc độ và đi tiếp.",
-        "Phanh xe giảm tốc độ và đi sát lề đường bên trái."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe tải phía trước có tín hiệu xin chuyển làn đường, bạn xử lý như thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_581.png",
-      "dap_an": [
-        "Bật tín hiệu xin chuyển làn đường sang trái để vượt xe tải.",
-        "Phanh xe giảm tốc độ chờ xe tải phía trước chuyển làn đường.",
-        "Bấm còi baod hiệu và vượt qua xe tải trên làn đường của mình."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_582.png",
-      "dap_an": [
-        "Tăng tốc độ và đi thẳng qua ngã tư.",
-        "Dừng xe trước vạch dừng.",
-        "Giảm tốc độ và đi thẳng qua ngã tư."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo thứ tự nào là đúng quy tắc giao thông đường bộ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_583.png",
-      "dap_an": [
-        "Xe của bạn, mô tô, xe đạp.",
-        "Xe mô tô, xe đạp, xe của bạn.",
-        "Xe đạp, xe mô tô, xe của bạn."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo thứ tự nào là đúng quy tắc giao thông đường bộ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_584.png",
-      "dap_an": [
-        "Xe của bạn, xe tải , xe con.",
-        "Xe con, xe tải, xe của bạn.",
-        "Xe tải, xe của bạn, xe con.",
-        "Xe của bạn, xe con, xe tải."
-      ],
-      "dap_an_dung": 3
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_585.png",
-      "dap_an": [
-        "Xe của bạn.",
-        "Xe con."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_586.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe của bạn."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_587.png",
-      "dap_an": [
-        "Tăng tốc độ, đi qua vạch người đi bộ sang đường, để người đi bộ sang đường sau.",
-        "Giảm tốc độ, đi qua vạch người đi bộ sang đường, để người đi bộ sang đường sau.",
-        "Giảm tốc độ, để người đi bộ sang đường trước, sau đó cho xe đi qua vạch người đi bộ sang đường."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào được đi trước trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_588.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe của bạn."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo thứ tự nào đúng quy tắc giao thông đường bộ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_589.png",
-      "dap_an": [
-        "Xe con, xe tải, xe của bạn.",
-        "Xe tải, xe con, xe của bạn.",
-        "Xe tải, xe của bạn xe con."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_590.png",
-      "dap_an": [
-        "Tăng tốc độ cho xe lấn sang phần đường bên trái.",
-        "Giảm tốc độ cho xe lấn sang phần đường bên trái.",
-        "Giảm tốc độ cho xe đi sát phần đường bên phải."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào được đi trước trong trường hợp này?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_591.png",
-      "dap_an": [
-        "Xe tải.",
-        "Xe của bạn."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe nào dừng đúng theo quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_592.png",
-      "dap_an": [
-        "Xe con.",
-        "Xe mô tô.",
-        "Cả 2 xe đều sai."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Các xe đi theo thứ tự nào đúng quy tắc giao thông đường bộ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_593.png",
-      "dap_an": [
-        "Xe tải, xe đạp, xe của bạn.",
-        "Xe của bạn, xe đạp, xe tải.",
-        "Xe của bạn, xe tải, xa đạp."
-      ],
-      "dap_an_dung": 2
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Để điều khiển xe rẽ trái, bạn chọn hướng đi nào dưới đây ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_594.png",
-      "dap_an": [
-        "Hướng 1.",
-        "Hướng 2.",
-        "Cả 2 hướng đều đi được."
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Khi gặp xe ngược chiều bật đèn pha trong tình huống dưới đây, bạn xử lý thế nào?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_595.png",
-      "dap_an": [
-        "Bật đèn chiếu xa, tăng tốc độ vượt xe cùng chiều.",
-        "Giữ nguyên đèn chiếu gần, giảm tốc độ, đi sau xe phía trước.",
-        "Giữ nguyên đèn chiếu gần, tăng tốc độ vượt xe cùng chiều."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Xe của bạn đang di chuyển gần đến khu vực giao cắt với đường sắt, khi rào chắn đang dịch chuyển, bạn điều khiển xe như thế nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_596.png",
-      "dap_an": [
-        "Quan sát nếu thấy không có tàu tăng tốc cho xe vượt qua đường sắt.",
-        "Dừng lại trước rào chắn một khoảng cách an toàn.",
-        "Ra tín hiệu, yêu cầu người gác chắn tàu kéo chậm Barie để xe bạn qua."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong tình huống dưới đây, xe con màu đỏ nhập làn đường cao tốc theo hướng mũi tên là đúng hay sai ?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_597.png",
-      "dap_an": [
-        "Đúng.",
-        "Sai."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong tình huống dưới đây, xe con màu đỏ có được phép vượt khi xe con màu xanh đang vượt xe tải hay không?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_598.png",
-      "dap_an": [
-        "Được vượt.",
-        "Không được vượt."
-      ],
-      "dap_an_dung": 1
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong tình huống dưới đây, xe con màu vàng vượt xe con màu đỏ là đúng quy tắc giao thông hay không",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_599.png",
-      "dap_an": [
-        "Đúng.",
-        "Không đúng"
-      ],
-      "dap_an_dung": 0
-    },
-    {
-      "chuong": 7,
-      "noi_dung": "Trong tình huống dưới đây, xe đầu kéo kéo rơ moóc (xe container) đang rẽ phải, xe con màu xanh đi như thế nào để đảm bảo an toàn?",
-      "diem_liet": false,
-      "giai_thich": "",
-      "anh": "images/c7_600.png",
-      "dap_an": [
-        "Vượt về phía bên phải để đi tiếp.",
-        "Giảm tốc độ chờ xe đầu kéo rẽ phải, rồi tiếp tục đi.",
-        "Vượt về phía bên trái để đi tiếp."
-      ],
-      "dap_an_dung": 1
-    },
-    {
       "chuong": 1,
       "noi_dung": "Phần của đường bộ được sử dụng cho các phương tiện giao thông qua lại là gì?",
       "diem_liet": false,
@@ -1683,7 +202,7 @@
     {
       "chuong": 1,
       "noi_dung": "Hành vi nào dưới đây bị nghiêm cấm?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Đỗ xe trên đường phố",
@@ -1696,7 +215,7 @@
     {
       "chuong": 1,
       "noi_dung": "Hành vi đưa xe cơ giới, xe máy chuyên dùng không bảo đảm tiêu chuẩn an toàn kỹ thuật và bảo vệ môi trường vào tham gia giao thông đường bộ có bị nghiêm cấm hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Không nghiêm cấm.",
@@ -1709,7 +228,7 @@
     {
       "chuong": 1,
       "noi_dung": "Cuộc đua xe chỉ được thực hiện khi nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Diễn ra trên đường phố không có người qua lại.",
@@ -1721,7 +240,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người điều khiển phương tiện giao thông đường bộ mà trong cơ thể có chất ma túy có bị nghiêm cấm hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Bị nghiêm cấm.",
@@ -1733,7 +252,7 @@
     {
       "chuong": 1,
       "noi_dung": "Việc lái xe mô tô, ô tô, máy kéo ngay sau khi uống rượu, bia có được phép hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Không được phép.",
@@ -1745,7 +264,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người điều khiển xe ô tô, mô tô, máy kéo trên đường mà trong máu hoặc hơi thở có nồng độ cồn có bị nghiêm cấm không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Bị nghiêm cấm.",
@@ -1757,7 +276,7 @@
     {
       "chuong": 1,
       "noi_dung": "Sử dụng rượu, bia khi lái xe, nếu bị phát hiện thì bị xử lý như thế nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Chỉ bị nhắc nhở.",
@@ -1769,7 +288,7 @@
     {
       "chuong": 1,
       "noi_dung": "Theo Luật phòng chống tác hại của rượu, bia, đối tượng nào dưới đây bị cấm sử dụng rượu, bia khi tham gia giao thông?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Người điều khiển: Xe ô tô, xe mô tô, xe đạp, xe gắn máy.",
@@ -1795,7 +314,7 @@
     {
       "chuong": 1,
       "noi_dung": "Hành vi điều khiển xe cơ giới chạy quá tốc độ quy định, giành đường, vượt ẩu có bị nghiêm cấm hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Bị nghiêm cấm tùy từng trường hợp.",
@@ -1807,7 +326,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi lái xe trên đường, người lái xe cần quan sát và bảo đảm tốc độ phương tiện như thế nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Chỉ lớn hơn tốc độ tối đa cho phép khi đường vắng.",
@@ -1819,7 +338,7 @@
     {
       "chuong": 1,
       "noi_dung": "Phương tiện giao thông đường bộ di chuyển với tốc độ thấp hơn phải đi như thế nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Đi về phía bên trái.",
@@ -1831,7 +350,7 @@
     {
       "chuong": 1,
       "noi_dung": "Trên đường có nhiều làn đường, khi điều khiển phương tiện ở tốc độ chậm bạn phải đi ở làn đường nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Đi ở làn bên phải trong cùng.",
@@ -1844,7 +363,7 @@
     {
       "chuong": 1,
       "noi_dung": "Hành vi vượt xe tại các vị trí có tầm nhìn hạn chế, đường vòng, đầu dốc có bị nghiêm cấm hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Không bị nghiêm cấm.",
@@ -1882,7 +401,7 @@
     {
       "chuong": 1,
       "noi_dung": "Hành vi lắp đặt, sử dụng còi, đèn không đúng thiết kế của nhà sản xuất đối với từng loại xe cơ giới có được phép hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được phép.",
@@ -1906,7 +425,7 @@
     {
       "chuong": 1,
       "noi_dung": "Việc sản xuất, mua bán, sử dụng biển số xe cơ giới, xe máy chuyên dùng được quy định như thế nào trong Luật Giao thông đường bộ?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được phép sản xuất, sử dụng khi bị mất biển số.",
@@ -1918,7 +437,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người lái xe không được vượt xe khác khi gặp trường hợp nào ghi ở dưới đây?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Trên cầu hẹp có một làn xe. Nơi đường giao nhau, đường bộ giao nhau cùng mức với đường sắt; xe được quyền ưu tiên đang phát tín hiệu ưu tiên đi làm nhiệm vụ.",
@@ -1930,7 +449,7 @@
     {
       "chuong": 1,
       "noi_dung": "Ở phần đường dành cho người đi bộ qua đường, trên cầu, đầu cầu, đường cao tốc, đường hẹp, đường dốc, tại nơi đường bộ giao nhau cùng mức với đường sắt có được quay đầu xe hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được phép.",
@@ -1968,7 +487,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người lái xe không được quay đầu xe trong các trường hợp nào dưới đây?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Ở phần đường dành cho người đi bộ qua đường, trên cầu, đầu cầu, đường cao tốc, đường hẹp, đường dốc, tại nơi đường bộ giao nhau cùng mức với đường sắt.",
@@ -2006,7 +525,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người điều khiển phương tiện giao thông trên đường phố có được dừng xe, đỗ xe trên miệng cống thoát nước, miệng hầm của đường điện thoại, điện cao thế, chỗ dành riêng cho xe chữa cháy lấy nước hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được dừng xe, đỗ xe trong trường hợp cần thiết.",
@@ -2031,7 +550,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người điều khiển xe mô tô hai bánh, ba bánh, xe gắn máy có được phép sử dụng xe để kéo hoặc đẩy các phương tiện khác khi tham gia giao thông không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được phép.",
@@ -2044,7 +563,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi điều khiển xe mô tô hai bánh, xe mô tô ba bánh, xe gắn máy, những hành vi buông cả hai tay; sử dụng xe để kéo, đẩy xe khác, vật khác; sử dụng chân chống của xe quệt xuống đường khi xe đang chạy có được phép hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được phép.",
@@ -2056,7 +575,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi điều khiển xe mô tô hai bánh, xe mô tô ba bánh, xe gắn máy, những hành vi nào không được phép?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Buông cả hai tay; sử dụng xe để kéo, đẩy xe khác, vật khác; sử dụng chân chống của xe quệt xuống đường khi xe đang chạy.",
@@ -2069,7 +588,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người ngồi trên xe mô tô hai bánh, ba bánh, xe gắn máy khi tham gia giao thông có được mang, vác vật cồng kềnh hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được mang, vác tùy trường hợp cụ thể.",
@@ -2082,7 +601,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người ngồi trên xe mô tô hai bánh, xe mô tô ba bánh, xe gắn máy khi tham gia giao thông có được bám, kéo hoặc đẩy các phương tiện khác không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được phép.",
@@ -2095,7 +614,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người ngồi trên xe mô tô hai bánh, xe mô tô ba bánh, xe gắn máy khi tham gia giao thông có được sử dụng ô khi trời mưa hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được sử dụng.",
@@ -2108,7 +627,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi đang lên dốc người ngồi trên xe mô tô có được phép kéo theo người đang điều khiển xe đạp hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Chỉ được phép nếu cả hai đội mũ bảo hiểm.",
@@ -2121,7 +640,7 @@
     {
       "chuong": 1,
       "noi_dung": "Hành vi sử dụng xe mô tô để kéo, đẩy xe mô tô khác bị hết xăng đến trạm mua xăng có được phép hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Chỉ được kéo nếu đã nhìn thấy trạm xăng.",
@@ -2133,7 +652,7 @@
     {
       "chuong": 1,
       "noi_dung": "Hành vi vận chuyển đồ vật cồng kềnh bằng xe mô tô, xe gắn máy khi tham gia giao thông có được phép hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Không được vận chuyển.",
@@ -2524,7 +1043,7 @@
     {
       "chuong": 1,
       "noi_dung": "Trên đường giao thông, khi hiệu lệnh của người điều khiển giao thông trái với hiệu lệnh của đèn hoặc biển báo hiệu thì người tham gia giao thông phải chấp hành theo hiệu lệnh nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Hiệu lệnh của người điều khiển giao thông.",
@@ -2609,7 +1128,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người lái xe phải làm gì khi quay đầu xe trên cầu, đường ngầm hay khu vực đường bộ giao nhau cùng mức với đường sắt?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Không được quay đầu xe.",
@@ -2707,7 +1226,7 @@
     {
       "chuong": 1,
       "noi_dung": "Trên đoạn đường bộ giao nhau cùng mức với đường sắt, cầu đường bộ đi chung với đường sắt thì loại phương tiện nào được quyền ưu tiên đi trước?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Phương tiện nào bên phải không vướng.",
@@ -2731,7 +1250,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người lái xe phải làm gì khi điều khiển xe vào đường cao tốc?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Phải có tín hiệu xin vào và phải nhường đường cho xe đang chạy trên đường; khi thấy an toàn mới cho xe nhập vào dòng xe ở làn đường sát mép ngoài; nếu có làn đường tăng tốc thì phải cho xe chạy trên làn đường đó trước khi vào làn đường của đường cao tốc.",
@@ -2827,7 +1346,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người ngồi trên xe mô tô 2 bánh, xe gắn máy phải đội mũ bảo hiểm có cài quai đúng quy cách khi nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Khi tham gia giao thông đường bộ.",
@@ -2863,7 +1382,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người điều khiển xe mô tô hai bánh, xe gắn máy có được đi xe dàn hàng ngang; đi xe vào phần đường dành cho người đi bộ và phương tiện khác; sử dụng ô, điện thoại di động, thiết bị âm thanh (trừ thiết bị trợ thính) hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được phép nhưng phải đảm bảo an toàn.",
@@ -2888,7 +1407,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi gặp một đoàn xe, một đoàn xe tang hay gặp một đoàn người có tổ chức theo đội ngũ, người lái xe phải xử lý như thế nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Từ từ đi cắt qua đoàn người, đoàn xe.",
@@ -2937,7 +1456,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi lái xe trên đường vắng mà cảm thấy buồn ngủ, người lái xe nên chọn cách xử lý như thế nào cho phù hợp?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Tăng tốc độ kết hợp với nghe nhạc và đi tiếp.",
@@ -2949,7 +1468,7 @@
     {
       "chuong": 1,
       "noi_dung": "Trên đường cao tốc, người lái xe xử lý như thế nào khi đã vượt quá lối ra của đường định rẽ?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Quay xe, chạy trên lề đường bên phải và rẽ khỏi đường cao tốc.",
@@ -3241,7 +1760,7 @@
     {
       "chuong": 1,
       "noi_dung": "Tại các điểm giao cắt giữa đường bộ và đường sắt, quyền ưu tiên thuộc về loại phương tiện nào dưới đây?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Xe cứu hỏa.",
@@ -3267,7 +1786,7 @@
     {
       "chuong": 1,
       "noi_dung": "Trên đoạn đường bộ giao nhau đồng mức với đường sắt, người không có nhiệm vụ có được tự ý mở chắn đường ngang khi chắn đã đóng hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Không được phép.",
@@ -3292,7 +1811,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi điều khiển phương tiện tham gia giao thông, những hành vi nào dưới đây bị nghiêm cấm?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Thay đổi tốc độ của xe trên đường bộ.",
@@ -3328,7 +1847,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi xe ô tô, mô tô đến gần vị trí giao nhau giữa đường bộ và đường sắt không có rào chắn, khi đèn tín hiệu màu đỏ đã bật sáng hoặc khi có tiếng chuông báo hiệu, người lái xe xử lý như thế nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Giảm tốc độ cho xe vượt qua đường sắt.",
@@ -3353,7 +1872,7 @@
     {
       "chuong": 1,
       "noi_dung": "Người lái xe phải xử lý như thế nào khi quan sát phía trước thấy người đi bộ đang sang đường tại nơi có vạch đường dành cho người đi bộ để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Giảm tốc độ, đi từ từ để vượt qua trước người đi bộ.",
@@ -3365,7 +1884,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi muốn lùi xe nhưng không quan sát được phía sau, cần phải làm gì để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Phải lùi thật chậm.",
@@ -3452,7 +1971,7 @@
     {
       "chuong": 1,
       "noi_dung": "Khi tham gia giao thông trên đường cao tốc, người điều khiển phương tiện cơ giới có được dừng, đỗ xe trên phần đường xe chạy hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Được dừng, đỗ.",
@@ -3929,7 +2448,7 @@
     {
       "chuong": 3,
       "noi_dung": "Người lái xe cố tình không phân biệt làn đường, vạch phân làn, phóng nhanh, vượt ẩu, vượt đèn đỏ, đi vào đường cấm, đường một chiều được coi là hành vi nào trong các hành vi dưới đây?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Là bình thường.",
@@ -4048,7 +2567,7 @@
     {
       "chuong": 3,
       "noi_dung": "Hành vi bỏ trốn sau khi gây tai nạn để trốn tránh trách nhiệm hoặc khi có điều kiện mà cố ý không cứu giúp người bị tai nạn giao thông có bị nghiêm cấm hay không?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Không bị nghiêm cấm.",
@@ -4060,7 +2579,7 @@
     {
       "chuong": 3,
       "noi_dung": "Khi xảy ra tai nạn giao thông, những hành vi nào dưới đây bị nghiêm cấm?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Xâm phạm tính mạng, sức khoẻ, tài sản của người bị nạn và người gây tai nạn.",
@@ -4072,7 +2591,7 @@
     {
       "chuong": 3,
       "noi_dung": "Khi xảy ra tai nạn giao thông, những hành vi nào dưới đây bị nghiêm cấm?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Xâm phạm tính mạng, sức khỏe, tài sản của người bị nạn và người gây tai nạn.",
@@ -4109,7 +2628,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi điều khiển xe mô tô tay ga xuống đường dốc dài, độ dốc cao, người lái xe cần thực hiện các thao tác nào dưới đây để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Giữ tay ga ở mức độ phù hợp, sử dụng phanh trước và phanh sau để giảm tốc độ.",
@@ -4190,7 +2709,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi điều khiển ô tô xuống dốc cao, người lái xe cần thực hiện các thao tác nào dưới đây để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Tăng lên số cao, nhả bàn đạp ga ở mức độ phù hợp, kết hợp với phanh chân để khống chế tốc độ.",
@@ -4260,7 +2779,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi điều khiển xe qua đường sắt, người lái xe cần phải thực hiện các thao tác nào dưới đây để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Khi có chuông báo hoặc thanh chắn đã hạ xuống, người lái xe phải dừng xe tạm thời đúng khoảng cách an toàn, kéo phanh tay nếu đường dốc hoặc phải chờ lâu.",
@@ -4307,7 +2826,7 @@
     {
       "chuong": 4,
       "noi_dung": "Để giảm tốc độ khi ô tô đi xuống đường dốc dài, người lái xe phải thực hiện các thao tác nào để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Nhả bàn đạp ga, đạp ly hợp (côn) hết hành trình, đạp mạnh phanh chân để giảm tốc độ.",
@@ -4447,7 +2966,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi đã đỗ xe ô tô sát lề đường bên phải, người lái xe phải thực hiện các thao tác nào dưới đây khi mở cửa xuống xe để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Quan sát tình hình giao thông phía sau, mở hé cánh cửa, nếu đảm bảo an toàn thì mở cửa ở mức cần thiết để xuống xe ô tô.",
@@ -4482,7 +3001,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi điều khiển ô tô có hộp số tự động đi vào đường trơn trượt, lầy lội, người lái xe phải xử lý như thế nào để đảm bảo an toàn trong các trường hợp dưới đây?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Về số thấp, kết hợp phanh chân để giảm tốc độ.",
@@ -4518,7 +3037,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi tầm nhìn bị hạn chế bởi sương mù hoặc mưa to, người lái xe phải thực hiện các thao tác nào?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Tăng tốc độ, chạy gần xe trước, nhìn đèn hậu để định hướng.",
@@ -4637,7 +3156,7 @@
     {
       "chuong": 4,
       "noi_dung": "Người lái xe được dừng xe, đỗ xe trên làn dừng khẩn cấp của đường cao tốc trong trường hợp nào dưới đây?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Xe gặp sự cố, tai nạn, hoặc trường hợp khẩn cấp không thể di chuyển bình thường.",
@@ -4662,7 +3181,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi điều khiển ô tô xuống đường dốc dài, độ dốc cao, người lái xe số tự động cần thực hiện các thao tác nào dưới đây để đảm bảo an toàn?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Nhả bàn đạp ga, về số thấp (sử dụng số L hoặc 1, 2), đạp phanh chân với mức độ phù hợp để giảm tốc độ.",
@@ -4673,7 +3192,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi đi từ đường nhánh ra đường chính, người lái xe phải xử lý như nào là đúng quy tắc giao thông?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Giảm tốc độ, nhường đường cho xe trên đường chính từ bất kì hướng nào tới.",
@@ -4685,7 +3204,7 @@
     {
       "chuong": 4,
       "noi_dung": "Khi đang lái xe mô tô và ô tô, nếu có nhu cầu sử dụng điện thoại để nhắn tin hoặc gọi điện, người lái xe phải thực hiện như thế nào trong các tình huống nêu dưới đây?",
-      "diem_liet": false,
+      "diem_liet": true,
       "giai_thich": "",
       "dap_an": [
         "Giảm tốc độ để đảm bảo an toàn với xe phía trước và sử dụng điện thoại để liên lạc.",
@@ -7605,6 +6124,1487 @@
         "Dùng để xác định vị trí giữa các phương tiện trên đường."
       ],
       "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_487.png",
+      "dap_an": [
+        "Xe tải, xe khách, xe con, mô tô.",
+        "Xe tải, mô tô, xe khách, xe con.",
+        "Xe khách, xe tải, xe con, mô tô.",
+        "Mô tô, xe khách, xe tải, xe con."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_488.png",
+      "dap_an": [
+        "Xe công an, xe con, xe tải, xe khách.",
+        "Xe công an, xe khách, xe con, xe tải.",
+        "Xe công an, xe tải, xe khách, xe con.",
+        "Xe con, xe công an, xe tải, xe khách."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_489.png",
+      "dap_an": [
+        "Xe tải, xe công an, xe khách, xe con.",
+        "Xe công an, xe khách, xe con, xe tải.",
+        "Xe công an, xe con, xe tải, xe khách.",
+        "Xe công an, xe tải, xe khách, xe con."
+      ],
+      "dap_an_dung": 3
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_490.png",
+      "dap_an": [
+        "Xe tải, xe con, mô tô.",
+        "Xe con, xe tải, mô tô.",
+        "Mô tô, xe con, xe tải.",
+        "Xe con, mô tô, xe tải"
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_491.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe tải."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trường hợp này xe nào được quyền đi trước?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_492.png",
+      "dap_an": [
+        "Mô tô.",
+        "Xe con."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_493.png",
+      "dap_an": [
+        "Xe con (A), xe cứu thương, xe con (B).",
+        "Xe cứu thương, xe con (B), xe con (A).",
+        "Xe con (B), xe con (A), xe cứu thương."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_494.png",
+      "dap_an": [
+        "Xe cứu thương, xe cứu hỏa, xe con.",
+        "Xe cứu hỏa, xe cứu thương, xe con.",
+        "Xe cứu thương, xe con, xe cứu hỏa."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_495.png",
+      "dap_an": [
+        "Mô tô.",
+        "Xe cứu thương"
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường đi cuối cùng qua nơi giao nhau này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_496.png",
+      "dap_an": [
+        "Xe khách.",
+        "Xe tải.",
+        "Xe con"
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_497.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe tải."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_498.png",
+      "dap_an": [
+        "Xe công an.",
+        "Xe chữa cháy."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo tín hiệu đèn, xe nào được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_499.png",
+      "dap_an": [
+        "Xe con và xe khách.",
+        "Mô tô"
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo tín hiệu đèn, xe nào được quyền đi là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_500.png",
+      "dap_an": [
+        "Xe khách, mô tô.",
+        "Xe con, xe tải.",
+        "Xe tải, mô tô."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong trường hợp này xe nào được quyền đi trước?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_501.png",
+      "dap_an": [
+        "Xe công an.",
+        "Xe quân sự."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo tín hiệu đèn, xe tải đi theo hướng nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_502.png",
+      "dap_an": [
+        "Hướng 2, 3, 4.",
+        "Chỉ hướng 1.",
+        "Hướng 1 và 2.",
+        "Hướng 3 và 4."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo hướng mũi tên, xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_503.png",
+      "dap_an": [
+        "Xe khách, xe tải, mô tô.",
+        "Xe tải, xe con, mô tô.",
+        "Xe khách, xe con, mô tô"
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_504.png",
+      "dap_an": [
+        "Xe khách, xe tải, mô tô, xe con.",
+        "Xe con, xe khách, xe tải, mô tô.",
+        "Mô tô, xe tải, xe khách, xe con.",
+        "Mô tô, xe tải, xe con, xe khách"
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong trường hợp này xe nào đỗ vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_505.png",
+      "dap_an": [
+        "Xe tải.",
+        "Xe con và mô tô.",
+        "Cả ba xe.",
+        "Xe con và xe tải"
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào được quyền đi trước?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_506.png",
+      "dap_an": [
+        "Xe tải.",
+        "Xe con (B).",
+        "Xe con (A)"
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "heo hướng mũi tên, những hướng nào xe gắn máy đi được?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_507.png",
+      "dap_an": [
+        "Cả ba hướng.",
+        "Chỉ hướng 1 và 3.",
+        "Chỉ hướng 1."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào đỗ vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_508.png",
+      "dap_an": [
+        "Cả hai xe.",
+        "Không xe nào vi phạm.",
+        "Chỉ xe mô tô vi phạm.",
+        "Chỉ xe tải vi phạm"
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào đỗ vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_509.png",
+      "dap_an": [
+        "Chỉ mô tô.",
+        "Chỉ xe tải.",
+        "Cả ba xe.",
+        "Chỉ mô tô và xe tải"
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe tải kéo mô tô ba bánh như hình này có đúng quy tắc giao thông không?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_510.png",
+      "dap_an": [
+        "Đúng.",
+        "Không đúng"
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, hướng nào xe không được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_511.png",
+      "dap_an": [
+        "Hướng 2 và 5.",
+        "Chỉ hướng 1"
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, những hướng nào ô tô không được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_512.png",
+      "dap_an": [
+        "Hướng 1 và 2.",
+        "Hướng 3.",
+        "Hướng 1 và 4.",
+        "Hướng 2 và 3"
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào vượt đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_513.png",
+      "dap_an": [
+        "Cả 2 xe đều đúng.",
+        "Xe con.",
+        "Xe khách."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, gặp biển hướng đi phải theo đặt trước ngã tư, những hướng nào xe được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_514.png",
+      "dap_an": [
+        "Hướng 2 và 3.",
+        "Hướng 1, 2 và 3.",
+        "Hướng 1 và 3."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe kéo nhau như hình này có vi phạm quy tắc giao thông không?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_515.png",
+      "dap_an": [
+        "Không.",
+        "Vi phạm."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_516.png",
+      "dap_an": [
+        "Xe khách.",
+        "Xe tải."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_517.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe mô tô."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe kéo nhau trong trường hợp này đúng quy định không?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_518.png",
+      "dap_an": [
+        "Không đúng.",
+        "Đúng."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, những hướng nào ô tô con được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_519.png",
+      "dap_an": [
+        "Hướng 1.",
+        "Hướng 1, 3 và 4.",
+        "Hướng 2, 3 và 4.",
+        "Cả bốn hướng."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_520.png",
+      "dap_an": [
+        "Xe con (A), mô tô, xe con (B), xe đạp.",
+        "Xe con (B), xe đạp, mô tô, xe con (A).",
+        "Xe con (A), xe con (B), mô tô + xe đạp.",
+        "Mô tô + xe đạp, xe con (A), xe con (B)."
+      ],
+      "dap_an_dung": 3
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, những hướng nào xe tải được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_521.png",
+      "dap_an": [
+        "Chỉ hướng 1.",
+        "Hướng 1, 3 và 4.",
+        "Hướng 1, 2 và 3.",
+        "Cả bốn hướng."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Những hướng nào xe tải được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_522.png",
+      "dap_an": [
+        "Cả ba hướng.",
+        "Hướng 2 và 3."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Những hướng nào ô tô tải được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_523.png",
+      "dap_an": [
+        "Chỉ hướng 1.",
+        "Hướng 1 và 4.",
+        "Hướng 1 và 5.",
+        "Hướng 1, 4 và 5."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Những hướng nào ô tô tải được phép đi? Cả bốn hướng.",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_524.png",
+      "dap_an": [
+        "Trừ hướng 2.",
+        "Hướng 2, 3 và 4.",
+        "Trừ hướng 4."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào được quyền đi trước trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_525.png",
+      "dap_an": [
+        "Mô tô.",
+        "Xe con."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Ô tô con đi theo chiều mũi tên có vi phạm quy tắc giao thông không?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_526.png",
+      "dap_an": [
+        "Không vi phạm.",
+        "Vi phạm."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_527.png",
+      "dap_an": [
+        "Xe khách.",
+        "Mô tô.",
+        "Xe con.",
+        "Xe con và mô tô."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_528.png",
+      "dap_an": [
+        "Các xe ở phía tay phải và tay trái của người điều khiển được phép đi thẳng.",
+        "Cho phép các xe ở mọi hướng được rẽ phải.",
+        "Tất cả các xe phải dừng lại trước ngã tư, trừ những xe đã ở trong ngã tư được phép tiếp tục đi."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, xe nào được phép đi? Mô tô, xe con.",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_529.png",
+      "dap_an": [
+        "Xe con, xe tải.",
+        "Mô tô, xe tải.",
+        "Cả ba xe."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe con vượt xe tải như trường hợp này có đúng không?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_530.png",
+      "dap_an": [
+        "Đúng.",
+        "Không đúng."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào vượt đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_531.png",
+      "dap_an": [
+        "Xe tải.",
+        "Cả hai xe.",
+        "Xe con."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Đi theo hướng mũi tên, xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_532.png",
+      "dap_an": [
+        "Xe chữa cháy.",
+        "Xe tải.",
+        "Cả hai xe."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_533.png",
+      "dap_an": [
+        "Xe khách, xe tải, xe con.",
+        "Xe con và xe tải, xe khách.",
+        "Xe tải, xe khách, xe con."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_534.png",
+      "dap_an": [
+        "Xe khách và xe tải, xe con.",
+        "Xe tải, xe khách, xe con.",
+        "Xe con, xe khách, xe tải."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Những hướng nào ô tô tải được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_535.png",
+      "dap_an": [
+        "Cả bốn hướng.",
+        "Chỉ hướng 1 và 2.",
+        "Trừ hướng 4."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, thứ tự các xe đi như thế nào là đúng?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_536.png",
+      "dap_an": [
+        "Xe công an, xe con, xe tải, xe khách.",
+        "Xe con, xe khách và xe công an, xe tải.",
+        "Xe công an, xe con, xe khách, xe tải.",
+        "Xe con, xe tải, xe khách, xe công an."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Những hướng nào ô tô tải được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_537.png",
+      "dap_an": [
+        "Cả bốn hướng.",
+        "Hướng 1, 2 và 3.",
+        "Hướng 1 và 4.",
+        "Hướng 1, 3 và 4."
+      ],
+      "dap_an_dung": 3
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong hình dưới đây, xe nào chấp hành đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_538.png",
+      "dap_an": [
+        "1. Chỉ xe khách, mô tô.",
+        "2. Tất cả các loại xe trên.",
+        "3. Không xe nào chấp hành đúng quy tắc giao thông."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo hướng mũi tên, những hướng nào xe mô tô được phép đi?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_539.png",
+      "dap_an": [
+        "Cả ba hướng.",
+        "Hướng 1 và 2.",
+        "Hướng 1 và 3.",
+        "Hướng 2 và 3."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong trường hợp này, thứ tự xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_540.png",
+      "dap_an": [
+        "Xe công an, xe quân sự, xe con + mô tô.",
+        "Xe quân sự, xe công an, xe con + mô tô.",
+        "Xe mô tô + xe con, xe quân sự, xe công an."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_541.png",
+      "dap_an": [
+        "Xe A.",
+        "Xe B."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe con quay đầu đi ngược lại như hình vẽ dưới có vi phạm quy tắc giao thông không?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_542.png",
+      "dap_an": [
+        "Không vi phạm.",
+        "Vi phạm."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong hình dưới, những xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_543.png",
+      "dap_an": [
+        "Xe con (E), mô tô (C).",
+        "Xe tải (A), mô tô (D).",
+        "Xe khách (B), mô tô (C).",
+        "Xe khách (B), mô tô (D)."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Để điều khiển cho xe đi thẳng, người lái xe phải làm gì là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_544.png",
+      "dap_an": [
+        "Nhường xe con rẽ trái trước.",
+        "Đi thẳng không nhường."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Người lái xe điều khiển xe chạy theo hướng nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_545.png",
+      "dap_an": [
+        "Chỉ hướng 2.",
+        "Hướng 1 và 2.",
+        "Tất cả các hướng trừ hướng 3.",
+        "Tất cả các hướng trừ hướng 4."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_546.png",
+      "dap_an": [
+        "Xe con (A).",
+        "Xe con (B)."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Người lái xe điều khiển xe rẽ trái như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_547.png",
+      "dap_an": [
+        "Rẽ trái ngay trước xe buýt.",
+        "Rẽ trái trước xe tải.",
+        "Nhường đường cho xe buýt và xe tải"
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong hình dưới, những xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_548.png",
+      "dap_an": [
+        "Xe con (B), mô tô (C).",
+        "Xe con (A), mô tô (C).",
+        "Xe con (E), mô tô (D).",
+        "Tất cả các loại xe trên."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào đi trước là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_549.png",
+      "dap_an": [
+        "Xe của bạn.",
+        "Xe tải."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Người lái xe có thể quay đầu xe như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_550.png",
+      "dap_an": [
+        "Quay đầu theo hướng A.",
+        "Quay đầu theo hướng B.",
+        "Cấm quay đầu."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_551.png",
+      "dap_an": [
+        "Xe con và xe tải , xe của bạn",
+        "Xe của bạn, xe tải, xe con",
+        "Xe của bạn và xe con, xe tải",
+        "Xe của bạn , xe tải + xe con"
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Khi muốn vượt xe tải, người lái xe phải làm gì đúng quy tắc giao thông ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_552.png",
+      "dap_an": [
+        "Tăng tốc cho xe chạy vượt qua.",
+        "Bật tín hiệu báo hiệu bằng đèn hoặc cài , khi đủ điều kiện an toàn , tăng tốc cho xe chạy vượt qua.",
+        "Đánh lái sang làn bên trái và tăng tốc cho xe chạy vượt qua."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo tín hiệu đèn, xe nào phải dừng lại là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_553.png",
+      "dap_an": [
+        "Xe khách, mô tô.",
+        "Xe tải, mô tô.",
+        "Xe con, xe tải."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường là đúng quy tắc giao thông ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_554.png",
+      "dap_an": [
+        "Xe tải.",
+        "Xe khách.",
+        "Xe con."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Người lái xe có được vượt xe tải để đi thẳng trong trường hợp này không ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_555.png",
+      "dap_an": [
+        "Được vượt.",
+        "Cấm vượt."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn có được phép vượt xe mô tô phía trước không ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_556.png",
+      "dap_an": [
+        "Cho phép.",
+        "Không được vượt."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Người lái xe dừng tại vị trí nào là đúng quy tắc giao thông ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_557.png",
+      "dap_an": [
+        "Vị trí A và B.",
+        "Vị trí A và C.",
+        "Vị trí B và C.",
+        "Cả ba vị trí A,B,C."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn được dừng xe ở vị trí nào trong tình huống này ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_558.png",
+      "dap_an": [
+        "Được phép dừng ở vị trí A.",
+        "Được phép dừng ở vị trí B.",
+        "Được phép dừng ở vị trí A và B.",
+        "Không được dừng."
+      ],
+      "dap_an_dung": 3
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Theo tín hiệu của xe cơ giới, xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_559.png",
+      "dap_an": [
+        "Xe mô tô.",
+        "Xe ô tô con.",
+        "Không xe nào vi phạm.",
+        "Cả hai xe."
+      ],
+      "dap_an_dung": 3
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_560.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe tải.",
+        "Xe con, xe tải."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_561.png",
+      "dap_an": [
+        "Xe con, xe tải.",
+        "Xe khách, xe con.",
+        "Xe khách, xe tải."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_562.png",
+      "dap_an": [
+        "Xe con, xe tải, xe khách.",
+        "Xe tải, xe khách, xe mô tô.",
+        "Xe khách, xe mô tô, xe con.",
+        "Cả 4 xe."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_563.png",
+      "dap_an": [
+        "Xe con, xe tải.",
+        "Xe khách, xe con.",
+        "Xe khách, xe tải.",
+        "Xe khách, xe tải, xe con."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong tình huống dưới đây, để tránh xe phía trước bị hỏng đội xuất trên đường, người lái xe phải làm gì ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_564.png",
+      "dap_an": [
+        "Đánh lái sang trái cho xe vượt qua.",
+        "Quát sát phía trước, phía sau, khi đủ điều kiện an toàn, bật tín hiệu bằng đèn hoặc còi rồi cho xe chạy vượt qua.",
+        "Cấm vượt."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo hướng mũi tên , xe nào chấp hành đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_565.png",
+      "dap_an": [
+        "Xe tải, xe mô tô.",
+        "Xe khách, xe mô tô.",
+        "Xe tải, xe con.",
+        "Xe mô tô, xe con."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong hình dưới, những xe nào vi phạm quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_566.png",
+      "dap_an": [
+        "Xe con (A), xe con (B), xe tải (D).",
+        "Xe tải (D), xe con (E), xe buýt (G).",
+        "Xe tải (D), xe con (B).",
+        "Xe con (B), xe con (C)."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "theo Các xe đi thứ tự nào là đúng quy tắc giao thông đường bộ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_567.png",
+      "dap_an": [
+        "Xe của bạn , mô tô , xe con.",
+        "Xe con, xe của bạn, mô tô.",
+        "Mô tô, xe con, xe của bạn."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "theo Các xe đi thứ tự nào là đúng quy tắc giao thông đường bộ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_568.png",
+      "dap_an": [
+        "Xe của bạn , mô tô , xe con.",
+        "Xe con, xe của bạn, mô tô.",
+        "Mô tô, xe con, xe của bạn."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải dừng lại trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_569.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe của bạn.",
+        "Cả hai xe."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe của bạn được đi theo hướng nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_570.png",
+      "dap_an": [
+        "Đi thẳng hoặc rẽ trái.",
+        "Đi thẳng hoặc rẽ phải.",
+        "Rẽ trái.",
+        "Đi thẳng, rẽ phải hoặc rẽ trái."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe của bạn được đi theo hướng nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_571.png",
+      "dap_an": [
+        "Chuyển sang làn đường bên phải và rẽ phải.",
+        "Dừng lại trước vạch dừng và rẽ phải khi đèn xanh.",
+        "Dừng lại trước vạch dừng và đi thẳng hoặc rẽ trái khi đèn xanh."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_572.png",
+      "dap_an": [
+        "Tăng tốc độ, rẽ phải trước xe tải và xe đạp.",
+        "Giảm tốc độ, rẽ phải sau xe tải và xe đạp.",
+        "Tăng tốc độ, rẽ phải trước xe đạp"
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_573.png",
+      "dap_an": [
+        "Tăng tốc độ, rẽ phải trước xe con màu xanh phía trước và người đi bộ.",
+        "Giảm tốc độ, để người đi bộ qua đường và rẽ phải trước xe con màu xanh.",
+        "Giảm tốc độ, để người đi bộ qua đường và rẽ phải sau xe con màu xanh."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_574.png",
+      "dap_an": [
+        "Nhường đường cho xe khách và đi trước xa đạp.",
+        "Nhường đường cho xe đạp và đi trước xe khách.",
+        "Nhường đường cho xe đạp và xe khách."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_575.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe tải.",
+        "Xe của bạn."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_576.png",
+      "dap_an": [
+        "Xe đi ngược chiều.",
+        "Xe của bạn."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý như thế nào khi lái xe ô tô qua đoàn người đi xe đạp có tổ chức?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_577.png",
+      "dap_an": [
+        "Tăng tốc độ, chuyển sang làn đường bên trái để vượt.",
+        "Không được vượt những người đi xe đạp."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Phía trước có một xe đang lùi vào nơi đỗ, xe con phía trước đang chuyển làn đường bên trái , bạn xử lý thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_578.png",
+      "dap_an": [
+        "Nếu phía sau không có xe xin vượt, chuyển sang làn bên trái.",
+        "Nếu phía sau có xe xin vượt, thì giảm tốc độ, ở lại làn đường, dừng lại khi cần thiết.",
+        "Tăng tốc độ trên làn đường của mình và vượt xe con.",
+        "Ý 1 và Ý 2."
+      ],
+      "dap_an_dung": 3
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý thế nào khi xe phía trước đang lùi ra khỏi nơi đỗ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_579.png",
+      "dap_an": [
+        "Chuyển sang nửa đường bên trái để đi tiếp.",
+        "Bấm còi, nháy đèn báo hiệu và đi tiếp.",
+        "Giảm tốc độ, dưng lại nhường đường."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Phía trước có một xe màu xanh đang vượt xe màu vàng làn đường của bạn, bạn xử lý như thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_580.png",
+      "dap_an": [
+        "Phanh xe giảm tốc độ và đi sát lề đường bên phải.",
+        "Bấm còi, nháy đèn báo hiệu, giữa nguyên tốc độ và đi tiếp.",
+        "Phanh xe giảm tốc độ và đi sát lề đường bên trái."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe tải phía trước có tín hiệu xin chuyển làn đường, bạn xử lý như thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_581.png",
+      "dap_an": [
+        "Bật tín hiệu xin chuyển làn đường sang trái để vượt xe tải.",
+        "Phanh xe giảm tốc độ chờ xe tải phía trước chuyển làn đường.",
+        "Bấm còi baod hiệu và vượt qua xe tải trên làn đường của mình."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_582.png",
+      "dap_an": [
+        "Tăng tốc độ và đi thẳng qua ngã tư.",
+        "Dừng xe trước vạch dừng.",
+        "Giảm tốc độ và đi thẳng qua ngã tư."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo thứ tự nào là đúng quy tắc giao thông đường bộ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_583.png",
+      "dap_an": [
+        "Xe của bạn, mô tô, xe đạp.",
+        "Xe mô tô, xe đạp, xe của bạn.",
+        "Xe đạp, xe mô tô, xe của bạn."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo thứ tự nào là đúng quy tắc giao thông đường bộ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_584.png",
+      "dap_an": [
+        "Xe của bạn, xe tải , xe con.",
+        "Xe con, xe tải, xe của bạn.",
+        "Xe tải, xe của bạn, xe con.",
+        "Xe của bạn, xe con, xe tải."
+      ],
+      "dap_an_dung": 3
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_585.png",
+      "dap_an": [
+        "Xe của bạn.",
+        "Xe con."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào phải nhường đường trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_586.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe của bạn."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_587.png",
+      "dap_an": [
+        "Tăng tốc độ, đi qua vạch người đi bộ sang đường, để người đi bộ sang đường sau.",
+        "Giảm tốc độ, đi qua vạch người đi bộ sang đường, để người đi bộ sang đường sau.",
+        "Giảm tốc độ, để người đi bộ sang đường trước, sau đó cho xe đi qua vạch người đi bộ sang đường."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào được đi trước trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_588.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe của bạn."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo thứ tự nào đúng quy tắc giao thông đường bộ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_589.png",
+      "dap_an": [
+        "Xe con, xe tải, xe của bạn.",
+        "Xe tải, xe con, xe của bạn.",
+        "Xe tải, xe của bạn xe con."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Bạn xử lý như thế nào trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_590.png",
+      "dap_an": [
+        "Tăng tốc độ cho xe lấn sang phần đường bên trái.",
+        "Giảm tốc độ cho xe lấn sang phần đường bên trái.",
+        "Giảm tốc độ cho xe đi sát phần đường bên phải."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào được đi trước trong trường hợp này?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_591.png",
+      "dap_an": [
+        "Xe tải.",
+        "Xe của bạn."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe nào dừng đúng theo quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_592.png",
+      "dap_an": [
+        "Xe con.",
+        "Xe mô tô.",
+        "Cả 2 xe đều sai."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Các xe đi theo thứ tự nào đúng quy tắc giao thông đường bộ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_593.png",
+      "dap_an": [
+        "Xe tải, xe đạp, xe của bạn.",
+        "Xe của bạn, xe đạp, xe tải.",
+        "Xe của bạn, xe tải, xa đạp."
+      ],
+      "dap_an_dung": 2
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Để điều khiển xe rẽ trái, bạn chọn hướng đi nào dưới đây ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_594.png",
+      "dap_an": [
+        "Hướng 1.",
+        "Hướng 2.",
+        "Cả 2 hướng đều đi được."
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Khi gặp xe ngược chiều bật đèn pha trong tình huống dưới đây, bạn xử lý thế nào?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_595.png",
+      "dap_an": [
+        "Bật đèn chiếu xa, tăng tốc độ vượt xe cùng chiều.",
+        "Giữ nguyên đèn chiếu gần, giảm tốc độ, đi sau xe phía trước.",
+        "Giữ nguyên đèn chiếu gần, tăng tốc độ vượt xe cùng chiều."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Xe của bạn đang di chuyển gần đến khu vực giao cắt với đường sắt, khi rào chắn đang dịch chuyển, bạn điều khiển xe như thế nào là đúng quy tắc giao thông?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_596.png",
+      "dap_an": [
+        "Quan sát nếu thấy không có tàu tăng tốc cho xe vượt qua đường sắt.",
+        "Dừng lại trước rào chắn một khoảng cách an toàn.",
+        "Ra tín hiệu, yêu cầu người gác chắn tàu kéo chậm Barie để xe bạn qua."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong tình huống dưới đây, xe con màu đỏ nhập làn đường cao tốc theo hướng mũi tên là đúng hay sai ?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_597.png",
+      "dap_an": [
+        "Đúng.",
+        "Sai."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong tình huống dưới đây, xe con màu đỏ có được phép vượt khi xe con màu xanh đang vượt xe tải hay không?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_598.png",
+      "dap_an": [
+        "Được vượt.",
+        "Không được vượt."
+      ],
+      "dap_an_dung": 1
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong tình huống dưới đây, xe con màu vàng vượt xe con màu đỏ là đúng quy tắc giao thông hay không",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_599.png",
+      "dap_an": [
+        "Đúng.",
+        "Không đúng"
+      ],
+      "dap_an_dung": 0
+    },
+    {
+      "chuong": 7,
+      "noi_dung": "Trong tình huống dưới đây, xe đầu kéo kéo rơ moóc (xe container) đang rẽ phải, xe con màu xanh đi như thế nào để đảm bảo an toàn?",
+      "diem_liet": false,
+      "giai_thich": "",
+      "anh": "images/c7_600.png",
+      "dap_an": [
+        "Vượt về phía bên phải để đi tiếp.",
+        "Giảm tốc độ chờ xe đầu kéo rẽ phải, rồi tiếp tục đi.",
+        "Vượt về phía bên trái để đi tiếp."
+      ],
+      "dap_an_dung": 1
     }
   ]
 }
