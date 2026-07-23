@@ -41,6 +41,15 @@ public class Question {
     @ColumnInfo(name = "giai_thich")
     public String giaiThich;
 
+    /**
+     * Thời điểm sửa gần nhất (epoch millis).
+     *
+     * Dùng cho cơ chế đồng bộ delta: máy khách chỉ hỏi Firestore những câu có
+     * updated_at mới hơn lần đồng bộ cuối, thay vì tải lại toàn bộ 600 câu.
+     */
+    @ColumnInfo(name = "updated_at")
+    public long updatedAt;
+
     public Question() {
     }
 
@@ -49,5 +58,6 @@ public class Question {
         this.noiDung = noiDung;
         this.isDiemLiet = isDiemLiet;
         this.giaiThich = giaiThich;
+        this.updatedAt = System.currentTimeMillis();
     }
 }

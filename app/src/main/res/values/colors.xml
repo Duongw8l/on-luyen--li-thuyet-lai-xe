@@ -7,6 +7,9 @@
     <color name="brand_dark">#0D47A1</color>
     <color name="accent">#FF8F00</color>
 
+    <!-- Chữ phụ, ít nổi bật (VD: nhãn vai trò "Người dùng"). -->
+    <color name="muted">#616161</color>
+
     <color name="correct">#2E7D32</color>
     <color name="correct_bg">#E6F4EA</color>
     <color name="wrong">#C62828</color>

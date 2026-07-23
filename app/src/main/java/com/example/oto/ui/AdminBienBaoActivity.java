@@ -7,22 +7,18 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oto.R;
 import com.example.oto.auth.VaiTro;
-import com.example.oto.data.QuizRepository;
 import com.example.oto.data.entity.TrafficSign;
+import com.example.oto.databinding.ActivityAdminBienBaoBinding;
+import com.example.oto.ui.viewmodel.AdminBienBaoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,19 +29,12 @@ import java.util.List;
  */
 public class AdminBienBaoActivity extends AppCompatActivity implements BienBaoAdminAdapter.OnItem {
 
-    private static final String TAT_CA = "Tất cả nhóm";
+    // Nhãn "tất cả nhóm" lấy từ strings.xml lúc chạy (xem onCreate).
+    private String tatCa;
 
-    private QuizRepository repo;
+    private AdminBienBaoViewModel viewModel;
     private BienBaoAdminAdapter adapter;
-    private Spinner spinnerNhom;
-    private EditText edtTimKiem;
-    private TextView tvSoLuong;
-
-    @Nullable
-    private LiveData<List<TrafficSign>> nguonHienTai;
-
-    private String nhomDangChon = null; // null = tất cả nhóm
-    private String tuKhoa = "";
+    private ActivityAdminBienBaoBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,32 +42,29 @@ public class AdminBienBaoActivity extends AppCompatActivity implements BienBaoAd
         if (VaiTro.chanNeuKhongPhaiAdmin(this)) {
             return;
         }
-        setContentView(R.layout.activity_admin_bien_bao);
+        binding = ActivityAdminBienBaoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setTitle(getString(R.string.menu_admin_bien_bao));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        repo = new QuizRepository(this);
+        tatCa = getString(R.string.tat_ca_nhom);
+        viewModel = new ViewModelProvider(this).get(AdminBienBaoViewModel.class);
 
-        edtTimKiem = findViewById(R.id.edtTimKiem);
-        spinnerNhom = findViewById(R.id.spinnerNhom);
-        tvSoLuong = findViewById(R.id.tvSoLuong);
-
-        RecyclerView rv = findViewById(R.id.rvBienBao);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvBienBao.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BienBaoAdminAdapter(this);
-        rv.setAdapter(adapter);
+        binding.rvBienBao.setAdapter(adapter);
 
-        findViewById(R.id.fabThem).setOnClickListener(v ->
+        binding.fabThem.setOnClickListener(v ->
                 startActivity(new Intent(this, SuaBienBaoActivity.class)));
 
         theoDoiTimKiem();
         napSpinnerNhom();
-        apDungBoLoc();
+        quanSatDanhSach();
     }
 
     private void theoDoiTimKiem() {
-        edtTimKiem.addTextChangedListener(new TextWatcher() {
+        binding.edtTimKiem.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -89,27 +75,25 @@ public class AdminBienBaoActivity extends AppCompatActivity implements BienBaoAd
 
             @Override
             public void afterTextChanged(Editable s) {
-                tuKhoa = s.toString().trim();
-                apDungBoLoc();
+                viewModel.datTuKhoa(s.toString().trim());
             }
         });
     }
 
     private void napSpinnerNhom() {
-        repo.getSignGroups().observe(this, nhomList -> {
+        viewModel.getNhomBien().observe(this, nhomList -> {
             List<String> items = new ArrayList<>();
-            items.add(TAT_CA);
+            items.add(tatCa);
             if (nhomList != null) {
                 items.addAll(nhomList);
             }
-            spinnerNhom.setAdapter(new ArrayAdapter<>(
+            binding.spinnerNhom.setAdapter(new ArrayAdapter<>(
                     this, android.R.layout.simple_spinner_dropdown_item, items));
-            spinnerNhom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            binding.spinnerNhom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String chon = (String) parent.getItemAtPosition(position);
-                    nhomDangChon = TAT_CA.equals(chon) ? null : chon;
-                    apDungBoLoc();
+                    viewModel.datNhom(tatCa.equals(chon) ? null : chon);
                 }
 
                 @Override
@@ -119,17 +103,14 @@ public class AdminBienBaoActivity extends AppCompatActivity implements BienBaoAd
         });
     }
 
-    private void apDungBoLoc() {
-        if (nguonHienTai != null) {
-            nguonHienTai.removeObservers(this);
-        }
-        nguonHienTai = repo.filterSigns(nhomDangChon, tuKhoa);
-        nguonHienTai.observe(this, list -> {
-            adapter.setData(list);
+    /** Đăng ký một lần; ViewModel tự đổi truy vấn khi bộ lọc thay đổi. */
+    private void quanSatDanhSach() {
+        viewModel.getDanhSach().observe(this, list -> {
+            adapter.submitList(list);
             int n = list == null ? 0 : list.size();
-            tvSoLuong.setText(n == 0
-                    ? "Không có biển báo nào khớp bộ lọc."
-                    : n + " biển báo");
+            binding.tvSoLuong.setText(n == 0
+                    ? getString(R.string.khong_co_bien_khop)
+                    : getString(R.string.n_bien_bao, n));
         });
     }
 
@@ -143,11 +124,11 @@ public class AdminBienBaoActivity extends AppCompatActivity implements BienBaoAd
     @Override
     public void onXoa(TrafficSign sign) {
         new AlertDialog.Builder(this)
-                .setTitle("Xoá biển báo")
-                .setMessage("Xoá biển " + sign.maBien + " — " + sign.tenBien + "?")
-                .setPositiveButton("Xoá", (d, w) -> repo.deleteSign(sign, ok ->
-                        Toast.makeText(this, "Đã xoá biển báo.", Toast.LENGTH_SHORT).show()))
-                .setNegativeButton("Huỷ", null)
+                .setTitle(R.string.xoa_bien_bao)
+                .setMessage(getString(R.string.hoi_xoa_bien, sign.maBien, sign.tenBien))
+                .setPositiveButton(R.string.xoa, (d, w) -> viewModel.xoa(sign, () ->
+                        Toast.makeText(this, R.string.da_xoa_bien_bao, Toast.LENGTH_SHORT).show()))
+                .setNegativeButton(R.string.huy, null)
                 .show();
     }
 }

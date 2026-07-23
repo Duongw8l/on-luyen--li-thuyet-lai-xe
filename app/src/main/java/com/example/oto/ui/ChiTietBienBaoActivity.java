@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oto.R;
+import com.example.oto.databinding.ActivityChiTietBienBaoBinding;
 import com.example.oto.util.AnhUtil;
 
 /** Chi tiết một biển báo + nút mở văn bản luật gốc bằng Intent ngầm ACTION_VIEW. */
@@ -27,10 +26,13 @@ public class ChiTietBienBaoActivity extends AppCompatActivity {
     private static final String URL_VAN_BAN_LUAT =
             "https://vanban.chinhphu.vn/?pageid=27160&docid=211316";
 
+    private ActivityChiTietBienBaoBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chi_tiet_bien_bao);
+        binding = ActivityChiTietBienBaoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         String ma = getIntent().getStringExtra(EXTRA_MA);
         String ten = getIntent().getStringExtra(EXTRA_TEN);
@@ -42,18 +44,19 @@ public class ChiTietBienBaoActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        ((TextView) findViewById(R.id.tvMaBien)).setText(ma);
-        ((TextView) findViewById(R.id.tvTenBien)).setText(ten);
-        ((TextView) findViewById(R.id.tvNhomBien)).setText("Nhóm: " + (nhom == null ? "—" : nhom));
-        ((TextView) findViewById(R.id.tvMoTa)).setText(moTa == null ? "" : moTa);
+        binding.tvMaBien.setText(ma);
+        binding.tvTenBien.setText(ten);
+        binding.tvNhomBien.setText(getString(R.string.nhom_bien_hien_thi,
+                nhom == null ? getString(R.string.khong_ro) : nhom));
+        binding.tvMoTa.setText(moTa == null ? "" : moTa);
 
         Bitmap anh = AnhUtil.docAnh(getIntent().getStringExtra(EXTRA_ANH));
         if (anh != null) {
-            ((ImageView) findViewById(R.id.imgBien)).setImageBitmap(anh);
+            binding.imgBien.setImageBitmap(anh);
         }
 
-        findViewById(R.id.btnXemLuat).setOnClickListener(v -> moVanBanLuat());
-        findViewById(R.id.btnChiaSeBien).setOnClickListener(v -> chiaSe(ma, ten, moTa));
+        binding.btnXemLuat.setOnClickListener(v -> moVanBanLuat());
+        binding.btnChiaSeBien.setOnClickListener(v -> chiaSe(ma, ten, moTa));
     }
 
     private void moVanBanLuat() {
@@ -61,16 +64,16 @@ public class ChiTietBienBaoActivity extends AppCompatActivity {
         try {
             startActivity(view);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "Máy chưa có trình duyệt web.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.loi_khong_co_trinh_duyet, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void chiaSe(String ma, String ten, String moTa) {
         Intent send = new Intent(Intent.ACTION_SEND);
         send.setType("text/plain");
-        send.putExtra(Intent.EXTRA_SUBJECT, "Biển báo " + ma);
-        send.putExtra(Intent.EXTRA_TEXT,
-                "Biển " + ma + " — " + ten + "\n" + (moTa == null ? "" : moTa));
-        startActivity(Intent.createChooser(send, "Chia sẻ biển báo qua"));
+        send.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.chia_se_bien_tieu_de, ma));
+        send.putExtra(Intent.EXTRA_TEXT, getString(R.string.chia_se_bien_noi_dung,
+                ma, ten, moTa == null ? "" : moTa));
+        startActivity(Intent.createChooser(send, getString(R.string.chia_se_bien_qua)));
     }
 }

@@ -1,8 +1,6 @@
 package com.example.oto.data.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -35,19 +33,6 @@ public interface AttemptDao {
         insertUserAnswers(answers);
         return attemptId;
     }
-
-    @Query("SELECT * FROM attempts WHERE user_id = :userId ORDER BY ngay_thi DESC")
-    LiveData<List<Attempt>> getByUser(String userId);
-
-    /** Lọc lịch sử theo khoảng ngày (dùng DatePicker). */
-    @Query("SELECT * FROM attempts WHERE user_id = :userId AND ngay_thi BETWEEN :from AND :to ORDER BY ngay_thi DESC")
-    LiveData<List<Attempt>> getByUserInRange(String userId, long from, long to);
-
-    @Delete
-    void delete(Attempt attempt);
-
-    @Query("DELETE FROM attempts WHERE user_id = :userId")
-    void clearHistory(String userId);
 
     /** Các id câu hỏi mà người dùng từng trả lời sai (để ôn lại câu sai). */
     @Query("SELECT DISTINCT ua.question_id FROM user_answers ua " +

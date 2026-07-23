@@ -8,33 +8,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.oto.auth.AuthManager;
 import com.example.oto.auth.DangNhapActivity;
 import com.example.oto.auth.VaiTro;
-import com.example.oto.data.DatabaseSeeder;
-import com.example.oto.data.QuizRepository;
+import com.example.oto.databinding.ActivityMainBinding;
+import com.example.oto.ui.viewmodel.MainViewModel;
 import com.example.oto.ui.AdminActivity;
 import com.example.oto.ui.AdminBienBaoActivity;
+import com.example.oto.ui.AdminNguoiDungActivity;
 import com.example.oto.ui.BienBaoActivity;
 import com.example.oto.ui.CaNhanActivity;
 import com.example.oto.util.AnhUtil;
 import com.google.firebase.auth.FirebaseUser;
-import com.example.oto.ui.LichSuActivity;
 import com.example.oto.ui.OnTapActivity;
 import com.example.oto.ui.ThiActivity;
 import com.example.oto.ui.ThongKeActivity;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 /** Trang chủ — lưới chức năng + đếm ngược ngày thi dự kiến (DatePicker). */
 public class MainActivity extends AppCompatActivity {
@@ -43,59 +40,56 @@ public class MainActivity extends AppCompatActivity {
     private static final String SO_DIEN_THOAI_TRUNG_TAM = "19001234";
     private static final String EMAIL_NHOM = "nhom5.onthilaixe@gmail.com";
 
-    private QuizRepository repo;
-    private android.widget.TextView tvCountdown;
+    private MainViewModel viewModel;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        repo = new QuizRepository(this);
-        tvCountdown = findViewById(R.id.tvCountdown);
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        viewModel.getDemNguoc().observe(this, this::veDemNguoc);
 
-        ((MaterialButton) findViewById(R.id.btnOnTap)).setOnClickListener(v ->
+        binding.btnOnTap.setOnClickListener(v ->
                 startActivity(new Intent(this, OnTapActivity.class)));
 
-        ((MaterialButton) findViewById(R.id.btnDiemLiet)).setOnClickListener(v -> {
+        binding.btnDiemLiet.setOnClickListener(v -> {
             Intent i = new Intent(this, OnTapActivity.class);
             i.putExtra(OnTapActivity.EXTRA_DIEM_LIET, true);
             startActivity(i);
         });
 
-        ((MaterialButton) findViewById(R.id.btnThi)).setOnClickListener(v ->
+        binding.btnThi.setOnClickListener(v ->
                 startActivity(new Intent(this, ThiActivity.class)));
 
-        ((MaterialButton) findViewById(R.id.btnBienBao)).setOnClickListener(v ->
+        binding.btnBienBao.setOnClickListener(v ->
                 startActivity(new Intent(this, BienBaoActivity.class)));
 
-        ((MaterialButton) findViewById(R.id.btnThongKe)).setOnClickListener(v ->
+        binding.btnThongKe.setOnClickListener(v ->
                 startActivity(new Intent(this, ThongKeActivity.class)));
 
-        ((MaterialButton) findViewById(R.id.btnLichSu)).setOnClickListener(v ->
-                startActivity(new Intent(this, LichSuActivity.class)));
-
-        findViewById(R.id.btnDatNgayThi).setOnClickListener(v -> chonNgayThi());
-        findViewById(R.id.headerCaNhan).setOnClickListener(v ->
+        binding.btnDatNgayThi.setOnClickListener(v -> chonNgayThi());
+        binding.headerCaNhan.setOnClickListener(v ->
                 startActivity(CaNhanActivity.taoIntent(this)));
     }
 
     /** Ảnh đại diện + tên người dùng trên đầu trang chủ. */
     private void hienHoSo() {
-        ImageView avatar = findViewById(R.id.imgAvatarHome);
         Bitmap anh = AnhUtil.docAnhDaiDien(this);
         if (anh != null) {
-            avatar.setImageBitmap(anh);
+            binding.imgAvatarHome.setImageBitmap(anh);
         } else {
-            avatar.setImageResource(R.drawable.ic_avatar_mac_dinh);
+            binding.imgAvatarHome.setImageResource(R.drawable.ic_avatar_mac_dinh);
         }
 
-        TextView tvTen = findViewById(R.id.tvTenNguoiDung);
         FirebaseUser u = new AuthManager().getUser();
         if (u == null) {
-            tvTen.setText("Đang dùng offline — bấm để xem hồ sơ");
+            binding.tvTenNguoiDung.setText(R.string.hoso_offline);
         } else {
-            tvTen.setText(u.getDisplayName() == null ? u.getEmail() : u.getDisplayName());
+            binding.tvTenNguoiDung.setText(
+                    u.getDisplayName() == null ? u.getEmail() : u.getDisplayName());
         }
     }
 
@@ -108,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Người dùng thường không nhìn thấy hai mục quản trị.
+     * Người dùng thường không nhìn thấy các mục quản trị.
      * Đây mới chỉ là ẩn giao diện — việc chặn thật nằm trong từng màn quản trị.
      */
     @Override
@@ -116,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         boolean laAdmin = VaiTro.laAdmin(this);
         menu.findItem(R.id.action_admin).setVisible(laAdmin);
         menu.findItem(R.id.action_admin_bien_bao).setVisible(laAdmin);
+        menu.findItem(R.id.action_admin_nguoi_dung).setVisible(laAdmin);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -128,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_admin_bien_bao) {
             startActivity(new Intent(this, AdminBienBaoActivity.class));
+            return true;
+        }
+        if (id == R.id.action_admin_nguoi_dung) {
+            startActivity(new Intent(this, AdminNguoiDungActivity.class));
             return true;
         }
         if (id == R.id.action_tim_trung_tam) {
@@ -156,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     private void dangXuat() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dang_xuat)
-                .setMessage("Đăng xuất khỏi tài khoản? Dữ liệu ôn tập đã lưu trong máy vẫn còn.")
+                .setMessage(R.string.hoi_dang_xuat)
                 .setPositiveButton(R.string.dang_xuat, (d, w) -> {
                     new AuthManager().dangXuat();
                     VaiTro.xoa(this);
@@ -165,38 +164,35 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 })
-                .setNegativeButton("Huỷ", null)
+                .setNegativeButton(R.string.huy, null)
                 .show();
     }
 
     /** Intent ngầm ACTION_VIEW với geo: — mở bản đồ tìm trung tâm sát hạch gần nhất. */
     private void timTrungTamSatHach() {
         Uri uri = Uri.parse("geo:0,0?q=" + Uri.encode("trung tâm sát hạch lái xe"));
-        moIntent(new Intent(Intent.ACTION_VIEW, uri), "Máy chưa cài ứng dụng bản đồ.");
+        moIntent(new Intent(Intent.ACTION_VIEW, uri), getString(R.string.loi_khong_co_ban_do));
     }
 
     /** Intent ngầm ACTION_DIAL — mở sẵn màn hình gọi, người dùng tự bấm gọi. */
     private void goiTrungTam() {
         moIntent(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + SO_DIEN_THOAI_TRUNG_TAM)),
-                "Máy không hỗ trợ gọi điện.");
+                getString(R.string.loi_khong_goi_duoc));
     }
 
     /** Intent ngầm ACTION_SENDTO — gửi email góp ý / báo lỗi câu hỏi. */
     private void gopY() {
         Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + EMAIL_NHOM));
-        email.putExtra(Intent.EXTRA_SUBJECT, "Góp ý / báo lỗi — ứng dụng Ôn thi lái xe B");
-        email.putExtra(Intent.EXTRA_TEXT, "Mô tả lỗi hoặc góp ý của bạn:\n\n");
-        moIntent(email, "Máy chưa cài ứng dụng email.");
+        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.gop_y_tieu_de));
+        email.putExtra(Intent.EXTRA_TEXT, getString(R.string.gop_y_noi_dung));
+        moIntent(email, getString(R.string.loi_khong_co_email));
     }
 
     private void gioiThieu() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.menu_gioi_thieu)
-                .setMessage("Ứng dụng ôn thi lý thuyết sát hạch lái xe hạng B.\n\n"
-                        + "Nguồn bộ câu hỏi: bộ 600 câu do Cục CSGT — Bộ Công an ban hành.\n\n"
-                        + "Ứng dụng hoạt động offline hoàn toàn: toàn bộ câu hỏi, biển báo và "
-                        + "lịch sử làm bài được lưu trong máy bằng SQLite (Room).")
-                .setPositiveButton("Đóng", null)
+                .setMessage(R.string.gioi_thieu_noi_dung)
+                .setPositiveButton(R.string.dong, null)
                 .show();
     }
 
@@ -211,28 +207,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        capNhatDemNguoc();
+        viewModel.capNhatDemNguoc();
+        viewModel.dongBoCauHoi();
         hienHoSo();
         // Vai trò có thể vừa được cấp trên Firebase Console -> đọc lại và vẽ lại menu.
         VaiTro.dongBo(this, vaiTro -> invalidateOptionsMenu());
     }
 
-    private void capNhatDemNguoc() {
-        repo.getUser(DatabaseSeeder.LOCAL_USER_ID, user -> {
-            if (user == null || user.ngayThiDuKien <= 0) {
-                tvCountdown.setText("Chưa đặt ngày thi dự kiến");
-                return;
-            }
-            long conLai = user.ngayThiDuKien - System.currentTimeMillis();
-            long ngay = TimeUnit.MILLISECONDS.toDays(conLai);
-            if (ngay < 0) {
-                tvCountdown.setText("Ngày thi dự kiến đã qua");
-            } else if (ngay == 0) {
-                tvCountdown.setText("Hôm nay là ngày thi dự kiến!");
-            } else {
-                tvCountdown.setText("Còn " + ngay + " ngày nữa tới ngày thi");
-            }
-        });
+    /** ViewModel tính ra trạng thái đếm ngược; Activity chỉ chọn chuỗi tương ứng. */
+    private void veDemNguoc(MainViewModel.DemNguoc dn) {
+        switch (dn.trangThai) {
+            case CHUA_DAT:
+                binding.tvCountdown.setText(R.string.dem_nguoc_chua_dat);
+                break;
+            case DA_QUA:
+                binding.tvCountdown.setText(R.string.dem_nguoc_da_qua);
+                break;
+            case HOM_NAY:
+                binding.tvCountdown.setText(R.string.dem_nguoc_hom_nay);
+                break;
+            case CON_LAI:
+            default:
+                binding.tvCountdown.setText(getString(R.string.dem_nguoc_con_lai, dn.soNgay));
+                break;
+        }
     }
 
     private void chonNgayThi() {
@@ -240,8 +238,7 @@ public class MainActivity extends AppCompatActivity {
         DatePickerDialog dlg = new DatePickerDialog(this, (view, year, month, day) -> {
             Calendar chon = Calendar.getInstance();
             chon.set(year, month, day, 0, 0, 0);
-            repo.setNgayThiDuKien(DatabaseSeeder.LOCAL_USER_ID, chon.getTimeInMillis());
-            tvCountdown.postDelayed(this::capNhatDemNguoc, 200);
+            viewModel.datNgayThi(chon.getTimeInMillis());
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         dlg.getDatePicker().setMinDate(System.currentTimeMillis());
         dlg.show();

@@ -35,7 +35,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:visibility="gone"
-                android:contentDescription="Ảnh câu hỏi" />
+                android:contentDescription="@string/anh_cau_hoi" />
 
             <TextView
                 android:id="@+id/tvCauHoi"

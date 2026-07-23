@@ -2,23 +2,21 @@ package com.example.oto.ui;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oto.R;
 import com.example.oto.data.entity.TrafficSign;
+import com.example.oto.databinding.ItemBienBaoAdminBinding;
 import com.example.oto.util.AnhUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/** Adapter danh sách biển báo ở màn Quản trị: mỗi dòng có nút Sửa và Xoá. */
-public class BienBaoAdminAdapter extends RecyclerView.Adapter<BienBaoAdminAdapter.VH> {
+/** Adapter danh sách biển báo ở màn Quản trị (ListAdapter + DiffUtil). */
+public class BienBaoAdminAdapter
+        extends ListAdapter<TrafficSign, BienBaoAdminAdapter.VH> {
 
     public interface OnItem {
         void onSua(TrafficSign sign);
@@ -26,64 +24,66 @@ public class BienBaoAdminAdapter extends RecyclerView.Adapter<BienBaoAdminAdapte
         void onXoa(TrafficSign sign);
     }
 
-    private final List<TrafficSign> data = new ArrayList<>();
     private final OnItem callback;
 
     public BienBaoAdminAdapter(OnItem callback) {
+        super(DIFF);
         this.callback = callback;
     }
 
-    public void setData(List<TrafficSign> list) {
-        data.clear();
-        if (list != null) {
-            data.addAll(list);
-        }
-        notifyDataSetChanged();
+    private static final DiffUtil.ItemCallback<TrafficSign> DIFF =
+            new DiffUtil.ItemCallback<TrafficSign>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull TrafficSign a, @NonNull TrafficSign b) {
+                    return a.id == b.id;
+                }
+
+                @Override
+                public boolean areContentsTheSame(@NonNull TrafficSign a, @NonNull TrafficSign b) {
+                    return a.maBien.equals(b.maBien)
+                            && a.tenBien.equals(b.tenBien)
+                            && bang(a.nhomBien, b.nhomBien)
+                            && bang(a.anhUrl, b.anhUrl);
+                }
+            };
+
+    private static boolean bang(String a, String b) {
+        return a == null ? b == null : a.equals(b);
     }
 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_bien_bao_admin, parent, false);
-        return new VH(v);
+        ItemBienBaoAdminBinding b = ItemBienBaoAdminBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new VH(b);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
-        TrafficSign s = data.get(position);
+        TrafficSign s = getItem(position);
+
         Bitmap anh = AnhUtil.docAnh(s.anhUrl);
         if (anh != null) {
-            h.img.setImageBitmap(anh);
+            h.b.imgBien.setImageBitmap(anh);
         } else {
-            h.img.setImageResource(R.drawable.ic_bien_bao_placeholder);
+            h.b.imgBien.setImageResource(R.drawable.ic_bien_bao_placeholder);
         }
-        h.tvMa.setText(s.maBien);
-        h.tvTen.setText(s.tenBien);
-        h.tvNhom.setText(s.nhomBien == null ? "" : s.nhomBien);
+        h.b.tvMaBien.setText(s.maBien);
+        h.b.tvTenBien.setText(s.tenBien);
+        h.b.tvNhomBien.setText(s.nhomBien == null ? "" : s.nhomBien);
 
-        h.btnSua.setOnClickListener(v -> callback.onSua(s));
-        h.btnXoa.setOnClickListener(v -> callback.onXoa(s));
+        h.b.btnSua.setOnClickListener(v -> callback.onSua(s));
+        h.b.btnXoa.setOnClickListener(v -> callback.onXoa(s));
         h.itemView.setOnClickListener(v -> callback.onSua(s));
     }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
-
     static class VH extends RecyclerView.ViewHolder {
-        final ImageView img;
-        final TextView tvMa, tvTen, tvNhom, btnSua, btnXoa;
+        final ItemBienBaoAdminBinding b;
 
-        VH(@NonNull View v) {
-            super(v);
-            img = v.findViewById(R.id.imgBien);
-            tvMa = v.findViewById(R.id.tvMaBien);
-            tvTen = v.findViewById(R.id.tvTenBien);
-            tvNhom = v.findViewById(R.id.tvNhomBien);
-            btnSua = v.findViewById(R.id.btnSua);
-            btnXoa = v.findViewById(R.id.btnXoa);
+        VH(@NonNull ItemBienBaoAdminBinding b) {
+            super(b.getRoot());
+            this.b = b;
         }
     }
 }

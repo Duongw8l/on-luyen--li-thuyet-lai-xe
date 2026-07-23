@@ -30,16 +30,25 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Người gọi hiện tại có phải admin không — đọc vai trò từ chính Firestore,
+    // KHÔNG tin vào bất cứ thứ gì client gửi lên.
+    function laAdmin() {
+      return request.auth != null
+             && get(/databases/$(database)/documents/users/$(request.auth.uid))
+                  .data.vaiTro == 'admin';
+    }
+
     // ------------------------------------------------------------------
     // Hồ sơ người dùng: users/{uid}
     //   { hoTen: string, email: string, vaiTro: "user"|"admin", ngayTao: number }
     // ------------------------------------------------------------------
     match /users/{uid} {
 
-      // ĐỌC — chỉ đọc được hồ sơ của chính mình.
-      // Người dùng không xem được hồ sơ (và vai trò) của người khác.
+      // ĐỌC — hồ sơ của chính mình; riêng admin đọc được cả danh sách
+      // để hiện màn Quản trị người dùng. Người dùng thường vẫn không
+      // xem được hồ sơ (và vai trò) của người khác.
       allow read: if request.auth != null
-                  && request.auth.uid == uid;
+                  && (request.auth.uid == uid || laAdmin());
 
       // TẠO — khi đăng ký tài khoản mới.
       // Bắt buộc vai trò khởi tạo là "user": không ai tự tạo tài khoản admin được.
@@ -47,22 +56,49 @@ service cloud.firestore {
                     && request.auth.uid == uid
                     && request.resource.data.vaiTro == 'user';
 
-      // SỬA — được cập nhật hồ sơ của mình (VD: đổi họ tên),
-      // NHƯNG vai trò phải giữ nguyên như cũ.
-      // Đây là dòng chặn việc tự nâng quyền: vaiTro mới phải bằng vaiTro cũ.
+      // SỬA — hai trường hợp, và không trường hợp nào cho tự nâng quyền:
+      //
+      //   1. Chính chủ sửa hồ sơ của mình (VD: đổi họ tên) — vai trò phải
+      //      giữ nguyên như cũ. Đây là dòng chặn việc tự phong admin.
+      //
+      //   2. Admin đổi vai trò của NGƯỜI KHÁC — chỉ được đụng đúng field
+      //      vaiTro, và giá trị mới phải là 'user' hoặc 'admin'.
+      //      Điều kiện uid != mình khiến admin không tự hạ/nâng chính mình,
+      //      nên nhánh 1 vẫn là luật duy nhất áp cho hồ sơ của chính bạn.
       allow update: if request.auth != null
-                    && request.auth.uid == uid
-                    && request.resource.data.vaiTro == resource.data.vaiTro;
+                    && (
+                         (request.auth.uid == uid
+                          && request.resource.data.vaiTro == resource.data.vaiTro)
+                         ||
+                         (request.auth.uid != uid
+                          && laAdmin()
+                          && request.resource.data.diff(resource.data)
+                               .affectedKeys().hasOnly(['vaiTro'])
+                          && request.resource.data.vaiTro in ['user', 'admin'])
+                       );
 
       // XOÁ — không cho phép. Hồ sơ chỉ xoá được từ Firebase Console.
       allow delete: if false;
     }
 
     // ------------------------------------------------------------------
+    // Ngân hàng câu hỏi đồng bộ: questions/{id}
+    //   { chapterId, noiDung, anhUrl, isDiemLiet, giaiThich, updatedAt,
+    //     answers: [ { noiDung, isCorrect } ] }
+    //
+    // Đây CHỈ chứa phần delta admin thêm/sửa — 600 câu gốc nằm sẵn trong APK/Room,
+    // KHÔNG đẩy lên đây. Mọi người đăng nhập đều ĐỌC được để tải câu mới về Room;
+    // chỉ ADMIN mới GHI được. Người dùng thường có sửa APK cũng không ghi được câu hỏi.
+    // ------------------------------------------------------------------
+    match /questions/{id} {
+      allow read: if request.auth != null;
+      allow write: if laAdmin();
+    }
+
+    // ------------------------------------------------------------------
     // Mọi collection khác: chặn hết.
-    // Toàn bộ dữ liệu học tập (câu hỏi, biển báo, lượt thi, thống kê) nằm trong
-    // Room/SQLite dưới máy để chạy được offline, nên không cần mở gì thêm ở đây.
-    // Về sau nếu đồng bộ tiến độ lên Firestore thì bổ sung match tương ứng.
+    // Dữ liệu học tập còn lại (biển báo, lượt thi, thống kê) nằm trong Room/SQLite
+    // dưới máy để chạy được offline, nên không cần mở gì thêm ở đây.
     // ------------------------------------------------------------------
     match /{document=**} {
       allow read, write: if false;

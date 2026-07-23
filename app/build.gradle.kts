@@ -24,6 +24,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Nơi Room ghi file JSON mô tả lược đồ mỗi phiên bản. Commit thư mục này
+        // vào Git để đối chiếu khi viết migration cho các bản sau.
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -32,6 +40,13 @@ android {
                 enable = false
             }
         }
+    }
+
+    // Sinh sẵn class Binding cho mỗi layout — thay thế findViewById.
+    // Ưu điểm: an toàn kiểu dữ liệu và không thể trỏ nhầm id không tồn tại
+    // (sai id là lỗi biên dịch, không phải lỗi lúc chạy).
+    buildFeatures {
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

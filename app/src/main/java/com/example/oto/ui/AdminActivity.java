@@ -4,27 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oto.R;
 import com.example.oto.auth.VaiTro;
-import com.example.oto.data.QuizRepository;
 import com.example.oto.data.entity.Chapter;
 import com.example.oto.data.relation.QuestionWithAnswers;
+import com.example.oto.databinding.ActivityAdminBinding;
+import com.example.oto.ui.viewmodel.AdminCauHoiViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,19 +33,9 @@ import java.util.List;
  */
 public class AdminActivity extends AppCompatActivity implements CauHoiAdminAdapter.OnItem {
 
-    private QuizRepository repo;
+    private AdminCauHoiViewModel viewModel;
     private CauHoiAdminAdapter adapter;
-    private Spinner spinnerChuong;
-    private EditText edtTimKiem;
-    private CheckBox cbDiemLiet;
-    private TextView tvSoLuong;
-
-    @Nullable
-    private LiveData<List<QuestionWithAnswers>> nguonHienTai;
-
-    private String tuKhoa = "";
-    private int chuongDangChon = 0; // 0 = tất cả chương
-    private boolean chiDiemLiet = false;
+    private ActivityAdminBinding binding;
 
     /** id chương tương ứng từng vị trí trong Spinner (vị trí 0 = tất cả). */
     private final List<Integer> idTheoViTri = new ArrayList<>();
@@ -58,38 +46,74 @@ public class AdminActivity extends AppCompatActivity implements CauHoiAdminAdapt
         if (VaiTro.chanNeuKhongPhaiAdmin(this)) {
             return;
         }
-        setContentView(R.layout.activity_admin);
+        binding = ActivityAdminBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setTitle(getString(R.string.menu_admin));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        repo = new QuizRepository(this);
+        viewModel = new ViewModelProvider(this).get(AdminCauHoiViewModel.class);
 
-        edtTimKiem = findViewById(R.id.edtTimKiem);
-        spinnerChuong = findViewById(R.id.spinnerChuong);
-        cbDiemLiet = findViewById(R.id.cbDiemLiet);
-        tvSoLuong = findViewById(R.id.tvSoLuong);
-
-        RecyclerView rv = findViewById(R.id.rvCauHoi);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvCauHoi.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CauHoiAdminAdapter(this);
-        rv.setAdapter(adapter);
+        binding.rvCauHoi.setAdapter(adapter);
 
-        findViewById(R.id.fabThem).setOnClickListener(v ->
+        binding.fabThem.setOnClickListener(v ->
                 startActivity(new Intent(this, SuaCauHoiActivity.class)));
 
-        cbDiemLiet.setOnCheckedChangeListener((v, checked) -> {
-            chiDiemLiet = checked;
-            apDungBoLoc();
-        });
+        binding.cbDiemLiet.setOnCheckedChangeListener(
+                (v, checked) -> viewModel.datChiDiemLiet(checked));
 
         theoDoiTimKiem();
         napSpinnerChuong();
-        apDungBoLoc();
+        quanSatDanhSach();
+
+        // Mở màn Quản trị là kéo câu hỏi mới từ máy chủ về (im lặng, không phiền admin).
+        dongBo(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_dong_bo) {
+            dongBo(true); // bấm tay -> có thông báo kết quả
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Đồng bộ ngân hàng câu hỏi với Firestore.
+     *
+     * @param baoKetQua true khi admin bấm "Đồng bộ ngay" (hiện thông báo); false khi
+     *                  chạy tự động lúc mở màn hình (chỉ báo khi có lỗi).
+     */
+    private void dongBo(boolean baoKetQua) {
+        if (baoKetQua) {
+            Toast.makeText(this, R.string.dong_bo_dang_chay, Toast.LENGTH_SHORT).show();
+        }
+        viewModel.dongBo(
+                kq -> {
+                    if (baoKetQua) {
+                        Toast.makeText(this,
+                                getString(R.string.dong_bo_xong, kq.soCauKeoVe, kq.soCauDayLen),
+                                Toast.LENGTH_LONG).show();
+                    }
+                },
+                loi -> {
+                    if (baoKetQua) {
+                        Toast.makeText(this, loi, Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     private void theoDoiTimKiem() {
-        edtTimKiem.addTextChangedListener(new TextWatcher() {
+        binding.edtTimKiem.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -100,18 +124,17 @@ public class AdminActivity extends AppCompatActivity implements CauHoiAdminAdapt
 
             @Override
             public void afterTextChanged(Editable s) {
-                tuKhoa = s.toString().trim();
-                apDungBoLoc();
+                viewModel.datTuKhoa(s.toString().trim());
             }
         });
     }
 
     private void napSpinnerChuong() {
-        repo.getChapters().observe(this, chapters -> {
+        viewModel.getChuong().observe(this, chapters -> {
             // Mục đầu tiên là "Tất cả chương", ứng với id 0 trong truy vấn lọc.
             List<String> nhan = new ArrayList<>();
             idTheoViTri.clear();
-            nhan.add("Tất cả chương");
+            nhan.add(getString(R.string.tat_ca_chuong));
             idTheoViTri.add(0);
             if (chapters != null) {
                 for (Chapter c : chapters) {
@@ -122,12 +145,11 @@ public class AdminActivity extends AppCompatActivity implements CauHoiAdminAdapt
 
             ArrayAdapter<String> ad = new ArrayAdapter<>(
                     this, android.R.layout.simple_spinner_dropdown_item, nhan);
-            spinnerChuong.setAdapter(ad);
-            spinnerChuong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            binding.spinnerChuong.setAdapter(ad);
+            binding.spinnerChuong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    chuongDangChon = idTheoViTri.get(position);
-                    apDungBoLoc();
+                    viewModel.datChuong(idTheoViTri.get(position));
                 }
 
                 @Override
@@ -137,18 +159,14 @@ public class AdminActivity extends AppCompatActivity implements CauHoiAdminAdapt
         });
     }
 
-    /** Truy vấn lại mỗi khi từ khóa / chương / bộ lọc điểm liệt thay đổi. */
-    private void apDungBoLoc() {
-        if (nguonHienTai != null) {
-            nguonHienTai.removeObservers(this);
-        }
-        nguonHienTai = repo.filterQuestions(tuKhoa, chuongDangChon, chiDiemLiet);
-        nguonHienTai.observe(this, list -> {
-            adapter.setData(list);
+    /** Đăng ký một lần; ViewModel tự đổi truy vấn khi bộ lọc thay đổi. */
+    private void quanSatDanhSach() {
+        viewModel.getDanhSach().observe(this, list -> {
+            adapter.submitList(list);
             int n = list == null ? 0 : list.size();
-            tvSoLuong.setText(n == 0
-                    ? "Không có câu hỏi nào khớp bộ lọc."
-                    : n + " câu hỏi");
+            binding.tvSoLuong.setText(n == 0
+                    ? getString(R.string.khong_co_cau_hoi_khop)
+                    : getString(R.string.n_cau_hoi, n));
         });
     }
 
@@ -162,12 +180,11 @@ public class AdminActivity extends AppCompatActivity implements CauHoiAdminAdapt
     @Override
     public void onXoa(QuestionWithAnswers qa) {
         new AlertDialog.Builder(this)
-                .setTitle("Xoá câu hỏi")
-                .setMessage("Xoá câu hỏi #" + qa.question.id
-                        + "? Toàn bộ đáp án của câu này cũng bị xoá theo và không khôi phục được.")
-                .setPositiveButton("Xoá", (d, w) -> repo.deleteQuestion(qa.question, ok ->
-                        Toast.makeText(this, "Đã xoá câu hỏi.", Toast.LENGTH_SHORT).show()))
-                .setNegativeButton("Huỷ", null)
+                .setTitle(R.string.xoa_cau_hoi)
+                .setMessage(getString(R.string.hoi_xoa_cau_hoi_so, qa.question.id))
+                .setPositiveButton(R.string.xoa, (d, w) -> viewModel.xoa(qa.question, () ->
+                        Toast.makeText(this, R.string.da_xoa_cau_hoi, Toast.LENGTH_SHORT).show()))
+                .setNegativeButton(R.string.huy, null)
                 .show();
     }
 }

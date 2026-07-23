@@ -1,80 +1,64 @@
 package com.example.oto.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.widget.ProgressBar;
+import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.oto.R;
-import com.example.oto.data.DatabaseSeeder;
 import com.example.oto.data.ExamConfig;
-import com.example.oto.data.QuizRepository;
 import com.example.oto.data.entity.Answer;
-import com.example.oto.data.entity.Attempt;
-import com.example.oto.data.entity.UserAnswer;
 import com.example.oto.data.relation.QuestionWithAnswers;
+import com.example.oto.databinding.ActivityThiBinding;
 import com.example.oto.logic.ExamResult;
-import com.example.oto.logic.ExamScorer;
+import com.example.oto.ui.viewmodel.ThiViewModel;
+import com.example.oto.util.AnhUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /** Màn hình làm bài thi: đề ngẫu nhiên, đếm ngược, tự nộp khi hết giờ. */
 public class ThiActivity extends AppCompatActivity {
 
-    private QuizRepository repo;
-    private TextView tvTienDo, tvDongHo, tvCauHoi;
-    private ProgressBar progressTime;
-    private RadioGroup rgDapAn;
-
-    private final List<QuestionWithAnswers> deThi = new ArrayList<>();
-    private final Map<Integer, Integer> dapAnDaChon = new HashMap<>(); // questionId -> answerId
-    private int viTri = 0;
+    private ThiViewModel viewModel;
+    private ActivityThiBinding binding;
 
     private CountDownTimer timer;
     private long tongThoiGianMs;
     private long thoiGianConLaiMs;
-    private boolean daNop = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thi);
+        binding = ActivityThiBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setTitle(getString(R.string.menu_thi));
-        repo = new QuizRepository(this);
+        viewModel = new ViewModelProvider(this).get(ThiViewModel.class);
 
-        tvTienDo = findViewById(R.id.tvTienDo);
-        tvDongHo = findViewById(R.id.tvDongHo);
-        tvCauHoi = findViewById(R.id.tvCauHoi);
-        progressTime = findViewById(R.id.progressTime);
-        rgDapAn = findViewById(R.id.rgDapAn);
-
-        findViewById(R.id.btnCauTiep).setOnClickListener(v -> chuyen(1));
-        findViewById(R.id.btnCauTruoc).setOnClickListener(v -> chuyen(-1));
-        findViewById(R.id.btnNop).setOnClickListener(v -> xacNhanNop());
+        binding.btnCauTiep.setOnClickListener(v -> chuyen(1));
+        binding.btnCauTruoc.setOnClickListener(v -> chuyen(-1));
+        binding.btnNop.setOnClickListener(v -> xacNhanNop());
 
         tongThoiGianMs = ExamConfig.THOI_GIAN_PHUT * 60_000L;
 
-        repo.generateRandomExam(list -> {
-            if (list.isEmpty()) {
-                Toast.makeText(this, "Chưa có câu hỏi trong ngân hàng.", Toast.LENGTH_LONG).show();
+        viewModel.getDeThi().observe(this, res -> {
+            if (res.laLoi()) {
+                Toast.makeText(this, res.thongBaoLoi, Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
-            deThi.addAll(list);
-            hienThi();
-            batDauDongHo();
+            if (res.laThanhCong()) {
+                hienThi();
+                batDauDongHo();
+            }
         });
+        viewModel.sinhDeNeuChua();
     }
 
     private void batDauDongHo() {
@@ -84,15 +68,17 @@ public class ThiActivity extends AppCompatActivity {
                 thoiGianConLaiMs = millisUntilFinished;
                 long phut = millisUntilFinished / 60_000;
                 long giay = (millisUntilFinished % 60_000) / 1000;
-                tvDongHo.setText(String.format(Locale.getDefault(), "%02d:%02d", phut, giay));
-                progressTime.setProgress((int) (millisUntilFinished * 100 / tongThoiGianMs));
+                binding.tvDongHo.setText(
+                        String.format(Locale.getDefault(), "%02d:%02d", phut, giay));
+                binding.progressTime.setProgress(
+                        (int) (millisUntilFinished * 100 / tongThoiGianMs));
             }
 
             @Override
             public void onFinish() {
-                tvDongHo.setText("00:00");
-                progressTime.setProgress(0);
-                Toast.makeText(ThiActivity.this, "Hết giờ — tự động nộp bài.", Toast.LENGTH_LONG).show();
+                binding.tvDongHo.setText("00:00");
+                binding.progressTime.setProgress(0);
+                Toast.makeText(ThiActivity.this, R.string.het_gio_tu_nop, Toast.LENGTH_LONG).show();
                 nopBai();
             }
         }.start();
@@ -100,33 +86,44 @@ public class ThiActivity extends AppCompatActivity {
 
     private void chuyen(int delta) {
         luuLuaChonHienTai();
-        int moi = viTri + delta;
-        if (moi < 0 || moi >= deThi.size()) {
+        if (!viewModel.chuyen(delta)) {
             return;
         }
-        viTri = moi;
         hienThi();
     }
 
     private void luuLuaChonHienTai() {
-        if (deThi.isEmpty()) {
+        QuestionWithAnswers qa = viewModel.cauHienTai();
+        if (qa == null) {
             return;
         }
-        int chon = rgDapAn.getCheckedRadioButtonId();
-        int qid = deThi.get(viTri).question.id;
+        int chon = binding.rgDapAn.getCheckedRadioButtonId();
         if (chon != -1) {
-            dapAnDaChon.put(qid, chon);
+            viewModel.chonDapAn(qa.question.id, chon);
         }
     }
 
     private void hienThi() {
-        QuestionWithAnswers qa = deThi.get(viTri);
-        tvTienDo.setText("Câu " + (viTri + 1) + "/" + deThi.size());
-        tvCauHoi.setText(qa.question.noiDung);
+        QuestionWithAnswers qa = viewModel.cauHienTai();
+        if (qa == null) {
+            return;
+        }
+        binding.tvTienDo.setText(getString(R.string.tien_do_cau,
+                viewModel.getViTri() + 1, viewModel.cacCau().size()));
+        binding.tvCauHoi.setText(qa.question.noiDung);
 
-        rgDapAn.removeAllViews();
+        // Ảnh minh hoạ (nếu có): hiện hoặc ẩn ImageView.
+        Bitmap anh = AnhUtil.docAnhCauHoi(this, qa.question.anhUrl);
+        if (anh != null) {
+            binding.imgCauHoi.setImageBitmap(anh);
+            binding.imgCauHoi.setVisibility(View.VISIBLE);
+        } else {
+            binding.imgCauHoi.setVisibility(View.GONE);
+        }
+
+        binding.rgDapAn.removeAllViews();
         char[] nhan = {'A', 'B', 'C', 'D'};
-        Integer daChon = dapAnDaChon.get(qa.question.id);
+        Integer daChon = viewModel.dapAnCua(qa.question.id);
         for (int i = 0; i < qa.answers.size(); i++) {
             Answer a = qa.answers.get(i);
             RadioButton rb = new RadioButton(this);
@@ -134,7 +131,7 @@ public class ThiActivity extends AppCompatActivity {
             rb.setText((i < nhan.length ? nhan[i] + ". " : "") + a.noiDung);
             rb.setTextSize(16f);
             rb.setPadding(8, 16, 8, 16);
-            rgDapAn.addView(rb);
+            binding.rgDapAn.addView(rb);
             if (daChon != null && daChon == a.id) {
                 rb.setChecked(true);
             }
@@ -143,30 +140,34 @@ public class ThiActivity extends AppCompatActivity {
 
     private void xacNhanNop() {
         luuLuaChonHienTai();
-        int chuaLam = deThi.size() - dapAnDaChon.size();
+        int chuaLam = viewModel.soCauChuaLam();
         String msg = chuaLam > 0
-                ? "Bạn còn " + chuaLam + " câu chưa trả lời. Vẫn nộp bài?"
-                : "Bạn chắc chắn muốn nộp bài?";
+                ? getString(R.string.hoi_nop_bai_con_thieu, chuaLam)
+                : getString(R.string.hoi_nop_bai);
         new AlertDialog.Builder(this)
-                .setTitle("Nộp bài")
+                .setTitle(R.string.nop_bai)
                 .setMessage(msg)
-                .setPositiveButton("Nộp bài", (d, w) -> nopBai())
-                .setNegativeButton("Tiếp tục làm", null)
+                .setPositiveButton(R.string.nop_bai, (d, w) -> nopBai())
+                .setNegativeButton(R.string.tiep_tuc_lam, null)
                 .show();
     }
 
     private void nopBai() {
-        if (daNop) {
+        if (viewModel.daNop()) {
             return;
         }
-        daNop = true;
         if (timer != null) {
             timer.cancel();
         }
         luuLuaChonHienTai();
 
-        ExamResult kq = ExamScorer.cham(deThi, dapAnDaChon, ExamConfig.NGUONG_DAT);
-        luuLuotThi(kq);
+        int giayDaDung = (int) ((tongThoiGianMs - thoiGianConLaiMs) / 1000);
+
+        // Chấm điểm (gồm luật điểm liệt) và lưu lượt thi đều nằm trong ViewModel.
+        ExamResult kq = viewModel.chamVaLuu(giayDaDung);
+        if (kq == null) {
+            return; // đã nộp rồi
+        }
 
         Intent i = new Intent(this, KetQuaActivity.class);
         i.putExtra(KetQuaActivity.EXTRA_DAT, kq.dat);
@@ -174,30 +175,9 @@ public class ThiActivity extends AppCompatActivity {
         i.putExtra(KetQuaActivity.EXTRA_TONG, kq.tongSoCau);
         i.putExtra(KetQuaActivity.EXTRA_LY_DO, kq.lyDoTruot);
         i.putExtra(KetQuaActivity.EXTRA_DIEM_LIET, kq.truotViDiemLiet);
-        int giayDaDung = (int) ((tongThoiGianMs - thoiGianConLaiMs) / 1000);
         i.putExtra(KetQuaActivity.EXTRA_THOI_GIAN, giayDaDung);
         startActivity(i);
         finish();
-    }
-
-    private void luuLuotThi(ExamResult kq) {
-        Attempt attempt = new Attempt();
-        attempt.userId = DatabaseSeeder.LOCAL_USER_ID;
-        attempt.examSetId = 0; // đề ngẫu nhiên
-        attempt.soCauDung = kq.soCauDung;
-        attempt.ketQua = kq.dat ? Attempt.KET_QUA_DAT : Attempt.KET_QUA_TRUOT;
-        attempt.lyDoTruot = kq.lyDoTruot;
-        attempt.thoiGianLam = (int) ((tongThoiGianMs - thoiGianConLaiMs) / 1000);
-        attempt.ngayThi = System.currentTimeMillis();
-
-        List<UserAnswer> chiTiet = new ArrayList<>();
-        for (QuestionWithAnswers qa : deThi) {
-            Integer chon = dapAnDaChon.get(qa.question.id);
-            boolean dung = chon != null && chon == qa.correctAnswerId();
-            chiTiet.add(new UserAnswer(0, qa.question.id, chon == null ? 0 : chon, dung));
-        }
-        repo.saveAttempt(attempt, chiTiet, id -> {
-        });
     }
 
     @Override

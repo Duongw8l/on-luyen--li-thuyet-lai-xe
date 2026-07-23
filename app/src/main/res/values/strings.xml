@@ -4,7 +4,7 @@
     <!-- Trang chủ -->
     <string name="home_title">Ôn thi lý thuyết hạng B</string>
     <string name="menu_on_tap">Ôn tập theo chương</string>
-    <string name="menu_diem_liet">60 câu điểm liệt</string>
+    <string name="menu_diem_liet">Các câu điểm liệt</string>
     <string name="menu_thi">Thi thử</string>
     <string name="menu_bien_bao">Tra cứu biển báo</string>
     <string name="menu_thong_ke">Thống kê</string>
@@ -45,6 +45,7 @@
     <string name="doi_anh_dai_dien">Đổi ảnh đại diện</string>
     <string name="xoa_anh_dai_dien">Xoá ảnh đại diện</string>
     <string name="ghi_chu_anh">Ảnh được thu nhỏ về tối đa 512px và nén JPEG trước khi lưu vào bộ nhớ riêng của ứng dụng, nên không tốn dung lượng máy.</string>
+    <string name="gui_lai_email_xac_minh">Gửi lại email xác minh</string>
 
     <!-- Tài khoản (Firebase Auth) -->
     <string name="dang_nhap">Đăng nhập</string>
@@ -102,9 +103,194 @@
     <string name="mo_ta">Mô tả</string>
     <string name="hint_mo_ta">Ý nghĩa của biển, người lái xe phải làm gì khi gặp biển này</string>
 
+    <!-- Quản trị người dùng -->
+    <string name="menu_admin_nguoi_dung">Quản trị người dùng</string>
+    <string name="tim_nguoi_dung">Tìm theo họ tên hoặc email</string>
+    <string name="dang_tai_danh_sach">Đang tải danh sách tài khoản…</string>
+    <string name="loi_tai_danh_sach_nguoi_dung">Không tải được danh sách tài khoản. Màn này cần có mạng và quyền quản trị.</string>
+    <string name="nhan_admin">QUẢN TRỊ</string>
+    <string name="nhan_user">Người dùng</string>
+    <string name="nang_len_admin">Cấp quyền quản trị</string>
+    <string name="ha_xuong_user">Thu hồi quyền quản trị</string>
+    <string name="ghi_chu_quan_tri_nguoi_dung">Danh sách tài khoản lấy từ Firestore nên cần có mạng. Bạn không tự đổi được vai trò của chính mình. Xoá hẳn tài khoản chỉ làm được từ Firebase Console.</string>
+
     <!-- Menu trang chủ -->
     <string name="menu_tim_trung_tam">Tìm trung tâm sát hạch gần nhất</string>
     <string name="menu_goi_trung_tam">Gọi trung tâm sát hạch</string>
     <string name="menu_gop_y">Góp ý / báo lỗi câu hỏi</string>
     <string name="menu_gioi_thieu">Giới thiệu</string>
+
+    <!-- ==================================================================== -->
+    <!-- Chuỗi hiển thị trong code Java (Toast, AlertDialog, setText, setError) -->
+    <!-- Để ở đây thay vì viết thẳng trong code: dễ soát lỗi chính tả, dễ sửa   -->
+    <!-- hàng loạt, và sau này dịch sang ngôn ngữ khác chỉ cần thêm values-xx/. -->
+    <!-- ==================================================================== -->
+
+    <!-- Nút chung trong hộp thoại -->
+    <string name="huy">Huỷ</string>
+    <string name="dong">Đóng</string>
+    <string name="da_hieu">Đã hiểu</string>
+    <string name="de_sau">Để sau</string>
+    <string name="thu_lai">Thử lại</string>
+    <string name="gui_lai">Gửi lại</string>
+
+    <!-- Xác thực: lỗi nhập liệu -->
+    <string name="loi_chua_nhap_email">Chưa nhập email</string>
+    <string name="loi_chua_nhap_mat_khau">Chưa nhập mật khẩu</string>
+    <string name="loi_chua_nhap_ho_ten">Chưa nhập họ tên</string>
+    <string name="loi_mat_khau_ngan">Mật khẩu phải có ít nhất 6 ký tự</string>
+    <string name="loi_mat_khau_khong_khop">Hai mật khẩu không khớp</string>
+
+    <!-- Xác thực: thông báo -->
+    <string name="dang_nhap_thanh_cong">Đăng nhập thành công.</string>
+    <string name="dang_ky_thanh_cong">Đăng ký thành công</string>
+    <string name="da_gui_email_xac_minh">Một email xác minh đã được gửi tới %1$s. Hãy mở hộp thư và bấm liên kết xác minh.</string>
+    <string name="da_gui_email_xac_minh_ngan">Đã gửi email xác minh tới %1$s</string>
+    <string name="da_gui_email_xac_minh_huong_dan">Đã gửi email xác minh. Hãy mở hộp thư và bấm liên kết.</string>
+    <string name="tieu_de_chua_gui_duoc_email">Đã tạo tài khoản, nhưng chưa gửi được email</string>
+    <string name="noi_dung_chua_gui_duoc_email">Tài khoản %1$s đã được tạo, nhưng email xác minh chưa gửi được%2$s\n\nBạn có thể gửi lại ngay, hoặc vào màn Cá nhân bấm \"Gửi lại email xác minh\" sau.</string>
+    <string name="tieu_de_van_chua_gui_duoc">Vẫn chưa gửi được</string>
+    <string name="loi_khong_gui_duoc_xac_minh">Không gửi được email xác minh.</string>
+    <string name="da_gui_email_dat_lai">Đã gửi email đặt lại mật khẩu tới %1$s.\n\nHãy mở hộp thư (kiểm tra cả mục Spam), bấm liên kết trong email để đặt mật khẩu mới, rồi quay lại đăng nhập.</string>
+
+    <!-- Trang chủ -->
+    <string name="hoso_offline">Đang dùng offline — bấm để xem hồ sơ</string>
+    <string name="dem_nguoc_chua_dat">Chưa đặt ngày thi dự kiến</string>
+    <string name="dem_nguoc_da_qua">Ngày thi dự kiến đã qua</string>
+    <string name="dem_nguoc_hom_nay">Hôm nay là ngày thi dự kiến!</string>
+    <string name="dem_nguoc_con_lai">Còn %1$d ngày nữa tới ngày thi</string>
+    <string name="hoi_dang_xuat">Đăng xuất khỏi tài khoản? Dữ liệu ôn tập đã lưu trong máy vẫn còn.</string>
+    <string name="gioi_thieu_noi_dung">Ứng dụng ôn thi lý thuyết sát hạch lái xe hạng B.\n\nNguồn bộ câu hỏi: bộ 600 câu do Cục CSGT — Bộ Công an ban hành.\n\nỨng dụng hoạt động offline hoàn toàn: toàn bộ câu hỏi, biển báo và lịch sử làm bài được lưu trong máy bằng SQLite (Room).</string>
+    <string name="loi_khong_co_ban_do">Máy chưa cài ứng dụng bản đồ.</string>
+    <string name="loi_khong_goi_duoc">Máy không hỗ trợ gọi điện.</string>
+    <string name="loi_khong_co_email">Máy chưa cài ứng dụng email.</string>
+    <string name="loi_khong_co_trinh_duyet">Máy chưa có trình duyệt web.</string>
+
+    <!-- Ôn tập -->
+    <string name="chua_co_cau_hoi">Chưa có câu hỏi cho mục này.</string>
+    <string name="da_het_cau">Đã hết câu.</string>
+    <string name="hay_chon_dap_an">Hãy chọn một đáp án.</string>
+    <string name="tien_do_cau">Câu %1$d/%2$d</string>
+    <string name="tien_do_cau_diem_liet">Câu %1$d/%2$d  ⚠ ĐIỂM LIỆT</string>
+    <string name="ket_qua_chinh_xac">Chính xác. %1$s</string>
+    <string name="ket_qua_chua_dung">Chưa đúng. %1$s</string>
+
+    <!-- Thi thử -->
+    <string name="loi_ngan_hang_rong">Chưa có câu hỏi trong ngân hàng.</string>
+    <string name="het_gio_tu_nop">Hết giờ — tự động nộp bài.</string>
+    <string name="hoi_nop_bai_con_thieu">Bạn còn %1$d câu chưa trả lời. Vẫn nộp bài?</string>
+    <string name="hoi_nop_bai">Bạn chắc chắn muốn nộp bài?</string>
+    <string name="tiep_tuc_lam">Tiếp tục làm</string>
+
+    <!-- Kết quả -->
+    <string name="ket_qua_thi">Kết quả thi</string>
+    <string name="ket_qua_dat">ĐẠT</string>
+    <string name="ket_qua_truot">TRƯỢT</string>
+    <string name="so_cau_dung">Số câu đúng: %1$d/%2$d</string>
+    <string name="thoi_gian_lam_bai">Thời gian làm bài: %1$02d:%2$02d</string>
+    <string name="ly_do_diem_liet">❌ TRƯỢT DO CÂU ĐIỂM LIỆT\n%1$s</string>
+    <string name="ly_do_truot">Lý do: %1$s</string>
+    <string name="chia_se_ket_qua_tieu_de">Kết quả thi thử lái xe hạng B</string>
+    <string name="chia_se_ket_qua_qua">Chia sẻ kết quả qua</string>
+
+    <!-- Biển báo -->
+    <string name="nhom_bien_hien_thi">Nhóm: %1$s</string>
+    <string name="khong_ro">—</string>
+    <string name="khong_tim_thay_bien">Không tìm thấy biển báo nào.</string>
+    <string name="tim_thay_n_bien">Tìm thấy %1$d biển báo</string>
+    <string name="chia_se_bien_tieu_de">Biển báo %1$s</string>
+    <string name="chia_se_bien_qua">Chia sẻ biển báo qua</string>
+
+    <!-- Thống kê -->
+    <string name="goi_y_chuong_yeu">Chương yếu nhất: Chương %1$d — %2$s (chỉ đúng %3$d%%). Nên ôn lại chương này trước.</string>
+
+    <!-- Cá nhân -->
+    <string name="ten_hoc_vien_offline">Học viên (dùng offline)</string>
+    <string name="chua_dang_nhap">Chưa đăng nhập</string>
+    <string name="ten_hoc_vien">Học viên</string>
+    <string name="vai_tro_quan_tri">Quản trị viên</string>
+    <string name="vai_tro_hoc_vien">Học viên</string>
+    <string name="email_da_xac_minh">✓ Email đã xác minh</string>
+    <string name="email_chua_xac_minh">⚠ Email chưa xác minh — kiểm tra hộp thư</string>
+    <string name="vai_tro_va_xac_minh">Vai trò: %1$s\n%2$s</string>
+    <string name="chon_anh_thu_vien">Chọn ảnh từ thư viện</string>
+    <string name="chup_anh_camera">Chụp ảnh bằng camera</string>
+    <string name="can_quyen_camera_dai_dien">Cần quyền Camera để chụp ảnh đại diện.</string>
+    <string name="can_quyen_camera_bien_bao">Cần quyền Camera để chụp ảnh biển báo.</string>
+    <string name="loi_khong_doc_duoc_anh">Không đọc được ảnh này.</string>
+    <string name="da_cap_nhat_anh_dai_dien">Đã cập nhật ảnh đại diện.</string>
+    <string name="chua_co_anh_dai_dien">Chưa có ảnh đại diện.</string>
+    <string name="hoi_xoa_anh_dai_dien">Xoá ảnh đại diện</string>
+    <string name="hoi_ve_anh_mac_dinh">Trở về ảnh mặc định?</string>
+
+    <!-- Quản trị: câu hỏi -->
+    <string name="khong_co_cau_hoi_khop">Không có câu hỏi nào khớp bộ lọc.</string>
+    <string name="n_cau_hoi">%1$d câu hỏi</string>
+    <string name="tat_ca_chuong">Tất cả chương</string>
+    <string name="hoi_xoa_cau_hoi_so">Xoá câu hỏi #%1$d? Toàn bộ đáp án của câu này cũng bị xoá theo và không khôi phục được.</string>
+    <string name="hoi_xoa_cau_hoi_cascade">Xoá câu hỏi này? Đáp án của nó cũng bị xoá theo (CASCADE).</string>
+    <string name="da_xoa_cau_hoi">Đã xoá câu hỏi.</string>
+    <string name="da_them_cau_hoi">Đã thêm câu hỏi.</string>
+    <string name="da_luu_thay_doi">Đã lưu thay đổi.</string>
+    <string name="da_luu_chua_dong_bo">Đã lưu vào máy, nhưng chưa đẩy lên máy chủ được. Bấm \"Đồng bộ ngay\" khi có mạng.</string>
+
+    <!-- Ảnh minh hoạ câu hỏi -->
+    <string name="anh_cau_hoi">Ảnh minh hoạ câu hỏi</string>
+    <string name="them_anh_cau_hoi">Thêm ảnh minh hoạ</string>
+    <string name="doi_anh_cau_hoi">Đổi ảnh</string>
+    <string name="bo_anh">Bỏ ảnh</string>
+    <string name="can_quyen_camera_cau_hoi">Cần quyền camera để chụp ảnh minh hoạ.</string>
+
+    <!-- Đồng bộ ngân hàng câu hỏi với Firestore -->
+    <string name="menu_dong_bo">Đồng bộ ngay</string>
+    <string name="dong_bo_dang_chay">Đang đồng bộ câu hỏi…</string>
+    <string name="dong_bo_xong">Đồng bộ xong: tải về %1$d câu, đẩy lên %2$d câu.</string>
+    <string name="loi_chua_nhap_noi_dung">Chưa nhập nội dung câu hỏi</string>
+    <string name="loi_chua_nap_chuong">Chưa nạp xong danh sách chương.</string>
+    <string name="loi_chua_danh_dau_dap_an">Hãy đánh dấu đáp án đúng.</string>
+    <string name="loi_dap_an_dung_trong">Đáp án đúng không được để trống</string>
+    <string name="loi_it_nhat_2_dap_an">Câu hỏi phải có ít nhất 2 đáp án.</string>
+    <string name="loi_khong_tim_thay_cau_hoi">Không tìm thấy câu hỏi.</string>
+    <string name="cau_hoi_dong_tom_tat">#%1$d  %2$s</string>
+    <string name="cau_hoi_dong_chuong">Chương %1$d · %2$d đáp án</string>
+
+    <!-- Quản trị: biển báo -->
+    <string name="tat_ca_nhom">Tất cả nhóm</string>
+    <string name="khong_co_bien_khop">Không có biển báo nào khớp bộ lọc.</string>
+    <string name="n_bien_bao">%1$d biển báo</string>
+    <string name="hoi_xoa_bien">Xoá biển %1$s — %2$s?</string>
+    <string name="hoi_xoa_bien_ngan">Xoá biển %1$s? Không khôi phục được.</string>
+    <string name="da_xoa_bien_bao">Đã xoá biển báo.</string>
+    <string name="da_them_bien_bao">Đã thêm biển báo.</string>
+    <string name="loi_chua_nhap_ma_bien">Chưa nhập mã biển</string>
+    <string name="loi_chua_nhap_ten_bien">Chưa nhập tên biển</string>
+    <string name="loi_ma_bien_trung">Mã biển này đã tồn tại</string>
+    <string name="loi_ma_bien_trung_toast">Mã biển đã tồn tại — hãy dùng mã khác.</string>
+    <string name="loi_khong_tim_thay_bien">Không tìm thấy biển báo.</string>
+
+    <!-- Quản trị: người dùng -->
+    <string name="tat_ca_vai_tro">Tất cả vai trò</string>
+    <string name="chi_quan_tri">Chỉ quản trị viên</string>
+    <string name="chi_nguoi_dung_thuong">Chỉ người dùng thường</string>
+    <string name="khong_co_tai_khoan_khop">Không có tài khoản nào khớp bộ lọc.</string>
+    <string name="n_tai_khoan">%1$d tài khoản</string>
+    <string name="hoi_nang_quyen">Cấp quyền quản trị cho %1$s?\n\nNgười này sẽ sửa/xoá được câu hỏi, biển báo và đổi vai trò của tài khoản khác.</string>
+    <string name="hoi_thu_hoi_quyen">Thu hồi quyền quản trị của %1$s?\n\nNgười này sẽ trở lại là người dùng thường.</string>
+    <string name="da_doi_vai_tro">Đã đổi vai trò của %1$s thành %2$s.</string>
+    <string name="ngay_tao_tai_khoan">Tạo ngày %1$s</string>
+    <string name="khong_ro_ngay_tao">Không rõ ngày tạo</string>
+    <string name="tai_khoan_cua_ban">%1$s • tài khoản của bạn</string>
+
+    <!-- Nội dung email / chia sẻ gửi ra ngoài ứng dụng -->
+    <string name="chan_trang_chia_se">(Gửi từ ứng dụng Ôn thi lái xe B)</string>
+    <string name="chia_se_bien_noi_dung">Biển %1$s — %2$s\n%3$s</string>
+    <string name="bao_cao_tieu_de">Báo cáo tiến độ ôn thi lái xe hạng B</string>
+    <string name="bao_cao_dau_de">BÁO CÁO TIẾN ĐỘ ÔN THI LÝ THUYẾT HẠNG B\n\n</string>
+    <string name="bao_cao_dong_chuong">Chương %1$d — %2$s: %3$d/%4$d câu đúng (%5$d%%)\n</string>
+    <string name="bao_cao_chuong_can_on">\nChương cần ôn thêm: Chương %1$d (%2$d%%)\n</string>
+    <string name="gop_y_tieu_de">Góp ý / báo lỗi — ứng dụng Ôn thi lái xe B</string>
+    <string name="gop_y_noi_dung">Mô tả lỗi hoặc góp ý của bạn:\n\n</string>
+
+    <!-- Biểu đồ thống kê -->
+    <string name="bieu_do_nhan_chuong">Chương %1$d — %2$d/%3$d câu đúng</string>
 </resources>

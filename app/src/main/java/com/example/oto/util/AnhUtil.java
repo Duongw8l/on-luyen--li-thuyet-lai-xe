@@ -5,10 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.util.Base64;
 
 import androidx.exifinterface.media.ExifInterface;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +34,9 @@ public final class AnhUtil {
 
     /** Thư mục con chứa ảnh các biển báo trong bộ nhớ riêng của app. */
     private static final String THU_MUC_BIEN = "bien_bao";
+
+    /** Thư mục con chứa ảnh minh hoạ câu hỏi (câu do admin thêm, kéo từ Firestore về). */
+    private static final String THU_MUC_CAU = "cau_hoi";
 
     private AnhUtil() {
     }
@@ -67,6 +73,96 @@ public final class AnhUtil {
         }
         File dich = new File(thuMuc, "bien_" + System.currentTimeMillis() + ".jpg");
         return luuNenVaoFile(context, nguon, dich) ? dich.getAbsolutePath() : null;
+    }
+
+    /**
+     * Lưu ảnh minh hoạ cho một câu hỏi (admin chọn từ thư viện/camera): thu nhỏ + nén
+     * rồi ghi vào một file mới trong thư mục riêng của app. Trả về đường dẫn tuyệt đối
+     * (bắt đầu bằng '/'), hoặc null nếu lỗi.
+     */
+    public static String luuAnhCauHoi(Context context, Uri nguon) {
+        File thuMuc = new File(context.getFilesDir(), THU_MUC_CAU);
+        if (!thuMuc.exists() && !thuMuc.mkdirs()) {
+            return null;
+        }
+        File dich = new File(thuMuc, "cau_" + System.currentTimeMillis() + ".jpg");
+        return luuNenVaoFile(context, nguon, dich) ? dich.getAbsolutePath() : null;
+    }
+
+    /**
+     * Đọc một file ảnh cục bộ rồi mã hoá Base64 để NHÚNG vào document Firestore
+     * (cơ chế đồng bộ ảnh câu hỏi mà không dùng Firebase Storage). Ảnh đã được nén
+     * sẵn khi lưu nên chuỗi Base64 đủ nhỏ để nằm gọn trong giới hạn 1 MiB của Firestore.
+     * Trả về null nếu đường dẫn rỗng, không phải file, hoặc đọc lỗi.
+     */
+    public static String docFileBase64(String duongDan) {
+        if (duongDan == null || duongDan.isEmpty()) {
+            return null;
+        }
+        File f = new File(duongDan);
+        if (!f.exists()) {
+            return null;
+        }
+        try (FileInputStream in = new FileInputStream(f)) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buf = new byte[4096];
+            int n;
+            while ((n = in.read(buf)) != -1) {
+                out.write(buf, 0, n);
+            }
+            return Base64.encodeToString(out.toByteArray(), Base64.NO_WRAP);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Giải mã chuỗi Base64 (ảnh câu hỏi kéo từ Firestore về) rồi ghi ra một file cục bộ
+     * mới. Trả về đường dẫn tuyệt đối để gán vào {@code Question.anhUrl}, hoặc null nếu
+     * chuỗi hỏng / ghi lỗi.
+     */
+    public static String ghiAnhCauHoiBase64(Context context, String base64) {
+        if (base64 == null || base64.isEmpty()) {
+            return null;
+        }
+        try {
+            byte[] bytes = Base64.decode(base64, Base64.NO_WRAP);
+            File thuMuc = new File(context.getFilesDir(), THU_MUC_CAU);
+            if (!thuMuc.exists() && !thuMuc.mkdirs()) {
+                return null;
+            }
+            File dich = new File(thuMuc, "cau_" + System.currentTimeMillis() + ".jpg");
+            try (FileOutputStream out = new FileOutputStream(dich)) {
+                out.write(bytes);
+            }
+            return dich.getAbsolutePath();
+        } catch (IllegalArgumentException | IOException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Đọc ảnh minh hoạ của một câu hỏi để hiển thị.
+     *
+     * {@code anhUrl} có thể là hai dạng:
+     *  - Đường dẫn file cục bộ (bắt đầu bằng '/'): ảnh của câu do admin thêm/đồng bộ.
+     *  - Tên file trong assets/ (không bắt đầu bằng '/'): ảnh của bộ câu hỏi gốc đóng
+     *    sẵn trong APK, VD "images/p101.png".
+     * Trả về null nếu rỗng hoặc không đọc được (khi đó màn hình ẩn ImageView đi).
+     */
+    public static Bitmap docAnhCauHoi(Context context, String anhUrl) {
+        if (anhUrl == null || anhUrl.isEmpty()) {
+            return null;
+        }
+        if (anhUrl.startsWith("/")) {
+            return docAnh(anhUrl); // file cục bộ
+        }
+        // Ảnh gói sẵn trong assets/
+        try (InputStream in = context.getAssets().open(anhUrl)) {
+            return BitmapFactory.decodeStream(in);
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     /** Xoá file ảnh đã lưu theo đường dẫn; bỏ qua nếu rỗng hoặc file không tồn tại. */

@@ -3,20 +3,20 @@ package com.example.oto.ui;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oto.R;
 import com.example.oto.data.entity.Answer;
 import com.example.oto.data.relation.QuestionWithAnswers;
+import com.example.oto.databinding.ItemCauHoiAdminBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/** Adapter danh sách câu hỏi ở màn Quản trị: mỗi dòng có nút Sửa và Xoá. */
-public class CauHoiAdminAdapter extends RecyclerView.Adapter<CauHoiAdminAdapter.VH> {
+/** Adapter danh sách câu hỏi ở màn Quản trị (ListAdapter + DiffUtil). */
+public class CauHoiAdminAdapter
+        extends ListAdapter<QuestionWithAnswers, CauHoiAdminAdapter.VH> {
 
     public interface OnItem {
         void onSua(QuestionWithAnswers qa);
@@ -24,48 +24,36 @@ public class CauHoiAdminAdapter extends RecyclerView.Adapter<CauHoiAdminAdapter.
         void onXoa(QuestionWithAnswers qa);
     }
 
-    private final List<QuestionWithAnswers> data = new ArrayList<>();
     private final OnItem callback;
 
     public CauHoiAdminAdapter(OnItem callback) {
+        super(DIFF);
         this.callback = callback;
     }
 
-    public void setData(List<QuestionWithAnswers> list) {
-        data.clear();
-        if (list != null) {
-            data.addAll(list);
-        }
-        notifyDataSetChanged();
-    }
+    private static final DiffUtil.ItemCallback<QuestionWithAnswers> DIFF =
+            new DiffUtil.ItemCallback<QuestionWithAnswers>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull QuestionWithAnswers a,
+                                               @NonNull QuestionWithAnswers b) {
+                    return a.question.id == b.question.id;
+                }
 
-    @NonNull
-    @Override
-    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_cau_hoi_admin, parent, false);
-        return new VH(v);
-    }
+                @Override
+                public boolean areContentsTheSame(@NonNull QuestionWithAnswers a,
+                                                  @NonNull QuestionWithAnswers b) {
+                    // So cả số đáp án vì dòng có hiển thị "N đáp án" và cảnh báo
+                    // khi số đáp án đúng khác 1.
+                    return a.question.noiDung.equals(b.question.noiDung)
+                            && a.question.chapterId == b.question.chapterId
+                            && a.question.isDiemLiet == b.question.isDiemLiet
+                            && a.answers.size() == b.answers.size()
+                            && demDapAnDung(a) == demDapAnDung(b);
+                }
+            };
 
-    @Override
-    public void onBindViewHolder(@NonNull VH h, int position) {
-        QuestionWithAnswers qa = data.get(position);
-
-        h.tvNoiDung.setText("#" + qa.question.id + "  " + qa.question.noiDung);
-        h.tvChuong.setText("Chương " + qa.question.chapterId
-                + " · " + qa.answers.size() + " đáp án");
-
-        h.tvDiemLiet.setVisibility(qa.question.isDiemLiet ? View.VISIBLE : View.GONE);
-
-        // Cảnh báo dữ liệu hỏng: mỗi câu phải có đúng một đáp án đúng.
-        h.tvCanhBao.setVisibility(demDapAnDung(qa) == 1 ? View.GONE : View.VISIBLE);
-
-        h.btnSua.setOnClickListener(v -> callback.onSua(qa));
-        h.btnXoa.setOnClickListener(v -> callback.onXoa(qa));
-        h.itemView.setOnClickListener(v -> callback.onSua(qa));
-    }
-
-    private int demDapAnDung(QuestionWithAnswers qa) {
+    /** Mỗi câu hỏi phải có ĐÚNG một đáp án đúng — đếm để cảnh báo nếu dữ liệu hỏng. */
+    private static int demDapAnDung(QuestionWithAnswers qa) {
         int n = 0;
         for (Answer a : qa.answers) {
             if (a.isCorrect) {
@@ -75,22 +63,39 @@ public class CauHoiAdminAdapter extends RecyclerView.Adapter<CauHoiAdminAdapter.
         return n;
     }
 
+    @NonNull
     @Override
-    public int getItemCount() {
-        return data.size();
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemCauHoiAdminBinding b = ItemCauHoiAdminBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new VH(b);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull VH h, int position) {
+        QuestionWithAnswers qa = getItem(position);
+
+        h.b.tvNoiDung.setText(h.itemView.getContext().getString(
+                R.string.cau_hoi_dong_tom_tat, qa.question.id, qa.question.noiDung));
+        h.b.tvChuong.setText(h.itemView.getContext().getString(
+                R.string.cau_hoi_dong_chuong, qa.question.chapterId, qa.answers.size()));
+
+        h.b.tvDiemLiet.setVisibility(qa.question.isDiemLiet ? View.VISIBLE : View.GONE);
+
+        // Cảnh báo dữ liệu hỏng: mỗi câu phải có đúng một đáp án đúng.
+        h.b.tvCanhBao.setVisibility(demDapAnDung(qa) == 1 ? View.GONE : View.VISIBLE);
+
+        h.b.btnSua.setOnClickListener(v -> callback.onSua(qa));
+        h.b.btnXoa.setOnClickListener(v -> callback.onXoa(qa));
+        h.itemView.setOnClickListener(v -> callback.onSua(qa));
     }
 
     static class VH extends RecyclerView.ViewHolder {
-        final TextView tvNoiDung, tvChuong, tvDiemLiet, tvCanhBao, btnSua, btnXoa;
+        final ItemCauHoiAdminBinding b;
 
-        VH(@NonNull View v) {
-            super(v);
-            tvNoiDung = v.findViewById(R.id.tvNoiDung);
-            tvChuong = v.findViewById(R.id.tvChuong);
-            tvDiemLiet = v.findViewById(R.id.tvDiemLiet);
-            tvCanhBao = v.findViewById(R.id.tvCanhBao);
-            btnSua = v.findViewById(R.id.btnSua);
-            btnXoa = v.findViewById(R.id.btnXoa);
+        VH(@NonNull ItemCauHoiAdminBinding b) {
+            super(b.getRoot());
+            this.b = b;
         }
     }
 }

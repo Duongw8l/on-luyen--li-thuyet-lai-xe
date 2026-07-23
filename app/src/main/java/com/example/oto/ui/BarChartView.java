@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.oto.R;
 import com.example.oto.data.relation.ChapterStat;
 
 import java.util.ArrayList;
@@ -85,7 +86,8 @@ public class BarChartView extends View {
             float top = i * caoDong;
 
             // Nhãn chương
-            canvas.drawText("Chương " + s.soThuTu + " — " + s.dung + "/" + s.tong + " câu đúng",
+            canvas.drawText(getContext().getString(R.string.bieu_do_nhan_chuong,
+                            s.soThuTu, s.dung, s.tong),
                     0, top + 14 * mauDo, pChu);
 
             float yCot = top + 20 * mauDo;

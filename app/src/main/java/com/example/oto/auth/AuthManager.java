@@ -2,6 +2,7 @@ package com.example.oto.auth;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -18,6 +19,15 @@ public final class AuthManager {
     /** Kết quả một thao tác đăng nhập/đăng ký/gửi email. */
     public interface Callback {
         void onKetQua(boolean thanhCong, @Nullable String loi);
+    }
+
+    /**
+     * Kết quả đăng ký. Tách riêng vì tài khoản có thể tạo xong nhưng hai bước sau
+     * (lưu họ tên, gửi email xác minh) lại hỏng — ví dụ rớt mạng giữa chừng. Khi đó
+     * không được báo "đã gửi email", vì email chưa hề đi.
+     */
+    public interface CallbackDangKy {
+        void onKetQua(boolean thanhCong, boolean daGuiEmailXacMinh, @Nullable String loi);
     }
 
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -41,24 +51,29 @@ public final class AuthManager {
      * Đăng ký tài khoản mới: tạo tài khoản, lưu họ tên vào hồ sơ, rồi gửi
      * email xác minh (tiêu chí 2.5, mục 2).
      */
-    public void dangKy(String hoTen, String email, String matKhau, Callback cb) {
+    public void dangKy(String hoTen, String email, String matKhau, CallbackDangKy cb) {
         auth.createUserWithEmailAndPassword(email, matKhau)
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        cb.onKetQua(false, thongBaoLoi(task.getException()));
+                        cb.onKetQua(false, false, thongBaoLoi(task.getException()));
                         return;
                     }
                     FirebaseUser user = auth.getCurrentUser();
                     if (user == null) {
-                        cb.onKetQua(false, "Không lấy được thông tin tài khoản.");
+                        cb.onKetQua(false, false, "Không lấy được thông tin tài khoản.");
                         return;
                     }
                     UserProfileChangeRequest hoSo = new UserProfileChangeRequest.Builder()
                             .setDisplayName(hoTen)
                             .build();
-                    user.updateProfile(hoSo)
-                            .addOnCompleteListener(t -> user.sendEmailVerification()
-                                    .addOnCompleteListener(t2 -> cb.onKetQua(true, null)));
+                    // Tài khoản đã tạo xong rồi, nên dù hai bước dưới có hỏng vẫn báo
+                    // thanhCong = true; chỉ nói rõ email xác minh chưa gửi được.
+                    user.updateProfile(hoSo).addOnCompleteListener(tHoSo ->
+                            user.sendEmailVerification().addOnCompleteListener(tMail ->
+                                    cb.onKetQua(true, tMail.isSuccessful(),
+                                            tMail.isSuccessful()
+                                                    ? null
+                                                    : thongBaoLoi(tMail.getException()))));
                 });
     }
 
@@ -108,7 +123,16 @@ public final class AuthManager {
         if (msg.contains("at least 6 characters")) {
             return "Mật khẩu phải có ít nhất 6 ký tự.";
         }
-        if (msg.contains("network error") || msg.contains("Unable to resolve host")) {
+        if (msg.contains("unusual activity") || msg.contains("TOO_MANY_ATTEMPTS")
+                || msg.contains("too-many-requests")) {
+            return "Đã gửi quá nhiều lần. Hãy đợi vài phút rồi thử lại.";
+        }
+        // Mất mạng giữa chừng có khi hiện ra dưới dạng FirebaseNetworkException, có khi chỉ là
+        // "internal error ... connection abort" — bắt cả hai kẻo lọt câu tiếng Anh ra màn hình.
+        if (e instanceof FirebaseNetworkException
+                || msg.contains("network error") || msg.contains("Unable to resolve host")
+                || msg.contains("connection abort") || msg.contains("Connection reset")
+                || msg.contains("Unable to connect") || msg.contains("timeout")) {
             return "Không có mạng. Đăng nhập cần Internet (phần ôn tập vẫn dùng offline được).";
         }
         return msg;

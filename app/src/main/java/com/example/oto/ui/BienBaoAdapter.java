@@ -2,83 +2,98 @@ package com.example.oto.ui;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oto.R;
 import com.example.oto.data.entity.TrafficSign;
+import com.example.oto.databinding.ItemBienBaoBinding;
 import com.example.oto.util.AnhUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/** Adapter cho RecyclerView danh sách biển báo. */
-public class BienBaoAdapter extends RecyclerView.Adapter<BienBaoAdapter.VH> {
+/**
+ * Adapter danh sách biển báo.
+ *
+ * Dùng ListAdapter + DiffUtil: khi danh sách đổi (lọc theo nhóm, gõ từ khoá tìm kiếm),
+ * DiffUtil tự so sánh danh sách cũ và mới rồi chỉ vẽ lại đúng những dòng thay đổi,
+ * thay vì notifyDataSetChanged() vẽ lại toàn bộ. Nhờ vậy danh sách không bị nháy
+ * và cuộn mượt hơn.
+ */
+public class BienBaoAdapter extends ListAdapter<TrafficSign, BienBaoAdapter.VH> {
 
     /** Bấm vào một biển báo -> mở màn hình chi tiết. */
     public interface OnClick {
         void onClick(TrafficSign sign);
     }
 
-    private final List<TrafficSign> data = new ArrayList<>();
     private final OnClick onClick;
 
     public BienBaoAdapter(OnClick onClick) {
+        super(DIFF);
         this.onClick = onClick;
     }
 
-    public void setData(List<TrafficSign> list) {
-        data.clear();
-        if (list != null) {
-            data.addAll(list);
-        }
-        notifyDataSetChanged();
+    /**
+     * Quy tắc so sánh của DiffUtil:
+     * - areItemsTheSame: có phải CÙNG một biển báo không (so theo khoá chính id);
+     * - areContentsTheSame: nội dung hiển thị có đổi không (quyết định có vẽ lại dòng đó).
+     */
+    private static final DiffUtil.ItemCallback<TrafficSign> DIFF =
+            new DiffUtil.ItemCallback<TrafficSign>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull TrafficSign a, @NonNull TrafficSign b) {
+                    return a.id == b.id;
+                }
+
+                @Override
+                public boolean areContentsTheSame(@NonNull TrafficSign a, @NonNull TrafficSign b) {
+                    return a.maBien.equals(b.maBien)
+                            && a.tenBien.equals(b.tenBien)
+                            && bang(a.nhomBien, b.nhomBien)
+                            && bang(a.anhUrl, b.anhUrl);
+                }
+            };
+
+    /** So sánh hai chuỗi có thể null (nhomBien và anhUrl đều cho phép null). */
+    private static boolean bang(String a, String b) {
+        return a == null ? b == null : a.equals(b);
     }
 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_bien_bao, parent, false);
-        return new VH(v);
+        ItemBienBaoBinding b = ItemBienBaoBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new VH(b);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
-        TrafficSign s = data.get(position);
-        h.tvMa.setText(s.maBien);
-        h.tvTen.setText(s.tenBien);
-        h.tvNhom.setText(s.nhomBien == null ? "" : s.nhomBien);
+        TrafficSign s = getItem(position);
+        h.b.tvMaBien.setText(s.maBien);
+        h.b.tvTenBien.setText(s.tenBien);
+        h.b.tvNhomBien.setText(s.nhomBien == null ? "" : s.nhomBien);
+
         // Ảnh do quản trị viên đặt (nếu có), ngược lại dùng ảnh giữ chỗ.
         Bitmap anh = AnhUtil.docAnh(s.anhUrl);
         if (anh != null) {
-            h.img.setImageBitmap(anh);
+            h.b.imgBien.setImageBitmap(anh);
         } else {
-            h.img.setImageResource(R.drawable.ic_bien_bao_placeholder);
+            h.b.imgBien.setImageResource(R.drawable.ic_bien_bao_placeholder);
         }
+
         h.itemView.setOnClickListener(v -> onClick.onClick(s));
     }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
-
     static class VH extends RecyclerView.ViewHolder {
-        final ImageView img;
-        final TextView tvMa, tvTen, tvNhom;
+        final ItemBienBaoBinding b;
 
-        VH(@NonNull View v) {
-            super(v);
-            img = v.findViewById(R.id.imgBien);
-            tvMa = v.findViewById(R.id.tvMaBien);
-            tvTen = v.findViewById(R.id.tvTenBien);
-            tvNhom = v.findViewById(R.id.tvNhomBien);
+        VH(@NonNull ItemBienBaoBinding b) {
+            super(b.getRoot());
+            this.b = b;
         }
     }
 }

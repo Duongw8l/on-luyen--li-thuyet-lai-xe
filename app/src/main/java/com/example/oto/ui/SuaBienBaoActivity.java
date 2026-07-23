@@ -7,9 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,11 +15,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.oto.R;
 import com.example.oto.auth.VaiTro;
-import com.example.oto.data.QuizRepository;
 import com.example.oto.data.entity.TrafficSign;
+import com.example.oto.databinding.ActivitySuaBienBaoBinding;
+import com.example.oto.ui.viewmodel.SuaBienBaoViewModel;
 import com.example.oto.util.AnhUtil;
 
 import java.io.File;
@@ -44,11 +43,9 @@ public class SuaBienBaoActivity extends AppCompatActivity {
     private static final List<String> NHOM_BIEN = Arrays.asList(
             "Cấm", "Nguy hiểm", "Hiệu lệnh", "Chỉ dẫn", "Phụ");
 
-    private QuizRepository repo;
+    private SuaBienBaoViewModel viewModel;
 
-    private EditText edtMaBien, edtTenBien, edtMoTa;
-    private Spinner spinnerNhom;
-    private ImageView imgBien;
+    private ActivitySuaBienBaoBinding binding;
 
     private int signId = 0;            // 0 = thêm mới
     private TrafficSign signDangSua;   // null khi thêm mới
@@ -88,7 +85,7 @@ public class SuaBienBaoActivity extends AppCompatActivity {
                     moCamera();
                 } else {
                     Toast.makeText(this,
-                            "Cần quyền Camera để chụp ảnh biển báo.", Toast.LENGTH_LONG).show();
+                            R.string.can_quyen_camera_bien_bao, Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -98,32 +95,27 @@ public class SuaBienBaoActivity extends AppCompatActivity {
         if (VaiTro.chanNeuKhongPhaiAdmin(this)) {
             return;
         }
-        setContentView(R.layout.activity_sua_bien_bao);
+        binding = ActivitySuaBienBaoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        repo = new QuizRepository(this);
+        viewModel = new ViewModelProvider(this).get(SuaBienBaoViewModel.class);
 
-        edtMaBien = findViewById(R.id.edtMaBien);
-        edtTenBien = findViewById(R.id.edtTenBien);
-        edtMoTa = findViewById(R.id.edtMoTa);
-        imgBien = findViewById(R.id.imgBien);
-        spinnerNhom = findViewById(R.id.spinnerNhom);
-        spinnerNhom.setAdapter(new ArrayAdapter<>(
+        binding.spinnerNhom.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, NHOM_BIEN));
 
-        findViewById(R.id.btnDoiAnh).setOnClickListener(v -> chonNguonAnh());
-        imgBien.setOnClickListener(v -> chonNguonAnh());
+        binding.btnDoiAnh.setOnClickListener(v -> chonNguonAnh());
+        binding.imgBien.setOnClickListener(v -> chonNguonAnh());
 
         signId = getIntent().getIntExtra(EXTRA_SIGN_ID, 0);
         setTitle(signId == 0
                 ? getString(R.string.them_bien_bao)
                 : getString(R.string.sua_bien_bao));
 
-        View btnXoa = findViewById(R.id.btnXoa);
-        btnXoa.setVisibility(signId == 0 ? View.GONE : View.VISIBLE);
-        btnXoa.setOnClickListener(v -> xacNhanXoa());
-        findViewById(R.id.btnLuu).setOnClickListener(v -> luu());
+        binding.btnXoa.setVisibility(signId == 0 ? View.GONE : View.VISIBLE);
+        binding.btnXoa.setOnClickListener(v -> xacNhanXoa());
+        binding.btnLuu.setOnClickListener(v -> luu());
 
         if (signId != 0) {
             napBienDeSua();
@@ -131,39 +123,46 @@ public class SuaBienBaoActivity extends AppCompatActivity {
     }
 
     private void napBienDeSua() {
-        repo.getSign(signId, sign -> {
-            if (sign == null) {
-                Toast.makeText(this, "Không tìm thấy biển báo.", Toast.LENGTH_SHORT).show();
+        viewModel.getBienBao().observe(this, res -> {
+            if (res.laLoi()) {
+                Toast.makeText(this, res.thongBaoLoi, Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
+            if (!res.laThanhCong() || res.duLieu == null) {
+                return;
+            }
+            TrafficSign sign = res.duLieu;
             signDangSua = sign;
-            edtMaBien.setText(sign.maBien);
-            edtTenBien.setText(sign.tenBien);
-            edtMoTa.setText(sign.moTa);
+            binding.edtMaBien.setText(sign.maBien);
+            binding.edtTenBien.setText(sign.tenBien);
+            binding.edtMoTa.setText(sign.moTa);
             anhUrl = anhUrlGoc = sign.anhUrl;
             hienAnh();
 
             int viTri = NHOM_BIEN.indexOf(sign.nhomBien);
             if (viTri >= 0) {
-                spinnerNhom.setSelection(viTri);
+                binding.spinnerNhom.setSelection(viTri);
             }
         });
+        viewModel.napNeuChua(signId);
     }
 
     /** Hiển thị ảnh đã lưu của biển; chưa có thì dùng ảnh giữ chỗ. */
     private void hienAnh() {
         Bitmap anh = AnhUtil.docAnh(anhUrl);
         if (anh != null) {
-            imgBien.setImageBitmap(anh);
+            binding.imgBien.setImageBitmap(anh);
         } else {
-            imgBien.setImageResource(R.drawable.ic_bien_bao_placeholder);
+            binding.imgBien.setImageResource(R.drawable.ic_bien_bao_placeholder);
         }
     }
 
     /** Hộp thoại cho chọn nguồn ảnh: thư viện hay chụp mới bằng camera. */
     private void chonNguonAnh() {
-        String[] luaChon = {"Chọn ảnh từ thư viện", "Chụp ảnh bằng camera"};
+        String[] luaChon = {
+                getString(R.string.chon_anh_thu_vien),
+                getString(R.string.chup_anh_camera)};
         new AlertDialog.Builder(this)
                 .setTitle(R.string.doi_anh_bien)
                 .setItems(luaChon, (d, viTri) -> {
@@ -198,7 +197,7 @@ public class SuaBienBaoActivity extends AppCompatActivity {
     private void luuAnh(Uri nguon) {
         String duongDan = AnhUtil.luuAnhBienBao(this, nguon);
         if (duongDan == null) {
-            Toast.makeText(this, "Không đọc được ảnh này.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.loi_khong_doc_duoc_anh, Toast.LENGTH_SHORT).show();
             return;
         }
         // Dọn file tạm của lần chọn trước trong phiên này (ảnh đã lưu trong Room thì giữ lại
@@ -211,14 +210,14 @@ public class SuaBienBaoActivity extends AppCompatActivity {
     }
 
     private void luu() {
-        String maBien = edtMaBien.getText().toString().trim();
+        String maBien = binding.edtMaBien.getText().toString().trim();
         if (maBien.isEmpty()) {
-            edtMaBien.setError("Chưa nhập mã biển");
+            binding.edtMaBien.setError(getString(R.string.loi_chua_nhap_ma_bien));
             return;
         }
-        String tenBien = edtTenBien.getText().toString().trim();
+        String tenBien = binding.edtTenBien.getText().toString().trim();
         if (tenBien.isEmpty()) {
-            edtTenBien.setError("Chưa nhập tên biển");
+            binding.edtTenBien.setError(getString(R.string.loi_chua_nhap_ten_bien));
             return;
         }
 
@@ -226,14 +225,14 @@ public class SuaBienBaoActivity extends AppCompatActivity {
         s.id = signId; // 0 khi thêm mới
         s.maBien = maBien;
         s.tenBien = tenBien;
-        s.nhomBien = NHOM_BIEN.get(spinnerNhom.getSelectedItemPosition());
-        s.moTa = edtMoTa.getText().toString().trim();
+        s.nhomBien = NHOM_BIEN.get(binding.spinnerNhom.getSelectedItemPosition());
+        s.moTa = binding.edtMoTa.getText().toString().trim();
         s.anhUrl = anhUrl;
 
-        repo.saveSign(s, ok -> {
+        viewModel.luu(s, ok -> {
             if (!ok) {
-                edtMaBien.setError("Mã biển này đã tồn tại");
-                Toast.makeText(this, "Mã biển đã tồn tại — hãy dùng mã khác.",
+                binding.edtMaBien.setError(getString(R.string.loi_ma_bien_trung));
+                Toast.makeText(this, R.string.loi_ma_bien_trung_toast,
                         Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -243,7 +242,7 @@ public class SuaBienBaoActivity extends AppCompatActivity {
             }
             daHoanTat = true;
             Toast.makeText(this,
-                    signId == 0 ? "Đã thêm biển báo." : "Đã lưu thay đổi.",
+                    signId == 0 ? R.string.da_them_bien_bao : R.string.da_luu_thay_doi,
                     Toast.LENGTH_SHORT).show();
             finish();
         });
@@ -254,19 +253,19 @@ public class SuaBienBaoActivity extends AppCompatActivity {
             return;
         }
         new AlertDialog.Builder(this)
-                .setTitle("Xoá biển báo")
-                .setMessage("Xoá biển " + signDangSua.maBien + "? Không khôi phục được.")
-                .setPositiveButton("Xoá", (d, w) -> repo.deleteSign(signDangSua, ok -> {
+                .setTitle(R.string.xoa_bien_bao)
+                .setMessage(getString(R.string.hoi_xoa_bien_ngan, signDangSua.maBien))
+                .setPositiveButton(R.string.xoa, (d, w) -> viewModel.xoa(signDangSua, () -> {
                     // Xoá luôn file ảnh của biển: cả ảnh đã lưu lẫn ảnh tạm vừa chọn (nếu có).
                     AnhUtil.xoaAnh(anhUrlGoc);
                     if (anhUrl != null && !anhUrl.equals(anhUrlGoc)) {
                         AnhUtil.xoaAnh(anhUrl);
                     }
                     daHoanTat = true;
-                    Toast.makeText(this, "Đã xoá biển báo.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.da_xoa_bien_bao, Toast.LENGTH_SHORT).show();
                     finish();
                 }))
-                .setNegativeButton("Huỷ", null)
+                .setNegativeButton(R.string.huy, null)
                 .show();
     }
 

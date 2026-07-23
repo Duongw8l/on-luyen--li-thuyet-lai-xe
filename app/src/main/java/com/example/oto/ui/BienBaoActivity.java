@@ -7,19 +7,15 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oto.R;
-import com.example.oto.data.QuizRepository;
 import com.example.oto.data.entity.TrafficSign;
+import com.example.oto.databinding.ActivityBienBaoBinding;
+import com.example.oto.ui.viewmodel.BienBaoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,61 +26,49 @@ import java.util.List;
  */
 public class BienBaoActivity extends AppCompatActivity {
 
-    private static final String TAT_CA = "Tất cả nhóm";
+    // Nhãn "tất cả nhóm" lấy từ strings.xml lúc chạy (xem onCreate).
+    private String tatCa;
 
-    private QuizRepository repo;
+    private BienBaoViewModel viewModel;
     private BienBaoAdapter adapter;
-    private Spinner spinnerNhom;
-    private EditText edtTimKiem;
-    private TextView tvSoLuong;
-
-    /** LiveData đang được quan sát — phải gỡ trước khi đổi bộ lọc. */
-    @Nullable
-    private LiveData<List<TrafficSign>> nguonHienTai;
-
-    private String nhomDangChon = null; // null = tất cả
-    private String tuKhoa = "";
+    private ActivityBienBaoBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bien_bao);
+        binding = ActivityBienBaoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setTitle(getString(R.string.menu_bien_bao));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        repo = new QuizRepository(this);
+        tatCa = getString(R.string.tat_ca_nhom);
+        viewModel = new ViewModelProvider(this).get(BienBaoViewModel.class);
 
-        spinnerNhom = findViewById(R.id.spinnerNhom);
-        edtTimKiem = findViewById(R.id.edtTimKiem);
-        tvSoLuong = findViewById(R.id.tvSoLuong);
-
-        RecyclerView rv = findViewById(R.id.rvBienBao);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvBienBao.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BienBaoAdapter(this::moChiTiet);
-        rv.setAdapter(adapter);
+        binding.rvBienBao.setAdapter(adapter);
 
         napSpinnerNhom();
         theoDoiTimKiem();
-        apDungBoLoc();
+        quanSatDanhSach();
     }
 
     private void napSpinnerNhom() {
-        repo.getSignGroups().observe(this, nhomList -> {
+        viewModel.getNhomBien().observe(this, nhomList -> {
             List<String> items = new ArrayList<>();
-            items.add(TAT_CA);
+            items.add(tatCa);
             if (nhomList != null) {
                 items.addAll(nhomList);
             }
             ArrayAdapter<String> ad = new ArrayAdapter<>(
                     this, android.R.layout.simple_spinner_dropdown_item, items);
-            spinnerNhom.setAdapter(ad);
-            spinnerNhom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            binding.spinnerNhom.setAdapter(ad);
+            binding.spinnerNhom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String chon = (String) parent.getItemAtPosition(position);
-                    nhomDangChon = TAT_CA.equals(chon) ? null : chon;
-                    apDungBoLoc();
+                    viewModel.datNhom(tatCa.equals(chon) ? null : chon);
                 }
 
                 @Override
@@ -95,7 +79,7 @@ public class BienBaoActivity extends AppCompatActivity {
     }
 
     private void theoDoiTimKiem() {
-        edtTimKiem.addTextChangedListener(new TextWatcher() {
+        binding.edtTimKiem.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -106,24 +90,22 @@ public class BienBaoActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tuKhoa = s.toString().trim();
-                apDungBoLoc();
+                viewModel.datTuKhoa(s.toString().trim());
             }
         });
     }
 
-    /** Truy vấn lại database mỗi khi nhóm hoặc từ khóa thay đổi. */
-    private void apDungBoLoc() {
-        if (nguonHienTai != null) {
-            nguonHienTai.removeObservers(this);
-        }
-        nguonHienTai = repo.filterSigns(nhomDangChon, tuKhoa);
-        nguonHienTai.observe(this, list -> {
-            adapter.setData(list);
+    /**
+     * Chỉ đăng ký quan sát MỘT lần. Mỗi khi bộ lọc đổi, ViewModel tự chuyển sang
+     * truy vấn mới bằng switchMap — Activity không phải gỡ/đăng ký lại observer.
+     */
+    private void quanSatDanhSach() {
+        viewModel.getDanhSach().observe(this, list -> {
+            adapter.submitList(list);
             int n = list == null ? 0 : list.size();
-            tvSoLuong.setText(n == 0
-                    ? "Không tìm thấy biển báo nào."
-                    : "Tìm thấy " + n + " biển báo");
+            binding.tvSoLuong.setText(n == 0
+                    ? getString(R.string.khong_tim_thay_bien)
+                    : getString(R.string.tim_thay_n_bien, n));
         });
     }
 

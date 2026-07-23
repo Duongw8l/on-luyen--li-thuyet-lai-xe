@@ -152,15 +152,6 @@
                 android:backgroundTint="@color/tile_5"
                 android:text="@string/menu_thong_ke"
                 app:cornerRadius="14dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLichSu"
-                android:layout_width="0dp"
-                android:layout_height="88dp"
-                android:layout_columnWeight="1"
-                android:backgroundTint="@color/tile_4"
-                android:text="@string/menu_lich_su"
-                app:cornerRadius="14dp" />
         </GridLayout>
     </LinearLayout>
 </ScrollView>

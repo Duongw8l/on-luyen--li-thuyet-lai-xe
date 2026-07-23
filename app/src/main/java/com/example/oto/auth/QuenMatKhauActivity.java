@@ -2,14 +2,12 @@ package com.example.oto.auth;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oto.R;
+import com.example.oto.databinding.ActivityQuenMatKhauBinding;
 
 /**
  * Quên mật khẩu — gửi email đặt lại mật khẩu qua Firebase Auth
@@ -18,31 +16,26 @@ import com.example.oto.R;
 public class QuenMatKhauActivity extends AppCompatActivity {
 
     private AuthManager auth;
-    private EditText edtEmail;
-    private TextView tvDaGui;
-    private ProgressBar progress;
+    private ActivityQuenMatKhauBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quen_mat_khau);
+        binding = ActivityQuenMatKhauBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setTitle(getString(R.string.quen_mat_khau));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         auth = new AuthManager();
 
-        edtEmail = findViewById(R.id.edtEmail);
-        tvDaGui = findViewById(R.id.tvDaGui);
-        progress = findViewById(R.id.progress);
-
-        findViewById(R.id.btnGui).setOnClickListener(v -> gui());
+        binding.btnGui.setOnClickListener(v -> gui());
     }
 
     private void gui() {
-        String email = edtEmail.getText().toString().trim();
+        String email = binding.edtEmail.getText().toString().trim();
         if (email.isEmpty()) {
-            edtEmail.setError("Chưa nhập email");
+            binding.edtEmail.setError(getString(R.string.loi_chua_nhap_email));
             return;
         }
 
@@ -53,15 +46,13 @@ public class QuenMatKhauActivity extends AppCompatActivity {
                 Toast.makeText(this, loi, Toast.LENGTH_LONG).show();
                 return;
             }
-            tvDaGui.setVisibility(View.VISIBLE);
-            tvDaGui.setText("Đã gửi email đặt lại mật khẩu tới " + email
-                    + ".\n\nHãy mở hộp thư (kiểm tra cả mục Spam), bấm liên kết trong email"
-                    + " để đặt mật khẩu mới, rồi quay lại đăng nhập.");
+            binding.tvDaGui.setVisibility(View.VISIBLE);
+            binding.tvDaGui.setText(getString(R.string.da_gui_email_dat_lai, email));
         });
     }
 
     private void dangXuLy(boolean dang) {
-        progress.setVisibility(dang ? View.VISIBLE : View.GONE);
-        findViewById(R.id.btnGui).setEnabled(!dang);
+        binding.progress.setVisibility(dang ? View.VISIBLE : View.GONE);
+        binding.btnGui.setEnabled(!dang);
     }
 }

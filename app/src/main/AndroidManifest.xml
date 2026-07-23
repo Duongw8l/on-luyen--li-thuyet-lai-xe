@@ -68,9 +68,6 @@
             android:name=".ui.ThongKeActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ui.LichSuActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".ui.AdminActivity"
             android:parentActivityName=".MainActivity" />
         <activity
@@ -83,6 +80,10 @@
         <activity
             android:name=".ui.SuaBienBaoActivity"
             android:parentActivityName=".ui.AdminBienBaoActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.AdminNguoiDungActivity"
+            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.CaNhanActivity"

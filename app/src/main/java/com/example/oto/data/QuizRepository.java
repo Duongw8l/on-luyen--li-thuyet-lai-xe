@@ -77,15 +77,22 @@ public class QuizRepository {
     /**
      * Thêm mới (question.id == 0) hoặc cập nhật câu hỏi kèm đáp án.
      * Cả hai đều chạy trong một giao dịch của DAO.
+     *
+     * Trả về id câu hỏi (mới sinh khi thêm) qua callback: nơi gọi cần id này để
+     * đẩy câu hỏi lên Firestore đồng bộ cho các máy khác.
      */
-    public void saveQuestion(Question question, List<Answer> answers, Callback<Boolean> cb) {
+    public void saveQuestion(Question question, List<Answer> answers, Callback<Long> cb) {
         AppDatabase.IO.execute(() -> {
+            // Đóng dấu thời điểm sửa: đây là mốc mà đồng bộ delta dựa vào để biết
+            // câu nào đã đổi kể từ lần đồng bộ trước.
+            question.updatedAt = System.currentTimeMillis();
             if (question.id == 0) {
                 db.questionDao().insertQuestionWithAnswers(question, answers);
             } else {
                 db.questionDao().updateQuestionWithAnswers(question, answers);
             }
-            main.post(() -> cb.onResult(true));
+            long id = question.id;
+            main.post(() -> cb.onResult(id));
         });
     }
 
@@ -138,23 +145,6 @@ public class QuizRepository {
             long id = db.attemptDao().saveAttempt(attempt, answers);
             main.post(() -> cb.onResult(id));
         });
-    }
-
-    public LiveData<List<Attempt>> getHistory(String userId) {
-        return db.attemptDao().getByUser(userId);
-    }
-
-    /** Lịch sử trong một khoảng ngày — dùng cho bộ lọc DatePicker. */
-    public LiveData<List<Attempt>> getHistoryInRange(String userId, long from, long to) {
-        return db.attemptDao().getByUserInRange(userId, from, to);
-    }
-
-    public void deleteAttempt(Attempt attempt) {
-        AppDatabase.IO.execute(() -> db.attemptDao().delete(attempt));
-    }
-
-    public void clearHistory(String userId) {
-        AppDatabase.IO.execute(() -> db.attemptDao().clearHistory(userId));
     }
 
     // ---------- Thống kê ----------

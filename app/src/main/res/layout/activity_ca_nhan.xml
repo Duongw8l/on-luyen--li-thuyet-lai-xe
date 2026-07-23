@@ -54,6 +54,16 @@
             android:textSize="13sp" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGuiLaiXacMinh"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/gui_lai_email_xac_minh"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDoiAnh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

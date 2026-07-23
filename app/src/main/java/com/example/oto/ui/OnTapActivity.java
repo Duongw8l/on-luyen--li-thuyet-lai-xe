@@ -1,27 +1,24 @@
 package com.example.oto.ui;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.oto.R;
-import com.example.oto.data.QuizRepository;
 import com.example.oto.data.entity.Answer;
 import com.example.oto.data.entity.Chapter;
 import com.example.oto.data.relation.QuestionWithAnswers;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.oto.databinding.ActivityOnTapBinding;
+import com.example.oto.ui.viewmodel.OnTapViewModel;
+import com.example.oto.util.AnhUtil;
 
 /**
  * Ôn tập theo chương (chọn qua Spinner) hoặc ôn nhóm câu điểm liệt.
@@ -35,42 +32,38 @@ public class OnTapActivity extends AppCompatActivity {
 
     private int chuongMoSan = 0;
 
-    private QuizRepository repo;
-    private Spinner spinnerChuong;
-    private TextView tvTienDo, tvCauHoi, tvGiaiThich;
-    private ImageView imgCauHoi;
-    private RadioGroup rgDapAn;
+    private OnTapViewModel viewModel;
+    private ActivityOnTapBinding binding;
 
-    private final List<QuestionWithAnswers> danhSach = new ArrayList<>();
-    private int viTri = 0;
+    /** Đã bấm "Kiểm tra" cho câu đang xem chưa — trạng thái thuần giao diện. */
     private boolean daKiemTra = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on_tap);
+        binding = ActivityOnTapBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        repo = new QuizRepository(this);
+        viewModel = new ViewModelProvider(this).get(OnTapViewModel.class);
 
-        spinnerChuong = findViewById(R.id.spinnerChuong);
-        tvTienDo = findViewById(R.id.tvTienDo);
-        tvCauHoi = findViewById(R.id.tvCauHoi);
-        tvGiaiThich = findViewById(R.id.tvGiaiThich);
-        imgCauHoi = findViewById(R.id.imgCauHoi);
-        rgDapAn = findViewById(R.id.rgDapAn);
+        binding.btnKiemTra.setOnClickListener(v -> kiemTra());
+        binding.btnCauTiep.setOnClickListener(v -> chuyen(1));
+        binding.btnCauTruoc.setOnClickListener(v -> chuyen(-1));
 
-        findViewById(R.id.btnKiemTra).setOnClickListener(v -> kiemTra());
-        findViewById(R.id.btnCauTiep).setOnClickListener(v -> chuyen(1));
-        findViewById(R.id.btnCauTruoc).setOnClickListener(v -> chuyen(-1));
+        viewModel.getDanhSach().observe(this, res -> {
+            if (res.laThanhCong()) {
+                veDanhSach();
+            }
+        });
 
         boolean diemLiet = getIntent().getBooleanExtra(EXTRA_DIEM_LIET, false);
         chuongMoSan = getIntent().getIntExtra(EXTRA_CHUONG, 0);
         if (diemLiet) {
             setTitle(getString(R.string.menu_diem_liet));
-            spinnerChuong.setVisibility(View.GONE);
-            repo.getDiemLiet(this::napDanhSach);
+            binding.spinnerChuong.setVisibility(View.GONE);
+            viewModel.napDiemLiet();
         } else {
             setTitle(getString(R.string.menu_on_tap));
             napSpinnerChuong();
@@ -78,15 +71,15 @@ public class OnTapActivity extends AppCompatActivity {
     }
 
     private void napSpinnerChuong() {
-        repo.getChapters().observe(this, chapters -> {
+        viewModel.getChuong().observe(this, chapters -> {
             ArrayAdapter<Chapter> adapter = new ArrayAdapter<>(
                     this, android.R.layout.simple_spinner_dropdown_item, chapters);
-            spinnerChuong.setAdapter(adapter);
-            spinnerChuong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            binding.spinnerChuong.setAdapter(adapter);
+            binding.spinnerChuong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     Chapter c = (Chapter) parent.getItemAtPosition(position);
-                    repo.getQuestionsByChapter(c.id, OnTapActivity.this::napDanhSach);
+                    viewModel.napTheoChuong(c.id);
                 }
 
                 @Override
@@ -98,7 +91,7 @@ public class OnTapActivity extends AppCompatActivity {
             if (chuongMoSan > 0) {
                 for (int i = 0; i < chapters.size(); i++) {
                     if (chapters.get(i).id == chuongMoSan) {
-                        spinnerChuong.setSelection(i);
+                        binding.spinnerChuong.setSelection(i);
                         break;
                     }
                 }
@@ -107,47 +100,45 @@ public class OnTapActivity extends AppCompatActivity {
         });
     }
 
-    private void napDanhSach(List<QuestionWithAnswers> list) {
-        danhSach.clear();
-        danhSach.addAll(list);
-        viTri = 0;
-        if (danhSach.isEmpty()) {
-            tvCauHoi.setText("Chưa có câu hỏi cho mục này.");
-            tvTienDo.setText("");
-            rgDapAn.removeAllViews();
-            tvGiaiThich.setVisibility(View.GONE);
-            imgCauHoi.setVisibility(View.GONE);
+    /** Vẽ lại sau khi ViewModel nạp xong danh sách mới. */
+    private void veDanhSach() {
+        if (viewModel.soCau() == 0) {
+            binding.tvCauHoi.setText(R.string.chua_co_cau_hoi);
+            binding.tvTienDo.setText("");
+            binding.rgDapAn.removeAllViews();
+            binding.tvGiaiThich.setVisibility(View.GONE);
+            binding.imgCauHoi.setVisibility(View.GONE);
             return;
         }
         hienThi();
     }
 
     private void chuyen(int delta) {
-        if (danhSach.isEmpty()) {
+        if (viewModel.soCau() == 0) {
             return;
         }
-        int moi = viTri + delta;
-        if (moi < 0 || moi >= danhSach.size()) {
-            Toast.makeText(this, "Đã hết câu.", Toast.LENGTH_SHORT).show();
+        if (!viewModel.chuyen(delta)) {
+            Toast.makeText(this, R.string.da_het_cau, Toast.LENGTH_SHORT).show();
             return;
         }
-        viTri = moi;
         hienThi();
     }
 
     private void hienThi() {
         daKiemTra = false;
-        tvGiaiThich.setVisibility(View.GONE);
-        QuestionWithAnswers qa = danhSach.get(viTri);
+        binding.tvGiaiThich.setVisibility(View.GONE);
+        QuestionWithAnswers qa = viewModel.cauHienTai();
+        if (qa == null) {
+            return;
+        }
 
-        String nhan = qa.question.isDiemLiet ? "  ⚠ ĐIỂM LIỆT" : "";
-        tvTienDo.setText("Câu " + (viTri + 1) + "/" + danhSach.size() + nhan);
-        tvCauHoi.setText(qa.question.noiDung);
+        binding.tvTienDo.setText(getString(
+                qa.question.isDiemLiet ? R.string.tien_do_cau_diem_liet : R.string.tien_do_cau,
+                viewModel.getViTri() + 1, viewModel.soCau()));
+        binding.tvCauHoi.setText(qa.question.noiDung);
+        hienAnhCauHoi(qa.question.anhUrl);
 
-        // Ảnh câu hỏi (nếu có url). Bản offline chưa nạp ảnh thật -> ẩn nếu rỗng.
-        imgCauHoi.setVisibility(View.GONE);
-
-        rgDapAn.removeAllViews();
+        binding.rgDapAn.removeAllViews();
         char[] nhanDap = {'A', 'B', 'C', 'D'};
         for (int i = 0; i < qa.answers.size(); i++) {
             Answer a = qa.answers.get(i);
@@ -156,25 +147,39 @@ public class OnTapActivity extends AppCompatActivity {
             rb.setText((i < nhanDap.length ? nhanDap[i] + ". " : "") + a.noiDung);
             rb.setTextSize(16f);
             rb.setPadding(8, 16, 8, 16);
-            rgDapAn.addView(rb);
+            binding.rgDapAn.addView(rb);
+        }
+    }
+
+    /** Ảnh minh hoạ của câu hỏi: có thì hiện, không thì ẩn ImageView. */
+    private void hienAnhCauHoi(String anhUrl) {
+        Bitmap anh = AnhUtil.docAnhCauHoi(this, anhUrl);
+        if (anh != null) {
+            binding.imgCauHoi.setImageBitmap(anh);
+            binding.imgCauHoi.setVisibility(View.VISIBLE);
+        } else {
+            binding.imgCauHoi.setVisibility(View.GONE);
         }
     }
 
     private void kiemTra() {
-        if (danhSach.isEmpty() || daKiemTra) {
+        if (viewModel.soCau() == 0 || daKiemTra) {
             return;
         }
-        int chon = rgDapAn.getCheckedRadioButtonId();
+        int chon = binding.rgDapAn.getCheckedRadioButtonId();
         if (chon == -1) {
-            Toast.makeText(this, "Hãy chọn một đáp án.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.hay_chon_dap_an, Toast.LENGTH_SHORT).show();
             return;
         }
         daKiemTra = true;
-        QuestionWithAnswers qa = danhSach.get(viTri);
+        QuestionWithAnswers qa = viewModel.cauHienTai();
+        if (qa == null) {
+            return;
+        }
         int correctId = qa.correctAnswerId();
 
-        for (int i = 0; i < rgDapAn.getChildCount(); i++) {
-            RadioButton rb = (RadioButton) rgDapAn.getChildAt(i);
+        for (int i = 0; i < binding.rgDapAn.getChildCount(); i++) {
+            RadioButton rb = (RadioButton) binding.rgDapAn.getChildAt(i);
             if (rb.getId() == correctId) {
                 rb.setTextColor(Color.parseColor("#2E7D32")); // đúng - xanh
             } else if (rb.getId() == chon) {
@@ -183,8 +188,9 @@ public class OnTapActivity extends AppCompatActivity {
         }
 
         String gt = qa.question.giaiThich;
-        tvGiaiThich.setText((chon == correctId ? "Chính xác. " : "Chưa đúng. ")
-                + (gt == null ? "" : gt));
-        tvGiaiThich.setVisibility(View.VISIBLE);
+        binding.tvGiaiThich.setText(getString(
+                chon == correctId ? R.string.ket_qua_chinh_xac : R.string.ket_qua_chua_dung,
+                gt == null ? "" : gt));
+        binding.tvGiaiThich.setVisibility(View.VISIBLE);
     }
 }

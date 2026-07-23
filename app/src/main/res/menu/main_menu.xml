@@ -10,6 +10,10 @@
         android:title="@string/menu_admin_bien_bao" />
 
     <item
+        android:id="@+id/action_admin_nguoi_dung"
+        android:title="@string/menu_admin_nguoi_dung" />
+
+    <item
         android:id="@+id/action_tim_trung_tam"
         android:title="@string/menu_tim_trung_tam" />
 

@@ -34,14 +34,19 @@ public interface QuestionDao {
     @Query("DELETE FROM answers WHERE question_id = :questionId")
     void deleteAnswersOf(int questionId);
 
-    /** Thêm một câu hỏi kèm 4 đáp án trong cùng một giao dịch (toàn vẹn dữ liệu). */
+    /**
+     * Thêm một câu hỏi kèm 4 đáp án trong cùng một giao dịch (toàn vẹn dữ liệu).
+     * Trả về id vừa sinh để nơi gọi biết định danh câu hỏi (dùng khi đẩy lên Firestore).
+     */
     @Transaction
-    default void insertQuestionWithAnswers(Question question, List<Answer> answers) {
+    default long insertQuestionWithAnswers(Question question, List<Answer> answers) {
         long qid = insert(question);
+        question.id = (int) qid;
         for (Answer a : answers) {
             a.questionId = (int) qid;
         }
         insertAnswers(answers);
+        return qid;
     }
 
     /**
@@ -105,6 +110,44 @@ public interface QuestionDao {
     @Query("SELECT * FROM questions WHERE is_diem_liet = 1 ORDER BY RANDOM() LIMIT :n")
     List<QuestionWithAnswers> getRandomDiemLiet(int n);
 
+    /**
+     * Các câu đã sửa kể từ mốc :moc — dùng cho đồng bộ delta LÊN Firestore.
+     * TUYỆT ĐỐI không tải/đẩy lại toàn bộ 600 câu mỗi lần đồng bộ.
+     */
+    @Query("SELECT * FROM questions WHERE updated_at > :moc ORDER BY updated_at ASC")
+    List<Question> getSuaSau(long moc);
+
+    /** Đáp án của một câu (dùng khi đẩy câu hỏi lên Firestore). */
+    @Query("SELECT * FROM answers WHERE question_id = :questionId ORDER BY id ASC")
+    List<Answer> getAnswersOf(int questionId);
+
+    @Query("SELECT COUNT(*) FROM questions WHERE id = :id")
+    int countById(int id);
+
     @Query("SELECT COUNT(*) FROM questions")
     int count();
+
+    /**
+     * Ghi một câu hỏi tải VỀ từ Firestore vào Room (upsert theo id Firestore).
+     *
+     * KHÔNG dùng INSERT REPLACE cho câu hỏi: REPLACE = XOÁ dòng cũ rồi chèn lại,
+     * mà xoá câu hỏi sẽ CASCADE xoá luôn user_answers/notes/review_schedule của
+     * người dùng — tức là đồng bộ một câu đã sửa sẽ làm MẤT lịch sử làm bài.
+     * Vì vậy: câu đã có thì UPDATE (không đụng dòng), câu mới thì INSERT.
+     * Chỉ có đáp án là được thay mới hoàn toàn (đáp án không có bảng con tham chiếu).
+     */
+    @Transaction
+    default void upsertTuFirestore(Question question, List<Answer> answers) {
+        if (countById(question.id) > 0) {
+            update(question);
+        } else {
+            insert(question); // dòng chưa tồn tại nên không xảy ra CASCADE
+        }
+        deleteAnswersOf(question.id);
+        for (Answer a : answers) {
+            a.id = 0; // để Room tự sinh id mới
+            a.questionId = question.id;
+        }
+        insertAnswers(answers);
+    }
 }

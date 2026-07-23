@@ -3,8 +3,6 @@ package com.example.oto.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +11,7 @@ import com.example.oto.MainActivity;
 import com.example.oto.R;
 import com.example.oto.data.DatabaseSeeder;
 import com.example.oto.data.QuizRepository;
+import com.example.oto.databinding.ActivityDangNhapBinding;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
@@ -23,28 +22,24 @@ public class DangNhapActivity extends AppCompatActivity {
 
     private AuthManager auth;
     private QuizRepository repo;
-    private EditText edtEmail, edtMatKhau;
-    private ProgressBar progress;
+    private ActivityDangNhapBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dang_nhap);
+        binding = ActivityDangNhapBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setTitle(getString(R.string.dang_nhap));
 
         auth = new AuthManager();
         repo = new QuizRepository(this);
 
-        edtEmail = findViewById(R.id.edtEmail);
-        edtMatKhau = findViewById(R.id.edtMatKhau);
-        progress = findViewById(R.id.progress);
-
-        findViewById(R.id.btnDangNhap).setOnClickListener(v -> dangNhap());
-        findViewById(R.id.btnDangKy).setOnClickListener(v ->
+        binding.btnDangNhap.setOnClickListener(v -> dangNhap());
+        binding.btnDangKy.setOnClickListener(v ->
                 startActivity(new Intent(this, DangKyActivity.class)));
-        findViewById(R.id.btnQuenMatKhau).setOnClickListener(v ->
+        binding.btnQuenMatKhau.setOnClickListener(v ->
                 startActivity(new Intent(this, QuenMatKhauActivity.class)));
-        findViewById(R.id.btnDungOffline).setOnClickListener(v -> {
+        binding.btnDungOffline.setOnClickListener(v -> {
             // Không đăng nhập -> không có vai trò -> không thấy chức năng quản trị.
             VaiTro.xoa(this);
             vaoTrangChu();
@@ -64,14 +59,14 @@ public class DangNhapActivity extends AppCompatActivity {
     }
 
     private void dangNhap() {
-        String email = edtEmail.getText().toString().trim();
-        String matKhau = edtMatKhau.getText().toString();
+        String email = binding.edtEmail.getText().toString().trim();
+        String matKhau = binding.edtMatKhau.getText().toString();
         if (email.isEmpty()) {
-            edtEmail.setError("Chưa nhập email");
+            binding.edtEmail.setError(getString(R.string.loi_chua_nhap_email));
             return;
         }
         if (matKhau.isEmpty()) {
-            edtMatKhau.setError("Chưa nhập mật khẩu");
+            binding.edtMatKhau.setError(getString(R.string.loi_chua_nhap_mat_khau));
             return;
         }
 
@@ -87,7 +82,7 @@ public class DangNhapActivity extends AppCompatActivity {
             // để trang chủ biết có hiện menu quản trị hay không.
             VaiTro.dongBo(this, vaiTro -> {
                 dangXuLy(false);
-                Toast.makeText(this, "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.dang_nhap_thanh_cong, Toast.LENGTH_SHORT).show();
                 vaoTrangChu();
             });
         });
@@ -104,13 +99,13 @@ public class DangNhapActivity extends AppCompatActivity {
             return;
         }
         repo.capNhatHoSo(DatabaseSeeder.LOCAL_USER_ID,
-                u.getDisplayName() == null ? "Học viên" : u.getDisplayName(),
+                u.getDisplayName() == null ? getString(R.string.ten_hoc_vien) : u.getDisplayName(),
                 u.getEmail());
     }
 
     private void dangXuLy(boolean dang) {
-        progress.setVisibility(dang ? View.VISIBLE : View.GONE);
-        findViewById(R.id.btnDangNhap).setEnabled(!dang);
+        binding.progress.setVisibility(dang ? View.VISIBLE : View.GONE);
+        binding.btnDangNhap.setEnabled(!dang);
     }
 
     private void vaoTrangChu() {
