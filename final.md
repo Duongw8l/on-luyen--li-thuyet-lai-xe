@@ -101,92 +101,108 @@ Sau khi đổi `questions.json` phải xoá database (gỡ app / xoá dữ liệ
 | Cá nhân: avatar, ngày thi dự kiến, đếm ngược | |
 | Unit test | ExamScorer (3) + QuestionFirestoreMapper (10) |
 
-## Chưa xong / cần quyết định ⏳
+## Việc còn lại trước bảo vệ ⏳
 
 | Việc | Mô tả |
 |---|---|
-| **Lịch sử thi theo từng tài khoản** | Đã gỡ màn cũ vì lỗi mọi user dùng chung `LOCAL_USER_ID` — cần gắn uid Firebase vào `attempts` rồi dựng lại màn lịch sử + xem lại đáp án từng câu (`user_answers` có sẵn) |
-| **Ôn lại câu sai** | `AttemptDao.getWrongQuestionIds()` đã viết sẵn, chỉ thiếu nút + màn hình |
-| **Ghi chú / lịch ôn lại** (`notes`, `review_schedule`) | Entity + DAO có sẵn nhưng chưa có UI — làm hoặc cắt khỏi phạm vi, cần chốt |
 | Dọn Firestore | Xoá document test cũ trong collection `questions` trên Console |
+| Rà soát nội dung 600 câu | Soát xác suất đáp án + ảnh, đặc biệt ảnh câu 72–73 chương 1 |
 | Kiểm thử tổng thể | Đi qua toàn bộ luồng trên ≥ 2 máy trước bảo vệ |
+
+## Ngoài phạm vi (nhóm chốt ngày 23/07/2026) 🚫
+
+| Hạng mục | Lý do & cách trả lời khi vấn đáp |
+|---|---|
+| **Lịch sử thi theo từng tài khoản** | Màn cũ đã gỡ vì lỗi mọi user dùng chung `LOCAL_USER_ID`. Trình bày là **hướng phát triển**: schema đã sẵn sàng (`attempts`, `user_answers` vẫn được ghi đúng trong transaction), chỉ cần gắn uid Firebase và dựng UI |
+| **Ôn lại câu sai** | `AttemptDao.getWrongQuestionIds()` đã viết sẵn — hướng phát triển, thiếu mỗi UI |
+| **Ghi chú / lịch ôn lại** (`notes`, `review_schedule`) | Schema dự phòng cho hướng phát triển (spaced repetition). Giữ entity + DAO trong schema, nói rõ khi vấn đáp là "thiết kế sẵn, chưa làm UI" |
 
 ---
 
 # IV. PHÂN CÔNG CÔNG VIỆC — THEO CHỨC NĂNG
 
-Mỗi chức năng có **một người chịu trách nhiệm chính** (code + trả lời vấn đáp về phần đó). Bảng tổng quan:
+Mỗi chức năng có **một người chịu trách nhiệm chính** (code + trả lời vấn đáp về phần đó). Chức năng *Lịch sử thi & Ôn lại câu sai* đã **cắt khỏi phạm vi** (xem mục III). Bảng tổng quan:
 
-| # | Chức năng | Phụ trách | Trạng thái |
-|---|---|---|---|
-| 1 | Xác thực & tài khoản cá nhân | **Trường** | ✅ Xong — còn kiểm thử |
-| 2 | Đồng bộ câu hỏi Firestore | **Trường** | ✅ Xong — còn dọn dữ liệu test |
-| 3 | Ngân hàng câu hỏi & CSDL | **Hậu** | ✅ Xong — còn rà soát nội dung |
-| 4 | Quản trị (câu hỏi, biển báo, người dùng) | **Hậu** | ✅ Xong — còn kiểm thử |
-| 5 | Ôn tập & Tra cứu biển báo | **An** | ✅ Xong — còn soát UI |
-| 6 | Thi thử & mô phỏng kỳ thi | **Dương** | ✅ Xong — còn kiểm thử |
-| 7 | Chấm điểm & Thống kê | **Long** | ✅ Xong — còn kiểm thử |
-| 8 | Lịch sử thi & Ôn lại câu sai | **Long** | ⏳ **Chưa xong — ưu tiên số 1** |
+| # | Chức năng | Phụ trách | Trạng thái | Hạn chót |
+|---|---|---|---|---|
+| 1 | Xác thực & tài khoản cá nhân | **Trường** | ✅ còn kiểm thử | **25/07** |
+| 2 | Đồng bộ câu hỏi Firestore | **Trường** | ✅ còn dọn data + test 2 máy | **26/07** |
+| 3 | Ngân hàng câu hỏi & CSDL | **Hậu** | ✅ còn rà soát nội dung | **27/07** |
+| 4 | Quản trị (câu hỏi, biển báo, người dùng) | **Hậu** | ✅ còn kiểm thử | **26/07** |
+| 5 | Ôn tập & Tra cứu biển báo | **An** | ✅ còn soát UI | **26/07** |
+| 6 | Thi thử & mô phỏng kỳ thi | **Dương** | ✅ còn kiểm thử | **26/07** |
+| 7 | Chấm điểm & Thống kê | **Long** | ✅ còn kiểm thử | **26/07** |
+
+> Lịch chung: **28/07** gom & sửa lỗi tìm được · **29/07** slide + đóng băng code · **30/07** tổng duyệt vấn đáp. Nếu ngày bảo vệ khác dự kiến, cả nhóm dời lịch tương ứng (giữ nguyên khoảng cách giữa các mốc).
 
 ## 1. Xác thực & tài khoản cá nhân — Trường
 
 - **Gồm:** đăng nhập / đăng ký / quên mật khẩu (`auth/`), vai trò (`VaiTro`), hồ sơ + avatar + ngày thi dự kiến (`CaNhanActivity`, `AnhUtil`).
-- **Việc còn lại:** xác nhận Firestore Rules bản mới nhất đã Publish; test đăng nhập/đăng xuất chéo 2 tài khoản trên 1 máy (vai trò không dính nhau).
+- **Việc còn lại:**
+  - Xác nhận Firestore Rules bản mới nhất đã Publish — **hạn 24/07**.
+  - Test đăng nhập/đăng xuất chéo 2 tài khoản trên 1 máy (vai trò không dính nhau) — **hạn 25/07**.
 - **Vấn đáp:** luồng Firebase Auth; vì sao vai trò cache trong SharedPreferences nhưng chốt chặn thật ở Rules; admin đầu tiên cấp từ Console.
 
 ## 2. Đồng bộ câu hỏi Firestore — Trường
 
 - **Gồm:** `QuestionSyncRepository`, `QuestionFirestoreMapper` (+10 unit test), nút "Đồng bộ ngay", pull im lặng ở trang chủ.
-- **Việc còn lại:** xoá document test cũ trong collection `questions` trên Console; test đồng bộ **2 máy thật** (thêm câu kèm ảnh ở máy 1 → máy 2 nhận).
+- **Việc còn lại:**
+  - Xoá document test cũ trong collection `questions` trên Console — **hạn 24/07** (làm sớm kẻo máy khác cài mới kéo nhầm).
+  - Test đồng bộ **2 máy thật**: thêm câu kèm ảnh ở máy 1 → máy 2 nhận — **hạn 26/07**.
 - **Vấn đáp:** delta bằng `whereGreaterThan(updatedAt)` + 2 mốc; vì sao upsert dùng UPDATE chứ không REPLACE (CASCADE mất `user_answers`); ảnh nhúng Base64 thay vì Storage.
 
 ## 3. Ngân hàng câu hỏi & CSDL — Hậu
 
 - **Gồm:** 11 bảng Room (`data/entity`, `data/dao`), `DatabaseSeeder` 7 chương, `questions.json` 600 câu, pipeline `tools/convert_chuong.py`, `de_goc/`.
-- **Việc còn lại:** rà soát xác suất ~10 câu/chương (đáp án đúng, ảnh khớp); xác nhận/thay ảnh câu 72–73 chương 1 (docx gốc dùng chung 1 ảnh); soát 60 câu điểm liệt trên app.
+- **Việc còn lại:**
+  - Rà soát xác suất ~10 câu/chương (đáp án đúng, ảnh khớp câu) — **hạn 27/07**.
+  - Xác nhận/thay ảnh câu 72–73 chương 1 (docx gốc dùng chung 1 ảnh) — **hạn 25/07**.
+  - Soát 60 câu điểm liệt trên app khớp danh sách chính thức — **hạn 26/07**.
 - **Vấn đáp:** ràng buộc CASCADE + `@Transaction` khi lưu lượt thi; migration tường minh vs destructive; quy trình sửa câu hỏi (sửa docx → chạy script → xoá DB seed lại).
 
 ## 4. Quản trị — Hậu
 
 - **Gồm:** CRUD câu hỏi (`AdminActivity`, `SuaCauHoiActivity` — kèm ảnh), CRUD biển báo (`AdminBienBaoActivity`, `SuaBienBaoActivity`), quản trị người dùng (`AdminNguoiDungActivity` — đổi vai trò).
-- **Việc còn lại:** test kỹ thêm/sửa/xoá có ảnh khi có mạng và **mất mạng** (Toast "đã lưu máy, chưa đồng bộ"); test user thường không vào được màn admin.
+- **Việc còn lại:**
+  - Test thêm/sửa/xoá có ảnh khi có mạng và **mất mạng** (Toast "đã lưu máy, chưa đồng bộ") — **hạn 26/07**.
+  - Test user thường không vào được màn admin (cả 3 màn) — **hạn 26/07**.
 - **Vấn đáp:** vì sao chặn admin cả ở client lẫn Rules; luồng ảnh camera qua FileProvider; dọn file ảnh rác khi thay/hủy.
 
 ## 5. Ôn tập & Tra cứu biển báo — An
 
 - **Gồm:** `OnTapActivity` (7 chương + nhóm điểm liệt, hiện ảnh), `BienBaoActivity` + `ChiTietBienBaoActivity` (lọc nhóm, tìm kiếm), toàn bộ polish giao diện.
-- **Việc còn lại:** đi UI hết 7 chương (ảnh đúng, layout không vỡ với câu dài, dark mode); màn "Các câu điểm liệt" đủ 60 câu; trạng thái loading/empty các danh sách.
+- **Việc còn lại:**
+  - Đi UI hết 7 chương: ảnh đúng, layout không vỡ với câu dài / ảnh to, dark mode — **hạn 26/07**.
+  - Màn "Các câu điểm liệt" hiển thị đủ 60 câu — **hạn 25/07**.
+  - Trạng thái loading/empty các danh sách — **hạn 26/07**.
 - **Vấn đáp:** MVVM tầng View (ViewBinding, LiveData, vì sao ViewModel không giữ Context); RecyclerView + ListAdapter + DiffUtil.
 
 ## 6. Thi thử & mô phỏng kỳ thi — Dương
 
 - **Gồm:** `ThiActivity` + `ThiViewModel` (sinh đề ngẫu nhiên có điểm liệt, đếm ngược, tự nộp), `ExamConfig` (30/20/27), `KetQuaActivity`.
-- **Việc còn lại:** test hết giờ tự nộp / thoát giữa chừng / xoay màn hình; cố tình sai câu điểm liệt → TRƯỢT ngay kèm lý do; (nếu còn thời gian) đọc ngưỡng đạt từ `exam_sets` thay hằng số.
+- **Việc còn lại:**
+  - Test hết giờ tự nộp / thoát giữa chừng / xoay màn hình — **hạn 26/07**.
+  - Cố tình sai câu điểm liệt → phải TRƯỢT ngay kèm lý do — **hạn 25/07**.
+  - (Tuỳ chọn, nếu kịp trước 28/07) đọc ngưỡng đạt từ `exam_sets` thay hằng số.
 - **Vấn đáp:** cách sinh đề không trùng câu và đảm bảo điểm liệt; CountDownTimer; lưu lượt thi 1 transaction.
 
 ## 7. Chấm điểm & Thống kê — Long
 
 - **Gồm:** `logic/ExamScorer` (+3 unit test), `ThongKeActivity` + truy vấn `getChapterStats` (JOIN 4 bảng), `BarChartView`.
-- **Việc còn lại:** kiểm thử thống kê sau vài lượt thi thật; nút "ôn chương yếu nhất" nhảy đúng chương.
-- **Vấn đáp:** thuật toán 2 bước KHÔNG đảo thứ tự; vì sao tách thuần Java để unit test; đọc truy vấn thống kê.
+- **Việc còn lại:**
+  - Kiểm thử thống kê sau ≥ 3 lượt thi thật — **hạn 26/07**.
+  - Nút "ôn chương yếu nhất" nhảy đúng chương — **hạn 26/07**.
+  - Hỗ trợ kiểm thử chéo các chức năng khác (Long rảnh nhất sau khi cắt mục lịch sử) — **25–27/07**.
+- **Vấn đáp:** thuật toán 2 bước KHÔNG đảo thứ tự; vì sao tách thuần Java để unit test; đọc truy vấn thống kê; trả lời được vì sao lịch sử thi / ôn câu sai để lại làm **hướng phát triển** (schema + DAO đã sẵn, xem mục III).
 
-## 8. Lịch sử thi & Ôn lại câu sai — Long ⏳ ƯU TIÊN SỐ 1
+## Việc chung cả nhóm
 
-- **Gồm (phải làm mới):**
-  1. Sửa lỗi lịch sử dùng chung: gắn uid Firebase thay `LOCAL_USER_ID` khi tạo `Attempt`; mọi truy vấn lịch sử/thống kê lọc theo uid.
-  2. Dựng lại màn Lịch sử thi + xem lại từng câu đã trả lời (`user_answers` có sẵn dữ liệu).
-  3. Màn Ôn lại câu sai: `getWrongQuestionIds()` có sẵn, thêm nút ở trang chủ.
-- **Hỗ trợ:** An (layout màn mới), Hậu (truy vấn DAO nếu cần thêm).
-- **Vấn đáp:** vì sao `user_answers` là bảng quan trọng nhất; cách tách dữ liệu theo người dùng.
-
-> Mục `notes` / `review_schedule` (ghi chú, lịch ôn lại): **Trường chốt** làm hay cắt khỏi phạm vi trước tuần cuối. Nếu cắt: gỡ entity + DAO cho gọn schema và nói rõ trong vấn đáp là "phạm vi để lại".
-
-## Việc chung cả nhóm (tuần cuối)
-
-1. Mỗi người chạy app trên máy mình, đi hết luồng của phần mình phụ trách.
-2. Đọc mục II của file này + phần code mình phụ trách — **ai cũng phải trả lời được 2.1 và 2.2**.
-3. Chuẩn bị slide: kiến trúc (mục II), demo trực tiếp, số liệu (mục I).
-4. Tổng duyệt vấn đáp chéo: mỗi người hỏi người khác 3 câu về phần không phải của mình.
+| Hạn | Việc |
+|---|---|
+| **27/07** | Mỗi người đi hết luồng phần mình phụ trách trên máy thật, ghi lỗi vào nhóm chat |
+| **28/07** | Gom & sửa toàn bộ lỗi tìm được; đọc mục II — **ai cũng phải trả lời được 2.1 và 2.2** |
+| **29/07** | Hoàn thành slide (kiến trúc mục II, demo trực tiếp, số liệu mục I); **đóng băng code** |
+| **30/07** | Tổng duyệt vấn đáp chéo: mỗi người hỏi người khác 3 câu về phần không phải của mình |
 
 ---
 
