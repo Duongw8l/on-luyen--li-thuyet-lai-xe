@@ -113,49 +113,73 @@ Sau khi đổi `questions.json` phải xoá database (gỡ app / xoá dữ liệ
 
 ---
 
-# IV. PHÂN CÔNG LẠI CÔNG VIỆC
+# IV. PHÂN CÔNG CÔNG VIỆC — THEO CHỨC NĂNG
 
-Nguyên tắc: giữ nguyên mảng phụ trách cũ để mỗi người **giải thích sâu được phần của mình khi vấn đáp**; việc còn lại giao theo đúng mảng.
+Mỗi chức năng có **một người chịu trách nhiệm chính** (code + trả lời vấn đáp về phần đó). Bảng tổng quan:
 
-## Trường — Nhóm trưởng · Tài khoản, Firebase, Đồng bộ
+| # | Chức năng | Phụ trách | Trạng thái |
+|---|---|---|---|
+| 1 | Xác thực & tài khoản cá nhân | **Trường** | ✅ Xong — còn kiểm thử |
+| 2 | Đồng bộ câu hỏi Firestore | **Trường** | ✅ Xong — còn dọn dữ liệu test |
+| 3 | Ngân hàng câu hỏi & CSDL | **Hậu** | ✅ Xong — còn rà soát nội dung |
+| 4 | Quản trị (câu hỏi, biển báo, người dùng) | **Hậu** | ✅ Xong — còn kiểm thử |
+| 5 | Ôn tập & Tra cứu biển báo | **An** | ✅ Xong — còn soát UI |
+| 6 | Thi thử & mô phỏng kỳ thi | **Dương** | ✅ Xong — còn kiểm thử |
+| 7 | Chấm điểm & Thống kê | **Long** | ✅ Xong — còn kiểm thử |
+| 8 | Lịch sử thi & Ôn lại câu sai | **Long** | ⏳ **Chưa xong — ưu tiên số 1** |
 
-- **Việc còn lại:**
-  - Dọn Firestore Console: xoá document test cũ trong `questions`; xác nhận Rules bản mới nhất đã Publish.
-  - Test đồng bộ trên **máy thứ 2**: admin thêm/sửa câu (kèm ảnh) ở máy 1 → máy 2 nhận được.
-  - Điều phối kiểm thử tổng thể + chốt phạm vi mục `notes`/`review_schedule`.
-- **Trọng tâm vấn đáp:** luồng auth; cơ chế delta 2 mốc thời gian; vì sao upsert không dùng REPLACE; Rules chặn tự nâng quyền thế nào.
+## 1. Xác thực & tài khoản cá nhân — Trường
 
-## Hậu — Ngân hàng câu hỏi, CSDL, Quản trị viên
+- **Gồm:** đăng nhập / đăng ký / quên mật khẩu (`auth/`), vai trò (`VaiTro`), hồ sơ + avatar + ngày thi dự kiến (`CaNhanActivity`, `AnhUtil`).
+- **Việc còn lại:** xác nhận Firestore Rules bản mới nhất đã Publish; test đăng nhập/đăng xuất chéo 2 tài khoản trên 1 máy (vai trò không dính nhau).
+- **Vấn đáp:** luồng Firebase Auth; vì sao vai trò cache trong SharedPreferences nhưng chốt chặn thật ở Rules; admin đầu tiên cấp từ Console.
 
-- **Việc còn lại:**
-  - **Rà soát nội dung 600 câu**: mỗi chương soát xác suất ~10 câu (đáp án đúng, ảnh khớp câu). Đặc biệt: câu 72–73 chương 1 đang dùng chung 1 ảnh trong docx gốc — xác nhận hoặc thay ảnh.
-  - Soát 60 câu điểm liệt trên app khớp danh sách chính thức.
-  - Test kỹ CRUD câu hỏi + biển báo của admin (thêm/sửa/xoá, có ảnh, mất mạng).
-- **Trọng tâm vấn đáp:** 11 bảng Room + ràng buộc (CASCADE, transaction `@Transaction` khi lưu bài thi); pipeline docx → questions.json; migration tường minh vs destructive.
+## 2. Đồng bộ câu hỏi Firestore — Trường
 
-## An — Ôn tập, Tra cứu biển báo, Giao diện
+- **Gồm:** `QuestionSyncRepository`, `QuestionFirestoreMapper` (+10 unit test), nút "Đồng bộ ngay", pull im lặng ở trang chủ.
+- **Việc còn lại:** xoá document test cũ trong collection `questions` trên Console; test đồng bộ **2 máy thật** (thêm câu kèm ảnh ở máy 1 → máy 2 nhận).
+- **Vấn đáp:** delta bằng `whereGreaterThan(updatedAt)` + 2 mốc; vì sao upsert dùng UPDATE chứ không REPLACE (CASCADE mất `user_answers`); ảnh nhúng Base64 thay vì Storage.
 
-- **Việc còn lại:**
-  - Đi qua UI toàn bộ 7 chương: ảnh hiển thị đúng, không vỡ layout với câu dài / ảnh to; dark mode.
-  - Màn "Các câu điểm liệt" hiển thị đủ 60 câu.
-  - Polish nhỏ: trạng thái loading/empty các danh sách.
-- **Trọng tâm vấn đáp:** MVVM ở tầng View (ViewBinding, LiveData, vì sao ViewModel không giữ Context); RecyclerView + DiffUtil ở màn biển báo.
+## 3. Ngân hàng câu hỏi & CSDL — Hậu
 
-## Dương — Thi thử, Mô phỏng kỳ thi
+- **Gồm:** 11 bảng Room (`data/entity`, `data/dao`), `DatabaseSeeder` 7 chương, `questions.json` 600 câu, pipeline `tools/convert_chuong.py`, `de_goc/`.
+- **Việc còn lại:** rà soát xác suất ~10 câu/chương (đáp án đúng, ảnh khớp); xác nhận/thay ảnh câu 72–73 chương 1 (docx gốc dùng chung 1 ảnh); soát 60 câu điểm liệt trên app.
+- **Vấn đáp:** ràng buộc CASCADE + `@Transaction` khi lưu lượt thi; migration tường minh vs destructive; quy trình sửa câu hỏi (sửa docx → chạy script → xoá DB seed lại).
 
-- **Việc còn lại:**
-  - Test kỹ luồng thi với cấu hình chính thức 30/20/27: hết giờ tự nộp, thoát giữa chừng, xoay màn hình.
-  - Kiểm tra đề ngẫu nhiên luôn chứa câu điểm liệt; thử cố tình sai câu điểm liệt → phải TRƯỢT ngay kèm lý do.
-  - (Nếu còn thời gian) cho luồng thi đọc ngưỡng đạt từ `exam_sets` thay vì hằng `ExamConfig` — đúng tinh thần "không hardcode".
-- **Trọng tâm vấn đáp:** `ExamConfig`; sinh đề ngẫu nhiên (đảm bảo điểm liệt, không trùng câu); CountDownTimer; lưu lượt thi trong 1 transaction.
+## 4. Quản trị — Hậu
 
-## Long — Chấm điểm, Thống kê, Ôn lại câu sai
+- **Gồm:** CRUD câu hỏi (`AdminActivity`, `SuaCauHoiActivity` — kèm ảnh), CRUD biển báo (`AdminBienBaoActivity`, `SuaBienBaoActivity`), quản trị người dùng (`AdminNguoiDungActivity` — đổi vai trò).
+- **Việc còn lại:** test kỹ thêm/sửa/xoá có ảnh khi có mạng và **mất mạng** (Toast "đã lưu máy, chưa đồng bộ"); test user thường không vào được màn admin.
+- **Vấn đáp:** vì sao chặn admin cả ở client lẫn Rules; luồng ảnh camera qua FileProvider; dọn file ảnh rác khi thay/hủy.
 
-- **Việc còn lại (nặng nhất về code — ưu tiên):**
-  1. **Sửa lỗi lịch sử dùng chung**: gắn uid Firebase (thay `LOCAL_USER_ID`) khi tạo `Attempt`; mọi truy vấn thống kê/lịch sử lọc theo uid.
-  2. **Dựng lại màn Lịch sử thi** + xem lại từng câu đã trả lời (dữ liệu `user_answers` có sẵn).
-  3. **Nối màn Ôn lại câu sai** (`getWrongQuestionIds()` có sẵn, thêm nút ở trang chủ).
-- **Trọng tâm vấn đáp:** thuật toán 2 bước của `ExamScorer` + unit test; truy vấn thống kê JOIN 4 bảng; vì sao `user_answers` là bảng quan trọng nhất.
+## 5. Ôn tập & Tra cứu biển báo — An
+
+- **Gồm:** `OnTapActivity` (7 chương + nhóm điểm liệt, hiện ảnh), `BienBaoActivity` + `ChiTietBienBaoActivity` (lọc nhóm, tìm kiếm), toàn bộ polish giao diện.
+- **Việc còn lại:** đi UI hết 7 chương (ảnh đúng, layout không vỡ với câu dài, dark mode); màn "Các câu điểm liệt" đủ 60 câu; trạng thái loading/empty các danh sách.
+- **Vấn đáp:** MVVM tầng View (ViewBinding, LiveData, vì sao ViewModel không giữ Context); RecyclerView + ListAdapter + DiffUtil.
+
+## 6. Thi thử & mô phỏng kỳ thi — Dương
+
+- **Gồm:** `ThiActivity` + `ThiViewModel` (sinh đề ngẫu nhiên có điểm liệt, đếm ngược, tự nộp), `ExamConfig` (30/20/27), `KetQuaActivity`.
+- **Việc còn lại:** test hết giờ tự nộp / thoát giữa chừng / xoay màn hình; cố tình sai câu điểm liệt → TRƯỢT ngay kèm lý do; (nếu còn thời gian) đọc ngưỡng đạt từ `exam_sets` thay hằng số.
+- **Vấn đáp:** cách sinh đề không trùng câu và đảm bảo điểm liệt; CountDownTimer; lưu lượt thi 1 transaction.
+
+## 7. Chấm điểm & Thống kê — Long
+
+- **Gồm:** `logic/ExamScorer` (+3 unit test), `ThongKeActivity` + truy vấn `getChapterStats` (JOIN 4 bảng), `BarChartView`.
+- **Việc còn lại:** kiểm thử thống kê sau vài lượt thi thật; nút "ôn chương yếu nhất" nhảy đúng chương.
+- **Vấn đáp:** thuật toán 2 bước KHÔNG đảo thứ tự; vì sao tách thuần Java để unit test; đọc truy vấn thống kê.
+
+## 8. Lịch sử thi & Ôn lại câu sai — Long ⏳ ƯU TIÊN SỐ 1
+
+- **Gồm (phải làm mới):**
+  1. Sửa lỗi lịch sử dùng chung: gắn uid Firebase thay `LOCAL_USER_ID` khi tạo `Attempt`; mọi truy vấn lịch sử/thống kê lọc theo uid.
+  2. Dựng lại màn Lịch sử thi + xem lại từng câu đã trả lời (`user_answers` có sẵn dữ liệu).
+  3. Màn Ôn lại câu sai: `getWrongQuestionIds()` có sẵn, thêm nút ở trang chủ.
+- **Hỗ trợ:** An (layout màn mới), Hậu (truy vấn DAO nếu cần thêm).
+- **Vấn đáp:** vì sao `user_answers` là bảng quan trọng nhất; cách tách dữ liệu theo người dùng.
+
+> Mục `notes` / `review_schedule` (ghi chú, lịch ôn lại): **Trường chốt** làm hay cắt khỏi phạm vi trước tuần cuối. Nếu cắt: gỡ entity + DAO cho gọn schema và nói rõ trong vấn đáp là "phạm vi để lại".
 
 ## Việc chung cả nhóm (tuần cuối)
 
